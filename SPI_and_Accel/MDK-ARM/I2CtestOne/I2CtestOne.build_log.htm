@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.27.1.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Äìèòðèé Êóíèöèí, ., LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.27.1.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.27.1.0
+Dialog DLL:      DCM.DLL V1.17.2.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.6.0
+Dialog DLL:      TCM.DLL V1.36.1.0
+ 
+<h2>Project:</h2>
+C:\Users\d.kunicin\NewProject\SPI_and_Accel\MDK-ARM\I2CtestOne.uvprojx
+Project File Date:  03/06/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'I2CtestOne'
+compiling main.c...
+.\RTE\_I2CtestOne\../../lis3dsh.h(1262): warning:  #1-D: last line of file ends without a newline
+    */
+../Core/Src/main.c(174): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint8_t ctrl, i = 0x00;
+../Core/Src/main.c(175): warning:  #550-D: variable "sensitivity"  was set but never used
+  	float sensitivity = LIS3DSH_SENSITIVITY_0_06G;
+../Core/Src/main.c(216): warning:  #223-D: function "sprintf" declared implicitly
+  	sprintf(str, "X: %u ; Y: %u ; Z: %u\r\n", xval, yval, zval);
+../Core/Src/main.c(225): warning:  #550-D: variable "zval"  was set but never used
+  	int16_t xval, yval, zval = 0x00;
+../Core/Src/main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=7678 RO-data=450 RW-data=16 ZI-data=1784  
+FromELF: creating hex file...
+"I2CtestOne\I2CtestOne.axf" - 0 Error(s), 5 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.5.1.pack
+                ARM.CMSIS.5.5.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.2.0
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_I2CtestOne
+  C:\Users\d.kunicin\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.2.0
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>

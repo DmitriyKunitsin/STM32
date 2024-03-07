@@ -1,0 +1,15 @@
+--cpu=Cortex-M4.fp
+"accel_and_i2c\startup_stm32f407xx.o"
+"accel_and_i2c\main.o"
+"accel_and_i2c\stm32f4xx_it.o"
+"accel_and_i2c\system_stm32f4xx.o"
+"accel_and_i2c\stm32f4xx_ll_gpio.o"
+"accel_and_i2c\stm32f4xx_ll_i2c.o"
+"accel_and_i2c\stm32f4xx_ll_dma.o"
+"accel_and_i2c\stm32f4xx_ll_rcc.o"
+"accel_and_i2c\stm32f4xx_ll_utils.o"
+"accel_and_i2c\stm32f4xx_ll_exti.o"
+--strict --scatter "Accel_and_I2C\Accel_and_I2C.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Accel_and_I2C.map" -o Accel_and_I2C\Accel_and_I2C.axf

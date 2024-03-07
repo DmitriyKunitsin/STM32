@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp
+"usar2tousart3\startup_stm32f407xx.o"
+"usar2tousart3\main.o"
+"usar2tousart3\stm32f4xx_it.o"
+"usar2tousart3\stm32f4xx_hal_msp.o"
+"usar2tousart3\stm32f4xx_hal_tim.o"
+"usar2tousart3\stm32f4xx_hal_tim_ex.o"
+"usar2tousart3\stm32f4xx_hal_usart.o"
+"usar2tousart3\stm32f4xx_hal_rcc.o"
+"usar2tousart3\stm32f4xx_hal_rcc_ex.o"
+"usar2tousart3\stm32f4xx_hal_flash.o"
+"usar2tousart3\stm32f4xx_hal_flash_ex.o"
+"usar2tousart3\stm32f4xx_hal_flash_ramfunc.o"
+"usar2tousart3\stm32f4xx_hal_gpio.o"
+"usar2tousart3\stm32f4xx_hal_dma_ex.o"
+"usar2tousart3\stm32f4xx_hal_dma.o"
+"usar2tousart3\stm32f4xx_hal_pwr.o"
+"usar2tousart3\stm32f4xx_hal_pwr_ex.o"
+"usar2tousart3\stm32f4xx_hal_cortex.o"
+"usar2tousart3\stm32f4xx_hal.o"
+"usar2tousart3\stm32f4xx_hal_exti.o"
+"usar2tousart3\system_stm32f4xx.o"
+--strict --scatter "Usar2ToUsart3\Usar2ToUsart3.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "Usar2ToUsart3.map" -o Usar2ToUsart3\Usar2ToUsart3.axf

@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+"i2ctestone\startup_stm32f407xx.o"
+"i2ctestone\main.o"
+"i2ctestone\stm32f4xx_it.o"
+"i2ctestone\stm32f4xx_hal_msp.o"
+"i2ctestone\stm32f4xx_hal_spi.o"
+"i2ctestone\stm32f4xx_hal_rcc.o"
+"i2ctestone\stm32f4xx_hal_rcc_ex.o"
+"i2ctestone\stm32f4xx_hal_flash.o"
+"i2ctestone\stm32f4xx_hal_flash_ex.o"
+"i2ctestone\stm32f4xx_hal_flash_ramfunc.o"
+"i2ctestone\stm32f4xx_hal_gpio.o"
+"i2ctestone\stm32f4xx_hal_dma_ex.o"
+"i2ctestone\stm32f4xx_hal_dma.o"
+"i2ctestone\stm32f4xx_hal_pwr.o"
+"i2ctestone\stm32f4xx_hal_pwr_ex.o"
+"i2ctestone\stm32f4xx_hal_cortex.o"
+"i2ctestone\stm32f4xx_hal.o"
+"i2ctestone\stm32f4xx_hal_exti.o"
+"i2ctestone\stm32f4xx_hal_tim.o"
+"i2ctestone\stm32f4xx_hal_tim_ex.o"
+"i2ctestone\stm32f4xx_hal_uart.o"
+"i2ctestone\system_stm32f4xx.o"
+--strict --scatter "I2CtestOne\I2CtestOne.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "I2CtestOne.map" -o I2CtestOne\I2CtestOne.axf

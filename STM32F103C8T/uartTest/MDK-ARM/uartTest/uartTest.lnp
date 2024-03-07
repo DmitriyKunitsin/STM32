@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp
+"uarttest\startup_stm32f407xx.o"
+"uarttest\main.o"
+"uarttest\stm32f4xx_it.o"
+"uarttest\stm32f4xx_hal_msp.o"
+"uarttest\stm32f4xx_hal_tim.o"
+"uarttest\stm32f4xx_hal_tim_ex.o"
+"uarttest\stm32f4xx_hal_uart.o"
+"uarttest\stm32f4xx_hal_rcc.o"
+"uarttest\stm32f4xx_hal_rcc_ex.o"
+"uarttest\stm32f4xx_hal_flash.o"
+"uarttest\stm32f4xx_hal_flash_ex.o"
+"uarttest\stm32f4xx_hal_flash_ramfunc.o"
+"uarttest\stm32f4xx_hal_gpio.o"
+"uarttest\stm32f4xx_hal_dma_ex.o"
+"uarttest\stm32f4xx_hal_dma.o"
+"uarttest\stm32f4xx_hal_pwr.o"
+"uarttest\stm32f4xx_hal_pwr_ex.o"
+"uarttest\stm32f4xx_hal_cortex.o"
+"uarttest\stm32f4xx_hal.o"
+"uarttest\stm32f4xx_hal_exti.o"
+"uarttest\system_stm32f4xx.o"
+--strict --scatter "uartTest\uartTest.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "uartTest.map" -o uartTest\uartTest.axf

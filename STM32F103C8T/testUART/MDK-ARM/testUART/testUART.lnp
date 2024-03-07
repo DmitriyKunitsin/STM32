@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp
+"testuart\startup_stm32f407xx.o"
+"testuart\main.o"
+"testuart\stm32f4xx_it.o"
+"testuart\stm32f4xx_hal_msp.o"
+"testuart\stm32f4xx_hal_tim.o"
+"testuart\stm32f4xx_hal_tim_ex.o"
+"testuart\stm32f4xx_hal_usart.o"
+"testuart\stm32f4xx_hal_rcc.o"
+"testuart\stm32f4xx_hal_rcc_ex.o"
+"testuart\stm32f4xx_hal_flash.o"
+"testuart\stm32f4xx_hal_flash_ex.o"
+"testuart\stm32f4xx_hal_flash_ramfunc.o"
+"testuart\stm32f4xx_hal_gpio.o"
+"testuart\stm32f4xx_hal_dma_ex.o"
+"testuart\stm32f4xx_hal_dma.o"
+"testuart\stm32f4xx_hal_pwr.o"
+"testuart\stm32f4xx_hal_pwr_ex.o"
+"testuart\stm32f4xx_hal_cortex.o"
+"testuart\stm32f4xx_hal.o"
+"testuart\stm32f4xx_hal_exti.o"
+"testuart\system_stm32f4xx.o"
+--strict --scatter "testUART\testUART.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "testUART.map" -o testUART\testUART.axf
