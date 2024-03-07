@@ -321,7 +321,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		Accel_ReadAcc();
-		HAL_Delay(100);
+		HAL_Delay(750);
   }
   /* USER CODE END 3 */
 }
