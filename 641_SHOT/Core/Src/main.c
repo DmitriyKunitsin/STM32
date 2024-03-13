@@ -52,7 +52,8 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint8_t test = 1;
+uint8_t test[1] = "A";
+uint8_t val_6_bit;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,9 +67,7 @@ static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
-void EXTI0_IRQHandler(void);
 void delay();
-void blobBlob();
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -76,15 +75,20 @@ void blobBlob();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void EXTI0_IRQHandler(void) {
-	if(EXTI->PR1 & EXTI_PR1_PIF0)// провeрка флага события прерывания для пина
- {
-	 blobBlob();
-	 HAL_UART_Transmit(&huart2, &test, 1, 0x1000);
-	 // Обработка события
-	 
-	 EXTI->PR1 = EXTI_PR1_PIF0; // Сброс флага события прерывания для пина
-	 
- }
+	val_6_bit = (GPIOB->IDR >> 6) & 1;
+	if(val_6_bit) {
+		GPIOB->IDR |= 0x40;
+	} else {
+		GPIOB->IDR |= 0x0;
+	}
+	
+	EXTI->PR1 = EXTI_PR1_PIF0;
+	
+	NVIC_DisableIRQ(EXTI0_IRQn);
+	
+	NVIC_ClearPendingIRQ(EXTI0_IRQn);
+	
+	NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
 void blobBlob() {
@@ -94,7 +98,7 @@ void blobBlob() {
 		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
 }
 void delay() {
-	for(int i = 0; i < 10000000; i++) {}
+	for(int i = 0; i < 5000; i++) {}
 }
 /* USER CODE END 0 */
 
@@ -149,6 +153,9 @@ int main(void)
 		
 		// GPIO_EXT _______________
 		
+		// Включение прерывания на пине
+		EXTI->IMR1 |= EXTI_IMR1_IM0;
+		
 		// Настройка типов срабатывания(по фронту или спаду)
 		// Register RTSR1 for FRONT
 		// EXTI_RTSR1_RT0 == 0x00000001
@@ -156,13 +163,11 @@ int main(void)
 		// Register FTSR1 for Spad
 		/*		EXTI->FTSR1 |= EXTI_FTSR1_FT0;    */
 		
-		// Включение прерывания на пине
-		EXTI->IMR1 |= EXTI_IMR1_IM0;
+		NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
 		
 		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
 		
-		NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
-		
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -580,6 +585,9 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
@@ -592,6 +600,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PA8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA12 */
