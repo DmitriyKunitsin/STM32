@@ -52,7 +52,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+uint8_t test = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,13 +66,36 @@ static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
+void EXTI0_IRQHandler(void);
+void delay();
+void blobBlob();
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void EXTI0_IRQHandler(void) {
+	if(EXTI->PR1 & EXTI_PR1_PIF0)// провeрка флага события прерывания для пина
+ {
+	 blobBlob();
+	 HAL_UART_Transmit(&huart2, &test, 1, 0x1000);
+	 // Обработка события
+	 
+	 EXTI->PR1 = EXTI_PR1_PIF0; // Сброс флага события прерывания для пина
+	 
+ }
+}
 
+void blobBlob() {
+		delay();
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+		delay();
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+}
+void delay() {
+	for(int i = 0; i < 10000000; i++) {}
+}
 /* USER CODE END 0 */
 
 /**
@@ -112,7 +135,34 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+		// USART __________________
+		// ON Usart
+		USART2->CR1 |= 0x1;
+	
+	
+		// DAC ____________________
+		// ON DAC
+		DAC->CR |= 0x1;
+		// 4095 - MAX VALUE 0xFFF
+		// 0 - MIN VALUE 
+		DAC->DHR12R1 = 0xFFF;
+		
+		// GPIO_EXT _______________
+		
+		// Настройка типов срабатывания(по фронту или спаду)
+		// Register RTSR1 for FRONT
+		// EXTI_RTSR1_RT0 == 0x00000001
+		EXTI->RTSR1 |= EXTI_RTSR1_RT0; 
+		// Register FTSR1 for Spad
+		/*		EXTI->FTSR1 |= EXTI_FTSR1_FT0;    */
+		
+		// Включение прерывания на пине
+		EXTI->IMR1 |= EXTI_IMR1_IM0;
+		
+		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
+		
+		NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
+		
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,21 +172,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		// DAC ____________________
-		// 4095 - MAX VALUE 0xFFF
-		// 0 - MIN VALUE 
-		DAC->DHR12R1 = 0xFFF;
-  
-		// GPIO_EXT _______________
-		// Register RTSR1 for FRONT
-		// EXTI_RTSR1_RT0 == 0x00000001
-		EXTI->RTSR1 |= EXTI_RTSR1_RT0; 
-		// Register FTSR1 for Spad
-		EXTI->FTSR1 |= EXTI_FTSR1_FT0;
-		
-		// on prerivanie for pin GPIO_EXT
-		EXTI->IMR1 |= EXTI_IMR1_IM0;
-		
+			
 	}
   /* USER CODE END 3 */
 }

@@ -103,7 +103,6 @@ void printXYZ(uint16_t *array);
 //————————————
 
 static void Error (void)
-
 {
 	LD5_ON;
 }
