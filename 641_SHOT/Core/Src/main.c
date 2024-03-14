@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define UART_BUFFER_SIZE 50
+#define UART_BUFFER_SIZE 20
 #define CRC_Polynom 0x3C
 #include "string.h"
 /* USER CODE END Includes */
@@ -61,10 +61,14 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint8_t test[1] = "A";
+char test[5];
+char output[20];
+uint8_t testUint;
 uint8_t val_6_bit;
 uint8_t result = 0;
 
+uint8_t uart_rx_index = 0;
+uint8_t rx_data;
 uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
 uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
 
@@ -81,59 +85,95 @@ static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
-void delay();
-void blobBlob();
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
-void CRC_com(Packet* packet);
 /* USER CODE BEGIN PFP */
-
+void My_Data_Processing_Function(uint8_t* data_buffer);
+void CRC_com(Packet* packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void EXTI0_IRQHandler(void) {
-	if(GPIOA->IDR & (1 << 0)) {
-		GPIOB->BSRR = (1 << 6);
-	} else {
-		GPIOB->BSRR = (1 << (6 + 16));
-	}
-	
-	EXTI->PR1 = EXTI_PR1_PIF0;
-	
-	NVIC_DisableIRQ(EXTI0_IRQn);
-	
-	NVIC_ClearPendingIRQ(EXTI0_IRQn);
-	
-	NVIC_EnableIRQ(EXTI0_IRQn);
-}
+//void EXTI0_IRQHandler(void) {
+//	if(GPIOA->IDR & (1 << 0)) {
+//		GPIOB->BSRR = (1 << 6);
+//	} else {
+//		GPIOB->BSRR = (1 << (6 + 16));
+//	}
+//	//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//	//HAL_UART_RxCpltCallback(&huart1);
+////	strcpy(test, "suc\r\n");
+////								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//	EXTI->PR1 = EXTI_PR1_PIF0;
+////	
+////	NVIC_DisableIRQ(EXTI0_IRQn);
+////	
+////	NVIC_ClearPendingIRQ(EXTI0_IRQn);
+////	
+////	NVIC_EnableIRQ(EXTI0_IRQn);
+//}
 
-void blobBlob() {
-		delay();
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
-		delay();
-		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-}
-void delay() {
-	for(int i = 0; i < 5000; i++) {}
-}
+//void blobBlob() {
+//		delay();
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+//		delay();
+//		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+//}
+//void delay() {
+//	for(int i = 0; i < 5000; i++) {}
+//}
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	if(huart == &huart1) {
-		Packet* packet = (Packet*)uart_rx_buffer;
+   HAL_UART_Transmit(&huart2, (uint8_t*)"h\r\n", 6, HAL_MAX_DELAY);
+	
+	if (huart == &huart1) {
+		  HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
+		
+        uart_rx_buffer[uart_rx_index++] = rx_data; // rx_data - прочитанный байт из UART
+        if (uart_rx_index == UART_BUFFER_SIZE) {
+            // Обработка принятого пакета
+            uart_rx_index = 0; // Сброс индекса для приема следующего пакета
+        }
+				My_Data_Processing_Function(uart_rx_buffer);
+        HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
+    }
+}
+
+void My_Data_Processing_Function(uint8_t* data_buffer) {
+		
+		Packet* packet = (Packet*)data_buffer;
 		packet->command = packet->data[3];
+		testUint = packet->command;
+		sprintf(output, "command : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		
 		packet->adress = packet->data[0];
+		testUint = packet->adress;
+		sprintf(output, "adress : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+	
 		packet->size = packet->data[1];
+		testUint = packet->size;
+		sprintf(output, "size : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 			if(packet->adress == 0x40) {
 				
 				switch(packet->command) {
 					case 0x11:
+						strcpy(test, "0x11"); 
+						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
+								strcpy(test, "suc\r\n");
+								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+							}
 						CRC_com(packet);
 						if(packet->CRC8 == packet->data[8]) {
+							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
 						}
 						break;
 					case 0x13:
+						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
 						CRC_com(packet);
 						if(packet->CRC8 == packet->data[4]) {
+							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
 						}
 						break;
 					default:
@@ -141,8 +181,48 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 						break;
 				}
 			}
-	}
 }
+
+//void My_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//	if(huart == &huart1) {
+//		
+//		Packet* packet = (Packet*)uart_rx_buffer;
+//		packet->command = packet->data[3];
+//		testUint = packet->command;
+//		sprintf(output, "command : %d", testUint);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//		
+//		packet->adress = packet->data[0];
+//		packet->size = packet->data[1];
+//			if(packet->adress == 0x40) {
+//				
+//				switch(packet->command) {
+//					case 0x11:
+//						strcpy(test, "0x11"); 
+//						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
+//								strcpy(test, "suc\r\n");
+//								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//							}
+//						CRC_com(packet);
+//						if(packet->CRC8 == packet->data[8]) {
+//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						}
+//						break;
+//					case 0x13:
+//						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						CRC_com(packet);
+//						if(packet->CRC8 == packet->data[4]) {
+//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						}
+//						break;
+//					default:
+//						
+//						break;
+//				}
+//			}
+//	}
+//}
 
 void CRC_com(Packet* packet) {
 	packet->CRC8 = 0x00;
@@ -210,7 +290,7 @@ int main(void)
 		
 		// GPIO_EXT _______________
 		// Включение прерывания на пине
-		EXTI->IMR1 |= EXTI_IMR1_IM0;
+		//EXTI->IMR1 |= EXTI_IMR1_IM0;
 		
 		// Настройка типов срабатывания(по фронту или спаду)
 		// Register RTSR1 for FRONT
@@ -219,9 +299,9 @@ int main(void)
 		// Register FTSR1 for Spad
 		/*		EXTI->FTSR1 |= EXTI_FTSR1_FT0;    */
 		
-		NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
+		//NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
 		
-		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
+		//NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
 		
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
   /* USER CODE END 2 */
@@ -230,17 +310,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		//if (HAL_UART_Receive_IT(&huart1, uart_rx_buffer, UART_BUFFER_SIZE) == HAL_OK) {
+      // Обработка принятых данных
+    //}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
 		//huart1.RxXferCount- это переменная в структуре huart2, 
 		//которая содержит количество оставшихся для приема байт.
-			HAL_UART_Receive_IT(&huart1, );
+			//HAL_UART_Receive_IT(&huart1, );
 	}
   /* USER CODE END 3 */
 }
-// operating mode - режим работы
-// result of accumulation - результат накопления
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -609,7 +691,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 460800;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
@@ -623,7 +705,6 @@ static void MX_USART2_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART2_Init 2 */
-
   /* USER CODE END USART2_Init 2 */
 
 }
