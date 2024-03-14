@@ -21,16 +21,25 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#define UART_BUFFER_SIZE 50
+#define CRC_Polynom 0x3C
+#include "string.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+	typedef struct {
+		uint8_t adress;
+		uint8_t size;
+		uint8_t command;
+		uint8_t CRC8;
+		uint8_t data[UART_BUFFER_SIZE];
+	} Packet;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+	
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -54,6 +63,11 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 uint8_t test[1] = "A";
 uint8_t val_6_bit;
+uint8_t result = 0;
+
+uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
+uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -68,6 +82,9 @@ static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 void delay();
+void blobBlob();
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
+void CRC_com(Packet* packet);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -75,11 +92,10 @@ void delay();
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void EXTI0_IRQHandler(void) {
-	val_6_bit = (GPIOB->IDR >> 6) & 1;
-	if(val_6_bit) {
-		GPIOB->IDR |= 0x40;
+	if(GPIOA->IDR & (1 << 0)) {
+		GPIOB->BSRR = (1 << 6);
 	} else {
-		GPIOB->IDR |= 0x0;
+		GPIOB->BSRR = (1 << (6 + 16));
 	}
 	
 	EXTI->PR1 = EXTI_PR1_PIF0;
@@ -99,6 +115,47 @@ void blobBlob() {
 }
 void delay() {
 	for(int i = 0; i < 5000; i++) {}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	if(huart == &huart1) {
+		Packet* packet = (Packet*)uart_rx_buffer;
+		packet->command = packet->data[3];
+		packet->adress = packet->data[0];
+		packet->size = packet->data[1];
+			if(packet->adress == 0x40) {
+				
+				switch(packet->command) {
+					case 0x11:
+						CRC_com(packet);
+						if(packet->CRC8 == packet->data[8]) {
+						}
+						break;
+					case 0x13:
+						CRC_com(packet);
+						if(packet->CRC8 == packet->data[4]) {
+						}
+						break;
+					default:
+						
+						break;
+				}
+			}
+	}
+}
+
+void CRC_com(Packet* packet) {
+	packet->CRC8 = 0x00;
+	for(int i =0; i < packet->size; i++) {
+		packet->CRC8 ^= packet->data[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
 }
 /* USER CODE END 0 */
 
@@ -152,7 +209,6 @@ int main(void)
 		DAC->DHR12R1 = 0xFFF;
 		
 		// GPIO_EXT _______________
-		
 		// Включение прерывания на пине
 		EXTI->IMR1 |= EXTI_IMR1_IM0;
 		
@@ -177,11 +233,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-			
+		//huart1.RxXferCount- это переменная в структуре huart2, 
+		//которая содержит количество оставшихся для приема байт.
+			HAL_UART_Receive_IT(&huart1, );
 	}
   /* USER CODE END 3 */
 }
-
+// operating mode - режим работы
+// result of accumulation - результат накопления
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -529,7 +588,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-
+	HAL_UART_Receive_IT(&huart1, uart_rx_buffer, UART_BUFFER_SIZE);
   /* USER CODE END USART1_Init 2 */
 
 }
