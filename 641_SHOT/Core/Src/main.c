@@ -21,9 +21,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define UART_BUFFER_SIZE 20
+#define UART_BUFFER_SIZE 9
 #define CRC_Polynom 0x3C
 #include "string.h"
+#include "../../Register_UART.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -61,7 +62,7 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-char test[5];
+char test[20];
 char output[20];
 uint8_t testUint;
 uint8_t val_6_bit;
@@ -122,17 +123,19 @@ void CRC_com(Packet* packet);
 //}
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-   HAL_UART_Transmit(&huart2, (uint8_t*)"h\r\n", 6, HAL_MAX_DELAY);
 	
 	if (huart == &huart1) {
 		  HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
 		
-        uart_rx_buffer[uart_rx_index++] = rx_data; // rx_data - прочитанный байт из UART
+        uart_rx_buffer[uart_rx_index] = rx_data; // rx_data - прочитанный байт из UART
         if (uart_rx_index == UART_BUFFER_SIZE) {
             // Обработка принятого пакета
+					My_Data_Processing_Function(uart_rx_buffer);
             uart_rx_index = 0; // Сброс индекса для приема следующего пакета
         }
-				My_Data_Processing_Function(uart_rx_buffer);
+				uart_rx_index++;
+				sprintf(test, "index : %d\r\n", uart_rx_index);
+				HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
         HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
     }
 }
@@ -670,7 +673,7 @@ static void MX_USART1_UART_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
-	HAL_UART_Receive_IT(&huart1, uart_rx_buffer, UART_BUFFER_SIZE);
+	HAL_UART_Receive_IT(&huart1, &rx_data, UART_BUFFER_SIZE);
   /* USER CODE END USART1_Init 2 */
 
 }

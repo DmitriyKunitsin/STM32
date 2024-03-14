@@ -405,6 +405,11 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32l4xx_hal_msp.c</FilePath>
             </File>
+            <File>
+              <FileName>Register_UART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Register_UART.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
