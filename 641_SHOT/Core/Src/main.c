@@ -68,8 +68,8 @@ uint8_t testUint;
 uint8_t val_6_bit;
 uint8_t result = 0;
 
-uint8_t uart_rx_index = 0;
 uint8_t rx_data;
+uint8_t uart_rx_index = 0;
 uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
 uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
 
@@ -89,6 +89,7 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void My_Data_Processing_Function(uint8_t* data_buffer);
 void CRC_com(Packet* packet);
+uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -122,23 +123,33 @@ void CRC_com(Packet* packet);
 //	for(int i = 0; i < 5000; i++) {}
 //}
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	
-	if (huart == &huart1) {
-		  HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
-		
-        uart_rx_buffer[uart_rx_index] = rx_data; // rx_data - прочитанный байт из UART
-        if (uart_rx_index == UART_BUFFER_SIZE) {
-            // Обработка принятого пакета
-					My_Data_Processing_Function(uart_rx_buffer);
-            uart_rx_index = 0; // Сброс индекса для приема следующего пакета
-        }
-				uart_rx_index++;
-				sprintf(test, "index : %d\r\n", uart_rx_index);
-				HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-        HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
-    }
-}
+
+
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+//	
+//	if (huart == &huart1) {
+//		  
+////				HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
+////				uart_rx_buffer[uart_rx_index] = huart->Instance->RDR;//My_Read_Uart(&huart1, &huart2);
+//		
+//				while((huart->Instance->ISR & USART_ISR_RXNE) == 0) {}
+//					rx_data = huart->Instance->RDR;
+//					
+//				while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
+//					huart2.Instance->RDR = rx_data;
+//					//HAL_UART_Transmit(&huart2, &rx_data, 8, HAL_MAX_DELAY);
+//        //uart_rx_buffer[uart_rx_index] = rx_data; // rx_data - прочитанный байт из UART
+////        if (uart_rx_index == UART_BUFFER_SIZE) {
+////            // Обработка принятого пакета
+////						My_Data_Processing_Function(uart_rx_buffer);
+////            uart_rx_index = 0; // Сброс индекса для приема следующего пакета
+////        }
+////				uart_rx_index++;
+////				sprintf(test, "index : %d\r\n", uart_rx_index);
+////				HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//				HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
+//    }
+//}
 
 void My_Data_Processing_Function(uint8_t* data_buffer) {
 		
@@ -281,9 +292,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 		// USART __________________
 		// ON Usart
-		USART2->CR1 |= 0x1;
-	
-	
+		rUART->CR1.UE = 1;
+		//GPIOB->ODR |= 0x40;
 		// DAC ____________________
 		// ON DAC
 		DAC->CR |= 0x1;

@@ -59,7 +59,7 @@ extern TIM_HandleTypeDef htim15;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
-
+extern uint8_t rx_data ;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -220,11 +220,38 @@ void TIM1_BRK_TIM15_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+	//uint8_t rx_data = 0;
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+	while((huart1.Instance->ISR & USART_ISR_RXNE) == 0) {} // Проверка на наличие данных в приемнике
+    
+        if(huart1.Instance->ISR & USART_ISR_ORE) // Проверка на переполнение буфера приемника
+        {
+            // Обработка ошибки переполнения буфера приемника
+            huart1.Instance->ISR |= USART_ICR_ORECF; // Сброс флага переполнения буфера
+        }
+        else if(huart1.Instance->ISR & USART_ISR_FE) // Проверка на ошибку кадра
+        {
+            // Обработка ошибки кадра
+            huart1.Instance->ISR |= USART_ICR_FECF; // Сброс флага ошибки кадра
+        }
+        else
+        {	
+            rx_data = huart1.Instance->RDR; // Чтение данных из приемника
+					
+						while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
+							huart2.Instance->TDR = rx_data;
+        
+			}
+    
+	
+		if((GPIOB->ODR & (1 << 6)) == 0) {
+		GPIOB->ODR |= (1 << 6);
+	} else {
+		GPIOB->ODR &= ~(1 << 6);
+	}
+		//GPIOB->ODR |= 0x40;
   /* USER CODE END USART1_IRQn 1 */
 }
 
