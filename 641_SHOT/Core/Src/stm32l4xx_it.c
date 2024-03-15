@@ -18,15 +18,25 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "stm32l4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "main.h"
+#include "stm32l4xx_it.h"
+#include "string.h"
+#include "../../Register_UART.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
-
+	#define UART_BUFFER_SIZE 9
+	#define CRC_Polynom 0x3C
+	typedef struct {
+		uint8_t adress;
+		uint8_t size;
+		uint8_t command;
+		uint8_t CRC8;
+		uint8_t data[UART_BUFFER_SIZE];
+	} Packet;
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/
@@ -41,12 +51,16 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+char test[20];
+char output[20];
+uint8_t testUint;
 
-/* USER CODE END PV */
+	/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet);
+void CRC_com(Packet* packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -59,7 +73,6 @@ extern TIM_HandleTypeDef htim15;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
-extern uint8_t rx_data ;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -220,10 +233,12 @@ void TIM1_BRK_TIM15_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-	//uint8_t rx_data = 0;
+	Packet packet;
+	
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
+	HAL_UART_Transmit(&huart2, (uint8_t*)"Myyyyyyyyy\r\n", strlen("Myyyyyyyyy\r\n"), HAL_MAX_DELAY);
 	while((huart1.Instance->ISR & USART_ISR_RXNE) == 0) {} // Проверка на наличие данных в приемнике
     
         if(huart1.Instance->ISR & USART_ISR_ORE) // Проверка на переполнение буфера приемника
@@ -240,18 +255,20 @@ void USART1_IRQHandler(void)
         {	
             rx_data = huart1.Instance->RDR; // Чтение данных из приемника
 					
-						while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
-							huart2.Instance->TDR = rx_data;
+//						while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
+//						huart2.Instance->TDR = rx_data;
+							//HAL_UART_Receive_IT(&huart1, &rx_data, UART_BUFFER_SIZE);
+					//HAL_UART_Transmit(&huart2, (uint8_t*)"My", strlen("My"), HAL_MAX_DELAY);
+					My_Data_Processing_Function(&rx_data, &packet);
         
 			}
     
 	
-		if((GPIOB->ODR & (1 << 6)) == 0) {
+	if((GPIOB->ODR & (1 << 6)) == 0) {
 		GPIOB->ODR |= (1 << 6);
 	} else {
 		GPIOB->ODR &= ~(1 << 6);
 	}
-		//GPIOB->ODR |= 0x40;
   /* USER CODE END USART1_IRQn 1 */
 }
 
@@ -270,6 +287,65 @@ void USART2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
+		
+		HAL_UART_Transmit(&huart2, (uint8_t*)"My", strlen("My"), HAL_MAX_DELAY);
+	
+		packet->command = data_buffer[3];
+		testUint = packet->command;
+		sprintf(output, "command : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		
+		packet->adress = data_buffer[0];
+		testUint = packet->adress;
+		sprintf(output, "adress : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+	
+		packet->size = data_buffer[1];
+		testUint = packet->size;
+		sprintf(output, "size : %d\r\n", testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+			if(packet->adress == 0x40) {
+				
+				switch(packet->command) {
+					case 0x11:
+						strcpy(test, "0x11"); 
+						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
+								strcpy(test, "suc\r\n");
+								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+							}
+						CRC_com(packet);
+						if(packet->CRC8 == packet->data[8]) {
+							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+						}
+						break;
+					case 0x13:
+						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+						CRC_com(packet);
+						if(packet->CRC8 == packet->data[4]) {
+							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+						}
+						break;
+					default:
+						
+						break;
+				}
+			}
+}
 
+void CRC_com(Packet* packet) {
+	packet->CRC8 = 0x00;
+	for(int i =0; i < packet->size; i++) {
+		packet->CRC8 ^= packet->data[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+}
 /* USER CODE END 1 */
 

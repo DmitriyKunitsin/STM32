@@ -21,26 +21,26 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define UART_BUFFER_SIZE 9
-#define CRC_Polynom 0x3C
+//#define UART_BUFFER_SIZE 9
+//#define CRC_Polynom 0x3C
 #include "string.h"
 #include "../../Register_UART.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-	typedef struct {
-		uint8_t adress;
-		uint8_t size;
-		uint8_t command;
-		uint8_t CRC8;
-		uint8_t data[UART_BUFFER_SIZE];
-	} Packet;
+//	typedef struct {
+//		uint8_t adress;
+//		uint8_t size;
+//		uint8_t command;
+//		uint8_t CRC8;
+//		uint8_t data[UART_BUFFER_SIZE];
+//	} Packet;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-	
+#define UART_BUFFER_SIZE 9
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,16 +62,15 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-char test[20];
-char output[20];
-uint8_t testUint;
-uint8_t val_6_bit;
-uint8_t result = 0;
-
+//char test[20];
+//char output[20];
+//uint8_t testUint;
+//uint8_t val_6_bit;
+//uint8_t result = 0;
 uint8_t rx_data;
-uint8_t uart_rx_index = 0;
-uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
-uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
+//uint8_t uart_rx_index = 0;
+//uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
+//uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
 
 /* USER CODE END PV */
 
@@ -87,9 +86,7 @@ static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-void My_Data_Processing_Function(uint8_t* data_buffer);
-void CRC_com(Packet* packet);
-uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -123,134 +120,6 @@ uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
 //	for(int i = 0; i < 5000; i++) {}
 //}
 
-
-
-//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//	
-//	if (huart == &huart1) {
-//		  
-////				HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
-////				uart_rx_buffer[uart_rx_index] = huart->Instance->RDR;//My_Read_Uart(&huart1, &huart2);
-//		
-//				while((huart->Instance->ISR & USART_ISR_RXNE) == 0) {}
-//					rx_data = huart->Instance->RDR;
-//					
-//				while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
-//					huart2.Instance->RDR = rx_data;
-//					//HAL_UART_Transmit(&huart2, &rx_data, 8, HAL_MAX_DELAY);
-//        //uart_rx_buffer[uart_rx_index] = rx_data; // rx_data - прочитанный байт из UART
-////        if (uart_rx_index == UART_BUFFER_SIZE) {
-////            // Обработка принятого пакета
-////						My_Data_Processing_Function(uart_rx_buffer);
-////            uart_rx_index = 0; // Сброс индекса для приема следующего пакета
-////        }
-////				uart_rx_index++;
-////				sprintf(test, "index : %d\r\n", uart_rx_index);
-////				HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//				HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
-//    }
-//}
-
-void My_Data_Processing_Function(uint8_t* data_buffer) {
-		
-		Packet* packet = (Packet*)data_buffer;
-		packet->command = packet->data[3];
-		testUint = packet->command;
-		sprintf(output, "command : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-		
-		packet->adress = packet->data[0];
-		testUint = packet->adress;
-		sprintf(output, "adress : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-	
-		packet->size = packet->data[1];
-		testUint = packet->size;
-		sprintf(output, "size : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-			if(packet->adress == 0x40) {
-				
-				switch(packet->command) {
-					case 0x11:
-						strcpy(test, "0x11"); 
-						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-								strcpy(test, "suc\r\n");
-								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							}
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[8]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					case 0x13:
-						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[4]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					default:
-						
-						break;
-				}
-			}
-}
-
-//void My_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//	if(huart == &huart1) {
-//		
-//		Packet* packet = (Packet*)uart_rx_buffer;
-//		packet->command = packet->data[3];
-//		testUint = packet->command;
-//		sprintf(output, "command : %d", testUint);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//		
-//		packet->adress = packet->data[0];
-//		packet->size = packet->data[1];
-//			if(packet->adress == 0x40) {
-//				
-//				switch(packet->command) {
-//					case 0x11:
-//						strcpy(test, "0x11"); 
-//						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-//								strcpy(test, "suc\r\n");
-//								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							}
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[8]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					case 0x13:
-//						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[4]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					default:
-//						
-//						break;
-//				}
-//			}
-//	}
-//}
-
-void CRC_com(Packet* packet) {
-	packet->CRC8 = 0x00;
-	for(int i =0; i < packet->size; i++) {
-		packet->CRC8 ^= packet->data[i];
-		if(packet->CRC8 & (1 << 0)) {
-			packet->CRC8 >>= 1;
-			packet->CRC8 |= (1 << 7);
-			packet->CRC8 ^= CRC_Polynom;
-		} else {
-			packet->CRC8 >>=1;
-		}
-	}
-}
 /* USER CODE END 0 */
 
 /**
@@ -678,6 +547,7 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+	
   if (HAL_UART_Init(&huart1) != HAL_OK)
   {
     Error_Handler();
