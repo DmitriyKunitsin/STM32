@@ -54,7 +54,8 @@
 char test[20];
 char output[20];
 uint8_t testUint;
-
+uint8_t data_index = 0;
+	uint8_t flag = 0;
 	/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -232,44 +233,128 @@ void TIM1_BRK_TIM15_IRQHandler(void)
   */
 void USART1_IRQHandler(void)
 {
-  /* USER CODE BEGIN USART1_IRQn 0 */
-	Packet packet;
-	
-  /* USER CODE END USART1_IRQn 0 */
-  HAL_UART_IRQHandler(&huart1);
-  /* USER CODE BEGIN USART1_IRQn 1 */
-	HAL_UART_Transmit(&huart2, (uint8_t*)"Myyyyyyyyy\r\n", strlen("Myyyyyyyyy\r\n"), HAL_MAX_DELAY);
-	while((huart1.Instance->ISR & USART_ISR_RXNE) == 0) {} // Проверка на наличие данных в приемнике
-    
-        if(huart1.Instance->ISR & USART_ISR_ORE) // Проверка на переполнение буфера приемника
+    /* USER CODE BEGIN USART1_IRQn 0 */
+		__disable_irq();
+    Packet packet;
+    if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_RXNE)) // Проверка на наличие данных в приемнике
+    {	
+        static uint8_t data_buffer[UART_BUFFER_SIZE];
+        
+        if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_ORE)) // Проверка на переполнение буфера приемника
         {
             // Обработка ошибки переполнения буфера приемника
-            huart1.Instance->ISR |= USART_ICR_ORECF; // Сброс флага переполнения буфера
+            __HAL_UART_CLEAR_FLAG(&huart1, UART_CLEAR_OREF);
         }
-        else if(huart1.Instance->ISR & USART_ISR_FE) // Проверка на ошибку кадра
+        else if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_FE)) // Проверка на ошибку кадра
         {
             // Обработка ошибки кадра
-            huart1.Instance->ISR |= USART_ICR_FECF; // Сброс флага ошибки кадра
+            __HAL_UART_CLEAR_FLAG(&huart1, UART_CLEAR_FEF);
         }
         else
-        {	
-            rx_data = huart1.Instance->RDR; // Чтение данных из приемника
-					
-//						while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
-//						huart2.Instance->TDR = rx_data;
-							//HAL_UART_Receive_IT(&huart1, &rx_data, UART_BUFFER_SIZE);
-					//HAL_UART_Transmit(&huart2, (uint8_t*)"My", strlen("My"), HAL_MAX_DELAY);
-					My_Data_Processing_Function(&rx_data, &packet);
-        
-			}
-    
-	
-	if((GPIOB->ODR & (1 << 6)) == 0) {
-		GPIOB->ODR |= (1 << 6);
-	} else {
-		GPIOB->ODR &= ~(1 << 6);
-	}
-  /* USER CODE END USART1_IRQn 1 */
+        { 
+            uint8_t rx_data = huart1.Instance->RDR; // Чтение данных из приемника
+//					
+//						if(rx_data == 64) {
+//							data_buffer[data_index] = rx_data;
+//              data_index++;
+//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes = 64\r\n", strlen("Succes = 64\r\n"), HAL_MAX_DELAY);
+//						}
+//						if (rx_data == 9) {
+//							flag = 1;
+//							data_buffer[data_index] = rx_data;
+//							data_index++;
+//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes adr = 9\r\n", strlen("Succes adr = 9\r\n"), HAL_MAX_DELAY);
+//						}
+//						if (rx_data == 2) {
+//							flag = 2;
+//							data_buffer[data_index] = rx_data;
+//							data_index++;
+//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes adr = 2\r\n", strlen("Succes adr = 2\r\n"), HAL_MAX_DELAY);
+//						}
+//						if(data_index > 2) {
+//							if(flag == 1) {
+//									if(data_index < 9) {
+//										data_buffer[data_index] = rx_data;
+//										data_index++;
+//								} else {
+//										HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
+//										testUint = data_index;
+//										sprintf(output, "data_index = %d\r\n", testUint);
+//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//										data_index = 0;
+//										testUint = data_index;
+//										sprintf(output, "data_index = %d\r\n", testUint);
+//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//								}
+//								
+//								if(data_index == 9) {
+//										My_Data_Processing_Function(data_buffer, &packet);
+//										memset(data_buffer, 0, UART_BUFFER_SIZE);
+//										data_index = 0;
+//										flag = 0;
+//								}
+//							}
+//							if(flag == 2) {
+//								if(data_index < 5) {
+//										data_buffer[data_index] = rx_data;
+//										data_index++;
+//								} else {
+//										HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
+//										testUint = data_index;
+//										sprintf(output, "data_index = %d\r\n", testUint);
+//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//										data_index = 0;
+//										flag = 0;
+//								}
+//								
+//								if(data_index == 5) {
+//										My_Data_Processing_Function(data_buffer, &packet);
+//										memset(data_buffer, 0, UART_BUFFER_SIZE);
+//										data_index = 0;
+//										flag = 0;
+//								}
+//							}
+//					}
+            if(data_index < UART_BUFFER_SIZE) {
+                data_buffer[data_index] = rx_data;
+                data_index++;
+							
+						} else {
+                HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
+								testUint = data_index;
+								sprintf(output, "data_index = %d\r\n", testUint);
+								HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+                data_index = 0;
+								testUint = data_index;
+								sprintf(output, "data_index = %d\r\n", testUint);
+								HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+            }
+            
+            if(data_index == 9 && data_buffer[1] == 9) {
+							data_index = 0;
+                My_Data_Processing_Function(data_buffer, &packet);
+                memset(data_buffer, 0, UART_BUFFER_SIZE);
+                
+            }
+						if(data_index == 5 && data_buffer[1] == 2) {
+							data_index = 0;
+                My_Data_Processing_Function(data_buffer, &packet);
+                memset(data_buffer, 0, UART_BUFFER_SIZE);
+                
+            }
+        }
+        if((GPIOB->ODR & (1 << 6)) == 0) {
+            GPIOB->ODR |= (1 << 6);
+        } else {
+            GPIOB->ODR &= ~(1 << 6);
+        }
+    }
+		__enable_irq();
+    /* USER CODE END USART1_IRQn 0 */
+    HAL_UART_IRQHandler(&huart1);
+    /* USER CODE BEGIN USART1_IRQn 1 */
+		HAL_UART_Receive_IT(&huart1, &rx_data, UART_BUFFER_SIZE);
+    /* USER CODE END USART1_IRQn 1 */
 }
 
 /**
@@ -289,54 +374,85 @@ void USART2_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 		
-		HAL_UART_Transmit(&huart2, (uint8_t*)"My", strlen("My"), HAL_MAX_DELAY);
-	
-		packet->command = data_buffer[3];
-		testUint = packet->command;
-		sprintf(output, "command : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		/*
+		packet->adress = data_buffer[0];// 0x40
+		packet->size = data_buffer[1];// Size = 2 || 9
+		packet->command = data_buffer[3];// 0x13 || 0x11
+		*/
 		
-		packet->adress = data_buffer[0];
-		testUint = packet->adress;
-		sprintf(output, "adress : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-	
 		packet->size = data_buffer[1];
-		testUint = packet->size;
-		sprintf(output, "size : %d\r\n", testUint);
+		sprintf(output, "data_size = %d\r\n", packet->size);
 		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-			if(packet->adress == 0x40) {
-				
-				switch(packet->command) {
-					case 0x11:
-						strcpy(test, "0x11"); 
-						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-								strcpy(test, "suc\r\n");
-								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							}
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[8]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					case 0x13:
-						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[4]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					default:
-						
-						break;
-				}
-			}
+		if(packet->size == 9) {
+		for(int i = 0; i < 9; i++) 
+		{
+			testUint = data_buffer[i];
+			sprintf(output, "i = %d, result : 0x%X\r\n",i , testUint);
+			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		}
+		} else {
+		for(int i = 0; i < 5; i++) 
+		{
+			testUint = data_buffer[i];
+			sprintf(output, "i = %d, result : 0x%X\r\n",i , testUint);
+			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		}
+	}
+	//HAL_UART_Transmit(&huart2, (uint8_t*)"Next\r\n", strlen("Next\r\n"), HAL_MAX_DELAY);
+	data_index = 0;
+	
+//		packet->command = data_buffer[3];
+//		testUint = packet->command;
+//		sprintf(output, "command : 0x%X\r\n", testUint);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//		
+//		packet->adress = data_buffer[0];
+//		testUint = packet->adress;
+//		sprintf(output, "adress : 0x%X\r\n", testUint);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//	
+//		packet->size = data_buffer[1];
+//		testUint = packet->size;
+//		sprintf(output, "size : 0x%X\r\n", testUint);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//			if(packet->adress == 0x40) {//64
+//				
+//				switch(packet->command) {
+//					case 0x11://17
+//						strcpy(test, "0x11"); 
+//						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
+//								strcpy(test, "suc\r\n");
+//								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//							}
+//						CRC_com(packet);
+//						if(packet->CRC8 == packet->data[8]) {
+//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						}
+//						break;
+//					case 0x13://19
+//						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						CRC_com(packet);
+//						if(packet->CRC8 == packet->data[4]) {
+//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
+//						}
+//						break;
+//					default:
+//						
+//						break;
+//				}
+//			}
 }
 
 void CRC_com(Packet* packet) {
 	packet->CRC8 = 0x00;
-	for(int i =0; i < packet->size; i++) {
+	int lenght = 0;
+	if(packet->size == 9) {
+		lenght = 9;
+	} else {
+		lenght = 5;
+	}
+	for(int i =0; i < lenght; i++) {
 		packet->CRC8 ^= packet->data[i];
 		if(packet->CRC8 & (1 << 0)) {
 			packet->CRC8 >>= 1;
