@@ -68,6 +68,7 @@ UART_HandleTypeDef huart2;
 //uint8_t val_6_bit;
 //uint8_t result = 0;
 uint8_t rx_data;
+
 //uint8_t uart_rx_index = 0;
 //uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
 //uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
@@ -99,15 +100,14 @@ static void MX_USART2_UART_Init(void);
 //	}
 //	//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
 //	//HAL_UART_RxCpltCallback(&huart1);
-////	strcpy(test, "suc\r\n");
-////								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//	
 //	EXTI->PR1 = EXTI_PR1_PIF0;
-////	
-////	NVIC_DisableIRQ(EXTI0_IRQn);
-////	
-////	NVIC_ClearPendingIRQ(EXTI0_IRQn);
-////	
-////	NVIC_EnableIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_DisableIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_ClearPendingIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_EnableIRQ(EXTI0_IRQn);
 //}
 
 //void blobBlob() {
@@ -172,7 +172,7 @@ int main(void)
 		
 		// GPIO_EXT _______________
 		// Включение прерывания на пине
-		//EXTI->IMR1 |= EXTI_IMR1_IM0;
+		EXTI->IMR1 |= EXTI_IMR1_IM0;
 		
 		// Настройка типов срабатывания(по фронту или спаду)
 		// Register RTSR1 for FRONT
@@ -181,9 +181,10 @@ int main(void)
 		// Register FTSR1 for Spad
 		/*		EXTI->FTSR1 |= EXTI_FTSR1_FT0;    */
 		
-		//NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
+		NVIC_SetPriority(EXTI0_IRQn, 1);// Устанавливаю приоритет прерывания EXT
+		NVIC_SetPriority(USART1_IRQn, 0);
 		
-		//NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
+		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
 		
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
   /* USER CODE END 2 */
@@ -547,7 +548,6 @@ static void MX_USART1_UART_Init(void)
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
   huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
   huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-	
   if (HAL_UART_Init(&huart1) != HAL_OK)
   {
     Error_Handler();
@@ -644,6 +644,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
 
 }
 

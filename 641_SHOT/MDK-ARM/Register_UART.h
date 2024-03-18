@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 extern uint8_t rx_data ;
+extern uint32_t counter;
 
 #define rUART ((sUART_TypeDef *) USART1_BASE)
 

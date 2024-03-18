@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "stm32l4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "main.h"
@@ -55,8 +57,9 @@ char test[20];
 char output[20];
 uint8_t testUint;
 uint8_t data_index = 0;
-	uint8_t flag = 0;
-	/* USER CODE END PV */
+uint8_t flag = 0;
+uint32_t counter = 0;
+/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
@@ -215,6 +218,45 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line0 interrupt.
+  */
+void EXTI0_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+	if(GPIOA->IDR & (1 << 0)) {
+		GPIOB->BSRR = (1 << 6);
+	} else {
+		GPIOB->BSRR = (1 << (6 + 16));
+	}
+	counter++;
+	if(counter > 10000) {
+		__disable_irq();
+		HAL_UART_Transmit(&huart2, (uint8_t*)"counter 10000____________________________________________________________________________\r\n", strlen("counter 10000____________________________________________________________________________\r\n"), HAL_MAX_DELAY);
+		counter = 0;
+		__enable_irq();
+	}
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+
+  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line1 interrupt.
+  */
+void EXTI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI1_IRQn 0 */
+	
+  /* USER CODE END EXTI1_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+  /* USER CODE BEGIN EXTI1_IRQn 1 */
+
+  /* USER CODE END EXTI1_IRQn 1 */
+}
+
+/**
   * @brief This function handles TIM1 break interrupt and TIM15 global interrupt.
   */
 void TIM1_BRK_TIM15_IRQHandler(void)
@@ -233,8 +275,8 @@ void TIM1_BRK_TIM15_IRQHandler(void)
   */
 void USART1_IRQHandler(void)
 {
-    /* USER CODE BEGIN USART1_IRQn 0 */
-		__disable_irq();
+  /* USER CODE BEGIN USART1_IRQn 0 */
+		//__disable_irq();
     Packet packet;
     if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_RXNE)) // Проверка на наличие данных в приемнике
     {	
@@ -253,83 +295,13 @@ void USART1_IRQHandler(void)
         else
         { 
             uint8_t rx_data = huart1.Instance->RDR; // Чтение данных из приемника
-//					
-//						if(rx_data == 64) {
-//							data_buffer[data_index] = rx_data;
-//              data_index++;
-//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes = 64\r\n", strlen("Succes = 64\r\n"), HAL_MAX_DELAY);
-//						}
-//						if (rx_data == 9) {
-//							flag = 1;
-//							data_buffer[data_index] = rx_data;
-//							data_index++;
-//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes adr = 9\r\n", strlen("Succes adr = 9\r\n"), HAL_MAX_DELAY);
-//						}
-//						if (rx_data == 2) {
-//							flag = 2;
-//							data_buffer[data_index] = rx_data;
-//							data_index++;
-//							//HAL_UART_Transmit(&huart2, (uint8_t*)"Succes adr = 2\r\n", strlen("Succes adr = 2\r\n"), HAL_MAX_DELAY);
-//						}
-//						if(data_index > 2) {
-//							if(flag == 1) {
-//									if(data_index < 9) {
-//										data_buffer[data_index] = rx_data;
-//										data_index++;
-//								} else {
-//										HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
-//										testUint = data_index;
-//										sprintf(output, "data_index = %d\r\n", testUint);
-//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//										data_index = 0;
-//										testUint = data_index;
-//										sprintf(output, "data_index = %d\r\n", testUint);
-//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//								}
-//								
-//								if(data_index == 9) {
-//										My_Data_Processing_Function(data_buffer, &packet);
-//										memset(data_buffer, 0, UART_BUFFER_SIZE);
-//										data_index = 0;
-//										flag = 0;
-//								}
-//							}
-//							if(flag == 2) {
-//								if(data_index < 5) {
-//										data_buffer[data_index] = rx_data;
-//										data_index++;
-//								} else {
-//										HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
-//										testUint = data_index;
-//										sprintf(output, "data_index = %d\r\n", testUint);
-//										HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//										data_index = 0;
-//										flag = 0;
-//								}
-//								
-//								if(data_index == 5) {
-//										My_Data_Processing_Function(data_buffer, &packet);
-//										memset(data_buffer, 0, UART_BUFFER_SIZE);
-//										data_index = 0;
-//										flag = 0;
-//								}
-//							}
-//					}
             if(data_index < UART_BUFFER_SIZE) {
                 data_buffer[data_index] = rx_data;
                 data_index++;
 							
 						} else {
-                HAL_UART_Transmit(&huart2, (uint8_t*)"Error\r\n", strlen("Error\r\n"), HAL_MAX_DELAY);
-								testUint = data_index;
-								sprintf(output, "data_index = %d\r\n", testUint);
-								HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
                 data_index = 0;
-								testUint = data_index;
-								sprintf(output, "data_index = %d\r\n", testUint);
-								HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
             }
-            
             if(data_index == 9 && data_buffer[1] == 9) {
 							data_index = 0;
                 My_Data_Processing_Function(data_buffer, &packet);
@@ -343,18 +315,13 @@ void USART1_IRQHandler(void)
                 
             }
         }
-        if((GPIOB->ODR & (1 << 6)) == 0) {
-            GPIOB->ODR |= (1 << 6);
-        } else {
-            GPIOB->ODR &= ~(1 << 6);
-        }
     }
-		__enable_irq();
-    /* USER CODE END USART1_IRQn 0 */
-    HAL_UART_IRQHandler(&huart1);
-    /* USER CODE BEGIN USART1_IRQn 1 */
+		//__enable_irq();
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
 		HAL_UART_Receive_IT(&huart1, &rx_data, UART_BUFFER_SIZE);
-    /* USER CODE END USART1_IRQn 1 */
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /**
@@ -398,9 +365,7 @@ void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 		}
 	}
-	//HAL_UART_Transmit(&huart2, (uint8_t*)"Next\r\n", strlen("Next\r\n"), HAL_MAX_DELAY);
 	data_index = 0;
-	
 //		packet->command = data_buffer[3];
 //		testUint = packet->command;
 //		sprintf(output, "command : 0x%X\r\n", testUint);

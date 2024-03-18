@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32L433xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;  ../Drivers/STM32L4xx_HAL_Driver/Inc;  ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy;  ../Drivers/CMSIS/Device/ST/STM32L4xx/Include</IncludePath>
+              <IncludePath>../Core/Inc;   ../Drivers/STM32L4xx_HAL_Driver/Inc;   ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy;   ../Drivers/CMSIS/Device/ST/STM32L4xx/Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -391,6 +391,11 @@
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>
+              <FileName>Register_UART.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Register_UART.h</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -404,11 +409,6 @@
               <FileName>stm32l4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32l4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>Register_UART.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Register_UART.h</FilePath>
             </File>
           </Files>
         </Group>
