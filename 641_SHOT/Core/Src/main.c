@@ -159,6 +159,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+	HAL_TIM_Base_Start_IT(&htim15);// запускаю таймер
 		// USART __________________
 		// ON Usart
 		rUART->CR1.UE = 1;

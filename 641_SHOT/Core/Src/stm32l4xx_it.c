@@ -37,6 +37,8 @@
 		uint8_t size;
 		uint8_t command;
 		uint8_t CRC8;
+		uint8_t count;
+		double timer;
 		uint8_t data[UART_BUFFER_SIZE];
 	} Packet;
 /* USER CODE END TD */
@@ -59,12 +61,14 @@ uint8_t testUint;
 uint8_t data_index = 0;
 uint8_t flag = 0;
 uint32_t counter = 0;
+uint8_t timer_flag = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
 void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet);
 void CRC_com(Packet* packet);
+double My_Start_Timer(uint8_t flag);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -229,12 +233,6 @@ void EXTI0_IRQHandler(void)
 		GPIOB->BSRR = (1 << (6 + 16));
 	}
 	counter++;
-	if(counter > 10000) {
-		__disable_irq();
-		HAL_UART_Transmit(&huart2, (uint8_t*)"counter 10000____________________________________________________________________________\r\n", strlen("counter 10000____________________________________________________________________________\r\n"), HAL_MAX_DELAY);
-		counter = 0;
-		__enable_irq();
-	}
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
   /* USER CODE BEGIN EXTI0_IRQn 1 */
@@ -303,10 +301,19 @@ void USART1_IRQHandler(void)
                 data_index = 0;
             }
             if(data_index == 9 && data_buffer[1] == 9) {
+							// TODO Timer15 for Size=9;
+							double elaps =	My_Start_Timer(timer_flag);
+							timer_flag = timer_flag == 1 ? 0 : 1;
 							data_index = 0;
-                My_Data_Processing_Function(data_buffer, &packet);
-                memset(data_buffer, 0, UART_BUFFER_SIZE);
-                
+							if(timer_flag == 0) {
+								packet.timer = elaps;
+							} else {
+								packet.timer = 0;
+							}
+              My_Data_Processing_Function(data_buffer, &packet);
+              memset(data_buffer, 0, UART_BUFFER_SIZE);
+							
+							
             }
 						if(data_index == 5 && data_buffer[1] == 2) {
 							data_index = 0;
@@ -342,15 +349,24 @@ void USART2_IRQHandler(void)
 void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 		
 		/*
-		packet->adress = data_buffer[0];// 0x40
+		packet->adress = data_buffer[0];// 0x40 || 64
 		packet->size = data_buffer[1];// Size = 2 || 9
-		packet->command = data_buffer[3];// 0x13 || 0x11
+		packet->command = data_buffer[3];// 0x13 || 0x11 // 17 || 19
 		*/
 		
 		packet->size = data_buffer[1];
 		sprintf(output, "data_size = %d\r\n", packet->size);
 		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 		if(packet->size == 9) {
+		if(packet->timer != 0){
+		sprintf(output, "data_timer = %f\r\n", packet->timer);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		}
+		packet->count = counter;
+		counter = 0;
+		testUint = packet->count;
+		sprintf(output, "Count : %d\r\n" , testUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 		for(int i = 0; i < 9; i++) 
 		{
 			testUint = data_buffer[i];
@@ -427,6 +443,30 @@ void CRC_com(Packet* packet) {
 			packet->CRC8 >>=1;
 		}
 	}
+}
+
+double My_Start_Timer(uint8_t flag) {
+	static uint32_t timer_start = 0;
+	static uint32_t timer_end = 0;
+	float timer_elapsed = 0;
+	
+	if(flag == 0) {
+		timer_start = HAL_GetTick(); // записываю показания старта таймера
+		HAL_UART_Transmit(&huart2, (uint8_t*)"START TIM\r\n", strlen("START TIM\r\n"), HAL_MAX_DELAY);
+		}
+	 else {
+		timer_end = HAL_GetTick(); // записываю показания окончания таймера
+		float elapsed_ticks = timer_end - timer_start;
+    timer_elapsed = (elapsed_ticks * 1e7f) / 8e7f;//расчитываю время работы таймера в МКС
+		float tesUint = timer_elapsed;
+		sprintf(output, "time elapsed : %f\r\n", tesUint);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		timer_start = 0;
+		timer_end = 0;
+		
+		HAL_UART_Transmit(&huart2, (uint8_t*)"STOP TIM", strlen("STOP TIM"), HAL_MAX_DELAY);
+	}
+	return timer_elapsed;
 }
 /* USER CODE END 1 */
 
