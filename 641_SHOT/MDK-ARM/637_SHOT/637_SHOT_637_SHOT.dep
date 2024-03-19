@@ -43,7 +43,7 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x6257032E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599EDB3C)
 I (.\RTE\_637_SHOT\../../Register_UART.h)(0x65F7E1CF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599EDB3C)
-F (../Core/Src/stm32l4xx_it.c)(0x65F80AD2)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include-I.\RTE\_637_SHOT-IC:\Users\d.kunicin\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-D__UVISION_VERSION="527" -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L433xx-o 637_shot\stm32l4xx_it.o --omf_browse 637_shot\stm32l4xx_it.crf --depend 637_shot\stm32l4xx_it.d)
+F (../Core/Src/stm32l4xx_it.c)(0x65F95EBC)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include-I.\RTE\_637_SHOT-IC:\Users\d.kunicin\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-D__UVISION_VERSION="527" -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L433xx-o 637_shot\stm32l4xx_it.o --omf_browse 637_shot\stm32l4xx_it.crf --depend 637_shot\stm32l4xx_it.d)
 I (../Core/Inc/main.h)(0x65F7E42D)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h)(0x625702AB)
 I (../Core/Inc/stm32l4xx_hal_conf.h)(0x65F7E42D)
@@ -84,6 +84,7 @@ I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h)(0x6257032E)
 I (../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h)(0x6257032E)
 I (../Core/Inc/stm32l4xx_it.h)(0x65F7E42C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599EDB3C)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599EDB3E)
 I (.\RTE\_637_SHOT\../../Register_UART.h)(0x65F7E1CF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599EDB3C)
 F (../Core/Src/stm32l4xx_hal_msp.c)(0x65F7E42D)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc -I ../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32L4xx/Include-I.\RTE\_637_SHOT-IC:\Users\d.kunicin\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include-D__UVISION_VERSION="527" -D_RTE_ -DUSE_HAL_DRIVER -DSTM32L433xx-o 637_shot\stm32l4xx_hal_msp.o --omf_browse 637_shot\stm32l4xx_hal_msp.crf --depend 637_shot\stm32l4xx_hal_msp.d)
