@@ -35,13 +35,13 @@
 	#define CRC_Polynom 0x3C
 	#define PGS ((10000 + 1) / 80e6f) * 1000000
 	typedef struct {
-		uint8_t adress;
+		uint16_t comparator;
 		uint8_t size;
-		uint8_t command;
 		uint8_t CRC8;
 		uint8_t count;
 		uint16_t timer;
 		uint8_t data[UART_BUFFER_SIZE];
+		uint8_t answer[UART_BUFFER_SIZE];
 	} Packet;
 /* USER CODE END TD */
 
@@ -62,10 +62,11 @@ char output[20];
 uint8_t testUint;
 uint8_t data_index = 0;
 uint8_t flag = 0;
-uint32_t counter = 0;
+uint16_t counter = 0;
 uint8_t timer_flag = 0;
 int COUNTcheck = 0;
 uint16_t time_per_tick = PGS;
+uint32_t timer_start ;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -309,12 +310,6 @@ void USART1_IRQHandler(void)
             }
 						if(data_index == 5 && data_buffer[1] == 2) {
 							packet.timer  =	My_Start_Timer(timer_flag);
-							//timer_flag = timer_flag == 1 ? 0 : 1;
-//							if(timer_flag == 0) {
-								// timer_flag = 1;
-//							} else {
-//								packet.timer = 0;
-//							}
 							data_index = 0;
               My_Data_Processing_Function(data_buffer, &packet);
               memset(data_buffer, 0, UART_BUFFER_SIZE);   
@@ -363,18 +358,18 @@ void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 				
 			}
 		} else {
-//			HAL_UART_Transmit(&huart2, (uint8_t*)"Answer_________\r\n", strlen("Answer_________\r\n"), HAL_MAX_DELAY);
+			HAL_UART_Transmit(&huart2, (uint8_t*)"Answer_________\r\n", strlen("Answer_________\r\n"), HAL_MAX_DELAY);
 			
-//		sprintf(output, "data_timer = %d\r\n", packet->timer);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//		packet->count = counter;
-//		counter = 0;
-//		COUNTcheck++;
-//		sprintf(output, "Count : %d\r\nData package_________ : %d \r\n" ,  packet->count, COUNTcheck);
-//
+		sprintf(output, "data_timer = %d\r\n", packet->timer);
+		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		packet->count = counter;
+		counter = 0;
+		COUNTcheck++;
+		sprintf(output, "Count : %d\r\nData package_________ : %d \r\n" ,  packet->count, COUNTcheck);
+
 		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 			
-//		HAL_UART_Transmit(&huart2, (uint8_t*)"Data package_________\r\n", strlen("Data package_________\r\n\r\n"), HAL_MAX_DELAY);
+		HAL_UART_Transmit(&huart2, (uint8_t*)"Data package_________\r\n", strlen("Data package_________\r\n\r\n"), HAL_MAX_DELAY);
 //		for(int i = 0; i < 5; i++) 
 //		{
 //			testUint = data_buffer[i];
@@ -386,9 +381,24 @@ void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 
 }
 
+uint16_t Get_Comparator(Packet* packet_7_8) {
+	uint8_t valueOne = packet_7_8->data[7];
+	uint8_t valueTwo = packet_7_8->data[8];
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;
+}
+
+void Set_answer_Size_2(Packet* packet_full) {
+		packet_full->answer[0] = 35;
+		packet_full->answer[1] = 1;
+		packet_full->answer[2] = 1;
+		packet_full->answer[3] =	packet_full->data[4];
+}
+
 void CRC_com(Packet** packet_ptr) {
 	Packet* packet = *packet_ptr;// Разыменовываем указатель на указатель для доступа к структуре Packet
-	
 	packet->CRC8 = 0x00;
 	int lenght = 0;
 	if(packet->size == 9) {
@@ -409,12 +419,12 @@ void CRC_com(Packet** packet_ptr) {
 }
 
 uint16_t My_Start_Timer(uint8_t flag) {
-			static uint32_t timer_start ;
+			
 			static uint32_t timer_end ;
 			uint16_t timer_elapsed = 0;
 	
 			timer_end = TIM15->CNT; // записываю показания окончания таймера
-			uint16_t elapsed_ticks = (timer_end > timer_start) ? (timer_end - timer_start): (timer_start - timer_end) ;
+			uint16_t elapsed_ticks = (timer_end > timer_start) ? (timer_end - timer_start): (timer_start - timer_end);
 	
 	//		uint16_t time_per_tick = ((10000 + 1) / 80e6f) * 1000000; // Время на один тик в МКС // примерно 0.000125 секунды или 125 микросекунды
 	//														10000 + 1 - это зачение преддделителя таймера
