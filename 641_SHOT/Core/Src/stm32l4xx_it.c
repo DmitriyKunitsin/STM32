@@ -352,37 +352,28 @@ void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 		*/
 	
 		packet->size = data_buffer[1];
-//		sprintf(output, "data_size = %d\r\n", packet->size);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 		if(packet->size == 9) {
-//			COUNTcheck = 0;
 			for(int i = 0; i < 12; i++) 
 			{
 				packet->data[i] = data_buffer[i];
 			}
-//			CRC_com(&packet);
-//			sprintf(output, "packet->CRC8 = %d\r\n", packet->CRC8);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "packet->data[11] = %d\r\n", packet->data[11]);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			if(packet->data[11] == packet->CRC8) {
-//			HAL_UART_Transmit(&huart2, (uint8_t*)"CRC-8 TRUE ________________\r\n", strlen("CRC-8 TRUE ________________\r\n"), HAL_MAX_DELAY);
-//			}
-		for(int i = 0; i < 12; i++) 
-			{
-				testUint = data_buffer[i];
-				sprintf(output, "i = %d, result : 0x%X\r\n",i , testUint);
-				HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+			CRC_com(&packet);
+			if(packet->CRC8 == 0) {
+				HAL_UART_Transmit(&huart2, (uint8_t*)"CRC-8 TRUE ________________\r\n", strlen("CRC-8 TRUE ________________\r\n"), HAL_MAX_DELAY);
+				
 			}
 		} else {
 //			HAL_UART_Transmit(&huart2, (uint8_t*)"Answer_________\r\n", strlen("Answer_________\r\n"), HAL_MAX_DELAY);
-		sprintf(output, "data_timer = %d\r\n", packet->timer);
+			
+//		sprintf(output, "data_timer = %d\r\n", packet->timer);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+//		packet->count = counter;
+//		counter = 0;
+//		COUNTcheck++;
+//		sprintf(output, "Count : %d\r\nData package_________ : %d \r\n" ,  packet->count, COUNTcheck);
+//
 		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-		packet->count = counter;
-		counter = 0;
-		COUNTcheck++;
-		sprintf(output, "Count : %d\r\nData package_________ : %d \r\n" ,  packet->count, COUNTcheck);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+			
 //		HAL_UART_Transmit(&huart2, (uint8_t*)"Data package_________\r\n", strlen("Data package_________\r\n\r\n"), HAL_MAX_DELAY);
 //		for(int i = 0; i < 5; i++) 
 //		{
@@ -392,51 +383,12 @@ void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
 //		}
 	}
 	data_index = 0;
-//		packet->command = data_buffer[3];
-//		testUint = packet->command;
-//		sprintf(output, "command : 0x%X\r\n", testUint);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//		
-//		packet->adress = data_buffer[0];
-//		testUint = packet->adress;
-//		sprintf(output, "adress : 0x%X\r\n", testUint);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//	
-//		packet->size = data_buffer[1];
-//		testUint = packet->size;
-//		sprintf(output, "size : 0x%X\r\n", testUint);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			if(packet->adress == 0x40) {//64
-//				
-//				switch(packet->command) {
-//					case 0x11://17
-//						strcpy(test, "0x11"); 
-//						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-//								strcpy(test, "suc\r\n");
-//								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							}
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[8]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					case 0x13://19
-//						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[4]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					default:
-//						
-//						break;
-//				}
-//			}
+
 }
 
 void CRC_com(Packet** packet_ptr) {
 	Packet* packet = *packet_ptr;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	
 	packet->CRC8 = 0x00;
 	int lenght = 0;
 	if(packet->size == 9) {
@@ -462,9 +414,7 @@ uint16_t My_Start_Timer(uint8_t flag) {
 			uint16_t timer_elapsed = 0;
 	
 			timer_end = TIM15->CNT; // записываю показания окончания таймера
-			uint16_t one_value = (timer_end > timer_start) ? timer_end: timer_start ;
-			uint16_t two_value = (timer_end < timer_start) ? timer_end: timer_start ;
-			uint16_t elapsed_ticks = one_value - two_value;
+			uint16_t elapsed_ticks = (timer_end > timer_start) ? (timer_end - timer_start): (timer_start - timer_end) ;
 	
 	//		uint16_t time_per_tick = ((10000 + 1) / 80e6f) * 1000000; // Время на один тик в МКС // примерно 0.000125 секунды или 125 микросекунды
 	//														10000 + 1 - это зачение преддделителя таймера
