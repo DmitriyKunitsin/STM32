@@ -31,7 +31,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
-	#define UART_BUFFER_SIZE 12
+	#define UART_BUFFER_SIZE 13
 	#define CRC_Polynom 0x3C
 	#define PGS ((10000 + 1) / 80e6f) * 1000000
 	typedef struct {
@@ -74,6 +74,12 @@ uint32_t timer_start ;
 void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet);
 void CRC_com(Packet** packet);
 uint16_t My_Start_Timer(uint8_t flag);
+uint16_t Get_Comparator(Packet* packet_7_8);
+void Set_answer_Size_2(Packet** packet_full);
+void Set_answer_Size_12(Packet** packet_full);
+void Set_answer_uart(Packet* packet_answer, uint8_t lengh);
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo);
+void clearPacket(Packet** packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -339,46 +345,33 @@ void USART2_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
-		
-		/*
-		packet->adress = data_buffer[0];// 0x40 || 64
-		packet->size = data_buffer[1];// Size = 2 || 9
-		packet->command = data_buffer[3];// 0x13 || 0x11 // 17 || 19
-		*/
 	
 		packet->size = data_buffer[1];
 		if(packet->size == 9) {
-			for(int i = 0; i < 12; i++) 
+			for(int i = 0; i < 12; i++) // большой пакет запроса
 			{
 				packet->data[i] = data_buffer[i];
 			}
 			CRC_com(&packet);
 			if(packet->CRC8 == 0) {
-				HAL_UART_Transmit(&huart2, (uint8_t*)"CRC-8 TRUE ________________\r\n", strlen("CRC-8 TRUE ________________\r\n"), HAL_MAX_DELAY);
-				
+				variable_for_DAC = Get_Comparator(packet);
+				Set_answer_Size_12(&packet);
+				Set_answer_uart(packet, 4);
 			}
+			clearPacket(&packet);
 		} else {
-			HAL_UART_Transmit(&huart2, (uint8_t*)"Answer_________\r\n", strlen("Answer_________\r\n"), HAL_MAX_DELAY);
-			
-		sprintf(output, "data_timer = %d\r\n", packet->timer);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-		packet->count = counter;
-		counter = 0;
-		COUNTcheck++;
-		sprintf(output, "Count : %d\r\nData package_________ : %d \r\n" ,  packet->count, COUNTcheck);
-
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-			
-		HAL_UART_Transmit(&huart2, (uint8_t*)"Data package_________\r\n", strlen("Data package_________\r\n\r\n"), HAL_MAX_DELAY);
-//		for(int i = 0; i < 5; i++) 
-//		{
-//			testUint = data_buffer[i];
-//			sprintf(output, "i = %d, result : 0x%X\r\n",i , testUint);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//		}
+			for(int i = 0; i < 5; i++) { // малый пакет запроса
+				packet->data[i] = data_buffer[i];
+			}
+			CRC_com(&packet);
+			if(packet->CRC8 == 0) {
+				Set_answer_Size_2(&packet);
+				Set_answer_uart(packet, 12);
+				counter = 0;
+			}
+			clearPacket(&packet);
 	}
 	data_index = 0;
-
 }
 
 uint16_t Get_Comparator(Packet* packet_7_8) {
@@ -390,11 +383,45 @@ uint16_t Get_Comparator(Packet* packet_7_8) {
 	return result;
 }
 
-void Set_answer_Size_2(Packet* packet_full) {
-		packet_full->answer[0] = 35;
-		packet_full->answer[1] = 1;
-		packet_full->answer[2] = 1;
-		packet_full->answer[3] =	packet_full->data[4];
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo) {
+		*valueOne = (value >> 8) & 0xFF;// Получаю старший байт путем сдвига на 8 бит вправо и применения маски
+		
+		*valueTwo = value & 0xFF;	// Получаю младший байт путем применения маски
+}
+
+void Set_answer_Size_2(Packet** packet_full) {
+		Packet* packet = *packet_full;
+		uint8_t valOne, valTwo;
+	
+		packet->answer[0] = 35;
+		packet->answer[1] =	10;
+		packet->answer[2] =	1;
+		packet->answer[3] =	0;
+		Split_Comparator(packet->timer, &valOne, &valTwo);
+		packet->answer[4] =	valOne;
+		packet->answer[5] =	valTwo;
+		Split_Comparator(counter, &valOne, &valTwo);
+		packet->answer[6] =	valOne;
+		packet->answer[7] =	valTwo;
+		packet->answer[8] =	0;
+		packet->answer[9] =	0;
+		packet->answer[10] =	0;
+		packet->answer[11] =	0;
+		packet->answer[12]	=	packet->data[4];
+}
+
+void Set_answer_Size_12(Packet** packet_full) {
+		Packet* packet = *packet_full;
+	
+		packet->answer[0] = 35;
+		packet->answer[1] = 1;
+		packet->answer[2] = 1;
+		packet->answer[3] =	packet->data[11];
+}
+
+void Set_answer_uart(Packet* packet_answer, uint8_t lengh) {
+		while(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE)){}
+		HAL_UART_Transmit(&huart1, (uint8_t*)packet_answer->answer, lengh, HAL_MAX_DELAY);
 }
 
 void CRC_com(Packet** packet_ptr) {
@@ -438,26 +465,19 @@ uint16_t My_Start_Timer(uint8_t flag) {
 
 	return result;
 }
+void clearPacket(Packet** packet_clear) {
+		Packet* packet = *packet_clear;
+    packet->comparator = 0;
+    packet->size = 0;
+    packet->CRC8 = 0;
+    packet->count = 0;
+    packet->timer = 0;
 
-//	
-//			sprintf(output, "time_per_tick __________ : %f\r\n", time_per_tick);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//						sprintf(output, "one_value(%d) - two_value(%d) __________ : %d\r\n",one_value, two_value ,elapsed_ticks);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "timer_elapsed __________ : %f\r\n", timer_elapsed);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//	sprintf(output, "time_per_tick __________ : %f\r\n", time_per_tick);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-
-//			sprintf(output, "elapsed_ticks(%d) * time_per_tick(%f) = timer_elapsed __________ : %f\r\n",elapsed_ticks, time_per_tick, timer_elapsed);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "result	__________ : %u\r\n", result);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "timer end_________ : %d \r\n" , timer_end);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "timer old start__________ : %u\r\n" , timer_start);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//			sprintf(output, "timer new start__________ : %u\r\n" , timer_start);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+    // Очистка массивов data и answer
+    for (int i = 0; i < UART_BUFFER_SIZE; i++) {
+        packet->data[i] = 0;
+        packet->answer[i] = 0;
+    }
+}
 /* USER CODE END 1 */
 

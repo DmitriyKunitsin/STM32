@@ -5,6 +5,7 @@
 
 extern uint8_t rx_data ;
 extern uint16_t counter;
+extern uint16_t variable_for_DAC;
 
 #define rUART ((sUART_TypeDef *) USART1_BASE)
 
