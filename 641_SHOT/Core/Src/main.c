@@ -82,12 +82,12 @@ static void MX_ADC1_Init(void);
 static void MX_DAC1_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
-static void MX_TIM15_Init(void);
+//static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-
+void TIM15_Init(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -154,7 +154,8 @@ int main(void)
   MX_DAC1_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  MX_TIM15_Init();
+  //MX_TIM15_Init();
+	TIM15_Init();
   MX_TIM16_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
@@ -447,50 +448,92 @@ static void MX_TIM7_Init(void)
   * @param None
   * @retval None
   */
-static void MX_TIM15_Init(void)
-{
+void TIM15_Init(void) {
+    // Включаем тактирование TIM15
+    RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
 
-  /* USER CODE BEGIN TIM15_Init 0 */
+    // Устанавливаем значение предделителя
+		TIM15->PSC = 10000; // такое значение по причине, что тактирование таймера равно 80MHz
+		// без предделителя частота периода 12.5 наносекунд
+		// с этим значением 125 микросекунд
+		/*
+			Период = (PSC + 1) / Частота_тактирования
 
-  /* USER CODE END TIM15_Init 0 */
+			где PSC - значение предделителя таймера.
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
+			Подставляя значения:
 
-  /* USER CODE BEGIN TIM15_Init 1 */
+			Период = (10000 + 1) / 80 МГц
+			Период ≈ 125 мкс (микросекунд)
+	
+    */
+	
+    // Устанавливаем режим счета
+    TIM15->CR1 &= ~TIM_CR1_DIR; // Режим счета вверх
+    TIM15->CR1 &= ~TIM_CR1_CMS; // Выравнивание по фронту
 
-  /* USER CODE END TIM15_Init 1 */
-  htim15.Instance = TIM15;
-  htim15.Init.Prescaler = 0;
-  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim15.Init.Period = 65535;
-  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim15.Init.RepetitionCounter = 0;
-  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim15) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim15, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_OnePulse_Init(&htim15, TIM_OPMODE_SINGLE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM15_Init 2 */
+    // Устанавливаем значение периода счета
+    TIM15->ARR = 65535;
 
-  /* USER CODE END TIM15_Init 2 */
+    // Устанавливаем делитель тактового сигнала
+    TIM15->CR1 &= ~TIM_CR1_CKD; // Делитель равен 1
 
+    // Устанавливаем источник тактового сигнала
+    TIM15->SMCR &= ~TIM_SMCR_SMS; // Внутренний источник тактового сигнала
+
+    // Отключаем режим повторного запуска
+    TIM15->RCR = 0;
+
+    // Отключаем предзагрузку ARR
+    TIM15->CR1 &= ~TIM_CR1_ARPE;
+
+    // Включаем таймер
+    TIM15->CR1 |= TIM_CR1_CEN;
 }
+//static void MX_TIM15_Init(void)
+//{
+
+//  /* USER CODE BEGIN TIM15_Init 0 */
+
+//  /* USER CODE END TIM15_Init 0 */
+
+//  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+//  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+//  /* USER CODE BEGIN TIM15_Init 1 */
+
+//  /* USER CODE END TIM15_Init 1 */
+//  htim15.Instance = TIM15;
+//  htim15.Init.Prescaler = 0;
+//  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
+//  htim15.Init.Period = 65535;
+//  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+//  htim15.Init.RepetitionCounter = 0;
+//  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+//  if (HAL_TIM_Base_Init(&htim15) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+//  if (HAL_TIM_ConfigClockSource(&htim15, &sClockSourceConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  if (HAL_TIM_OnePulse_Init(&htim15, TIM_OPMODE_SINGLE) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+//  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+//  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN TIM15_Init 2 */
+
+//  /* USER CODE END TIM15_Init 2 */
+
+//}
 
 /**
   * @brief TIM16 Initialization Function
