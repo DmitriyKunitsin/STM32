@@ -40,8 +40,8 @@
 		uint8_t CRC8;
 		uint8_t count;
 		uint16_t timer;
-		uint8_t data[UART_BUFFER_SIZE];
-		uint8_t answer[UART_BUFFER_SIZE];
+		uint8_t rx_data[UART_BUFFER_SIZE];
+		uint8_t tx_answer[UART_BUFFER_SIZE];
 	} Packet;
 /* USER CODE END TD */
 
@@ -60,7 +60,7 @@
 char test[20];
 char output[20];
 uint8_t testUint;
-uint8_t data_index = 0;
+uint8_t rx_data_index = 0;
 uint8_t flag = 0;
 uint16_t counter = 0;
 uint8_t timer_flag = 0;
@@ -71,15 +71,17 @@ uint32_t timer_start ;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet);
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet);
 void CRC_com(Packet** packet);
 uint16_t My_Start_Timer(uint8_t flag);
 uint16_t Get_Comparator(Packet* packet_7_8);
-void Set_answer_Size_2(Packet** packet_full);
-void Set_answer_Size_12(Packet** packet_full);
-void Set_answer_uart(Packet* packet_answer, uint8_t lengh);
+void Set_tx_answer_Size_2(Packet** packet_full);
+void Set_tx_answer_Size_12(Packet** packet_full);
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh);
 void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo);
 void clearPacket(Packet** packet);
+
+uint16_t Test_Get_Comparator(uint8_t One, uint8_t Two);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -238,11 +240,7 @@ void SysTick_Handler(void)
 void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
-	if(GPIOA->IDR & (1 << 0)) {
-		GPIOB->BSRR = (1 << 6);
-	} else {
-		GPIOB->BSRR = (1 << (6 + 16));
-	}
+	
 	counter++;
   /* USER CODE END EXTI0_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
@@ -288,7 +286,7 @@ void USART1_IRQHandler(void)
     Packet packet;
     if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_RXNE)) // Проверка на наличие данных в приемнике
     {	
-        static uint8_t data_buffer[UART_BUFFER_SIZE];
+        static uint8_t rx_data_buffer[UART_BUFFER_SIZE];
         
         if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_ORE)) // Проверка на переполнение буфера приемника
         {
@@ -302,23 +300,23 @@ void USART1_IRQHandler(void)
         }
         else
         { 
-            uint8_t rx_data = huart1.Instance->RDR; // Чтение данных из приемника
-            if(data_index < UART_BUFFER_SIZE) {
-                data_buffer[data_index] = rx_data;
-                data_index++;
+            uint8_t rx_rx_data = huart1.Instance->RDR; // Чтение данных из приемника
+            if(rx_data_index < UART_BUFFER_SIZE) {
+                rx_data_buffer[rx_data_index] = rx_rx_data;
+                rx_data_index++;
 						} else {
-                data_index = 0;
+                rx_data_index = 0;
             }
-            if(data_index == 12 && data_buffer[1] == 9) {
-							data_index = 0;
-              My_Data_Processing_Function(data_buffer, &packet);
-              memset(data_buffer, 0, UART_BUFFER_SIZE);
+            if(rx_data_index == 12 && rx_data_buffer[1] == 9) {
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);
             }
-						if(data_index == 5 && data_buffer[1] == 2) {
+						if(rx_data_index == 5 && rx_data_buffer[1] == 2) {
 							packet.timer  =	My_Start_Timer(timer_flag);
-							data_index = 0;
-              My_Data_Processing_Function(data_buffer, &packet);
-              memset(data_buffer, 0, UART_BUFFER_SIZE);   
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);   
             }
         }
     }
@@ -344,84 +342,111 @@ void USART2_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-void My_Data_Processing_Function(uint8_t* data_buffer, Packet* packet) {
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
 	
-		packet->size = data_buffer[1];
+		packet->size = rx_data_buffer[1];
 		if(packet->size == 9) {
 			for(int i = 0; i < 12; i++) // большой пакет запроса
 			{
-				packet->data[i] = data_buffer[i];
+				packet->rx_data[i] = rx_data_buffer[i];
 			}
 			CRC_com(&packet);
 			if(packet->CRC8 == 0) {
-				variable_for_DAC = Get_Comparator(packet);
-				Set_answer_Size_12(&packet);
-				Set_answer_uart(packet, 4);
+				DAC->DHR12R1 = Get_Comparator(packet);
+				Set_tx_answer_Size_12(&packet);
+				Set_tx_answer_uart(packet, 4);
+				
 			}
 			clearPacket(&packet);
 		} else {
 			for(int i = 0; i < 5; i++) { // малый пакет запроса
-				packet->data[i] = data_buffer[i];
+				packet->rx_data[i] = rx_data_buffer[i];
 			}
 			CRC_com(&packet);
 			if(packet->CRC8 == 0) {
-				Set_answer_Size_2(&packet);
-				Set_answer_uart(packet, 12);
+				Set_tx_answer_Size_2(&packet);
+				Set_tx_answer_uart(packet, 12);
 				counter = 0;
 			}
 			clearPacket(&packet);
 	}
-	data_index = 0;
+		HAL_UART_Transmit(&huart2, (uint8_t*)"NEXT PACK ||\r\n", strlen("NEXT PACK ||\r\n"), HAL_MAX_DELAY);
+	rx_data_index = 0;
 }
 
 uint16_t Get_Comparator(Packet* packet_7_8) {
-	uint8_t valueOne = packet_7_8->data[7];
-	uint8_t valueTwo = packet_7_8->data[8];
+	uint8_t valueOne = packet_7_8->rx_data[7];
+	uint8_t valueTwo = packet_7_8->rx_data[8];
 	
 	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
 	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
-	return result;
+	return result;  
 }
 
+uint16_t Test_Get_Comparator(uint8_t One, uint8_t Two) {
+	uint8_t valueOne = One;
+	uint8_t valueTwo = Two;
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;  
+}
 void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo) {
 		*valueOne = (value >> 8) & 0xFF;// Получаю старший байт путем сдвига на 8 бит вправо и применения маски
 		
 		*valueTwo = value & 0xFF;	// Получаю младший байт путем применения маски
 }
 
-void Set_answer_Size_2(Packet** packet_full) {
+void Set_tx_answer_Size_2(Packet** packet_full) {
 		Packet* packet = *packet_full;
-		uint8_t valOne, valTwo;
+//		uint8_t valOne, valTwo;
 	
-		packet->answer[0] = 35;
-		packet->answer[1] =	10;
-		packet->answer[2] =	1;
-		packet->answer[3] =	0;
-		Split_Comparator(packet->timer, &valOne, &valTwo);
-		packet->answer[4] =	valOne;
-		packet->answer[5] =	valTwo;
-		Split_Comparator(counter, &valOne, &valTwo);
-		packet->answer[6] =	valOne;
-		packet->answer[7] =	valTwo;
-		packet->answer[8] =	0;
-		packet->answer[9] =	0;
-		packet->answer[10] =	0;
-		packet->answer[11] =	0;
-		packet->answer[12]	=	packet->data[4];
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] =	0x0A; // Size=10
+		packet->tx_answer[2] =	0x03; // Flag
+		packet->tx_answer[3] =	0x01; // Result
+		packet->tx_answer[4] =	0x27;// Time
+		packet->tx_answer[5] =	0x10;// Time
+//		Split_Comparator(packet->timer, &valOne, &valTwo);
+//		packet->tx_answer[4] =	valOne;// Time
+//		packet->tx_answer[5] =	valTwo;// Time
+//		Split_Comparator(packet->count, &valOne, &valTwo);
+//		packet->tx_answer[6] =	valOne; // CntTotal
+//		packet->tx_answer[7] =	valTwo; // CntTotal
+		packet->tx_answer[6] =	0x00; // CntTotal
+		packet->tx_answer[7] =	0x05; // CntTotal
+		packet->tx_answer[8] =	0x00;
+		packet->tx_answer[9] =	0x00;
+		packet->tx_answer[10] =	0;
+		packet->tx_answer[11] =	0;
+		packet->tx_answer[12]	=	0x00; // CRC8
+//		uint16_t check = Test_Get_Comparator(0, 5);
+//		sprintf(output, "Get_Compare ___ : %d\r\n",check);
+//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+		
 }
 
-void Set_answer_Size_12(Packet** packet_full) {
+void Set_tx_answer_Size_12(Packet** packet_full) {
 		Packet* packet = *packet_full;
 	
-		packet->answer[0] = 35;
-		packet->answer[1] = 1;
-		packet->answer[2] = 1;
-		packet->answer[3] =	packet->data[11];
+		packet->tx_answer[0] = 0x23;
+		packet->tx_answer[1] = 0x01;
+		packet->tx_answer[2] = 0x03;
+		packet->tx_answer[3] =	0x00;
 }
-
-void Set_answer_uart(Packet* packet_answer, uint8_t lengh) {
-		while(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE)){}
-		HAL_UART_Transmit(&huart1, (uint8_t*)packet_answer->answer, lengh, HAL_MAX_DELAY);
+//HAL_UART_Transmit(&huart1, (uint8_t*)packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
+		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
+		for(int i = 0; i < lengh; i++) {
+			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
+			huart2.Instance->TDR = packet_tx_answer->tx_answer[i];
+		}
+		char check[] = "|| NEXT ||";
+		for(int i = 0; i < strlen(check); i++) {
+			huart2.Instance->TDR = check[i];
+		}
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
+    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
 }
 
 void CRC_com(Packet** packet_ptr) {
@@ -434,7 +459,7 @@ void CRC_com(Packet** packet_ptr) {
 		lenght = 5;
 	}
 	for(int i =0; i < lenght; i++) {
-		packet->CRC8 ^= packet->data[i];
+		packet->CRC8 ^= packet->rx_data[i];
 		if(packet->CRC8 & (1 << 0)) {
 			packet->CRC8 >>= 1;
 			packet->CRC8 |= (1 << 7);
@@ -462,7 +487,6 @@ uint16_t My_Start_Timer(uint8_t flag) {
 			timer_start = 0;// 8e7f частота тактирования МК 80 MHz
 			timer_end = 0;
 			timer_start = TIM15->CNT;
-
 	return result;
 }
 void clearPacket(Packet** packet_clear) {
@@ -473,10 +497,10 @@ void clearPacket(Packet** packet_clear) {
     packet->count = 0;
     packet->timer = 0;
 
-    // Очистка массивов data и answer
+    // Очистка массивов rx_data и tx_answer
     for (int i = 0; i < UART_BUFFER_SIZE; i++) {
-        packet->data[i] = 0;
-        packet->answer[i] = 0;
+        packet->rx_data[i] = 0;
+        packet->tx_answer[i] = 0;
     }
 }
 /* USER CODE END 1 */

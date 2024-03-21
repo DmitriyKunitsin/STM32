@@ -68,7 +68,6 @@ UART_HandleTypeDef huart2;
 //uint8_t val_6_bit;
 //uint8_t result = 0;
 uint8_t rx_data;
-uint16_t variable_for_DAC;
 //uint8_t uart_rx_index = 0;
 //uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
 //uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
@@ -170,7 +169,7 @@ int main(void)
 		DAC->CR |= 0x1;
 		// 4095 - MAX VALUE 0xFFF
 		// 0 - MIN VALUE 
-		DAC->DHR12R1 = 0xFFF;
+		
 		
 		// GPIO_EXT _______________
 		// Включение прерывания на пине
@@ -195,7 +194,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		DAC->DHR12R1 = variable_for_DAC;
+		
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
