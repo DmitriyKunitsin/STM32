@@ -370,7 +370,7 @@ void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
 			}
 			clearPacket(&packet);
 	}
-		HAL_UART_Transmit(&huart2, (uint8_t*)"NEXT PACK ||\r\n", strlen("NEXT PACK ||\r\n"), HAL_MAX_DELAY);
+		//HAL_UART_Transmit(&huart2, (uint8_t*)"NEXT PACK ||\r\n", strlen("NEXT PACK ||\r\n"), HAL_MAX_DELAY);
 	rx_data_index = 0;
 }
 
@@ -437,16 +437,21 @@ void Set_tx_answer_Size_12(Packet** packet_full) {
 //HAL_UART_Transmit(&huart1, (uint8_t*)packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
 void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
 		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
+		__disable_irq();
+			//__HAL_UART_DISABLE_IT(&huart1, UART_IT_RXNE); // Отключить прерывания по приему для UART1
 		for(int i = 0; i < lengh; i++) {
 			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
 			huart2.Instance->TDR = packet_tx_answer->tx_answer[i];
-		}
-		char check[] = "|| NEXT ||";
-		for(int i = 0; i < strlen(check); i++) {
-			huart2.Instance->TDR = check[i];
+			
 		}
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
+
+
+		//HAL_UART_Transmit(&huart2, (uint8_t*)"||", strlen("||"), HAL_MAX_DELAY);
     while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
+			while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
+		__enable_irq();
+			//__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE); // Включить прерывания по приему для UART1
 }
 
 void CRC_com(Packet** packet_ptr) {
