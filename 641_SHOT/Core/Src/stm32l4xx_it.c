@@ -72,7 +72,8 @@ uint32_t timer_start ;
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
 void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet);
-void CRC_com(Packet** packet);
+void CRC_com_Incoming(Packet** packet_input);
+void CRC_com_Outgoing(Packet** packet_output);
 uint16_t My_Start_Timer(uint8_t flag);
 uint16_t Get_Comparator(Packet* packet_7_8);
 void Set_tx_answer_Size_2(Packet** packet_full);
@@ -350,28 +351,28 @@ void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
 			{
 				packet->rx_data[i] = rx_data_buffer[i];
 			}
-			CRC_com(&packet);
-			if(packet->CRC8 == 0) {
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[11]) {
 				DAC->DHR12R1 = Get_Comparator(packet);
 				Set_tx_answer_Size_12(&packet);
-				Set_tx_answer_uart(packet, 4);
-				
+				CRC_com_Outgoing(&packet);
+				Set_tx_answer_uart(packet, 3);
 			}
 			clearPacket(&packet);
 		} else {
 			for(int i = 0; i < 5; i++) { // малый пакет запроса
 				packet->rx_data[i] = rx_data_buffer[i];
 			}
-			CRC_com(&packet);
-			if(packet->CRC8 == 0) {
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[4]) {
 				packet->count = counter;
 				Set_tx_answer_Size_2(&packet);
+				CRC_com_Outgoing(&packet);
 				Set_tx_answer_uart(packet, 12);
 				counter = 0;
 			}
 			clearPacket(&packet);
 	}
-		//HAL_UART_Transmit(&huart2, (uint8_t*)"NEXT PACK ||\r\n", strlen("NEXT PACK ||\r\n"), HAL_MAX_DELAY);
 	rx_data_index = 0;
 }
 
@@ -416,49 +417,43 @@ void Set_tx_answer_Size_2(Packet** packet_full) {
 		packet->tx_answer[9] =	0x00;
 		packet->tx_answer[10] =	0;
 		packet->tx_answer[11] =	0;
-		packet->tx_answer[12]	=	0x00; // CRC8
-		
+		packet->tx_answer[12]	=	packet->CRC8; // CRC8
 }
 
 void Set_tx_answer_Size_12(Packet** packet_full) {
 		Packet* packet = *packet_full;
 	
-		packet->tx_answer[0] = 0x23;
-		packet->tx_answer[1] = 0x01;
-		packet->tx_answer[2] = 0x03;
-		packet->tx_answer[3] =	0x00;
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] = 0x01; // Size = 1
+		packet->tx_answer[2] = 0x03; // FLAG
+		packet->tx_answer[3] =	packet->CRC8; // CRC8
 }
-//HAL_UART_Transmit(&huart1, (uint8_t*)packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
 void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
 		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
-//		__disable_irq();
-			//__HAL_UART_DISABLE_IT(&huart1, UART_IT_RXNE); // Отключить прерывания по приему для UART1
-//			sprintf(output, "LENGHT ___ : %d\r\n", lengh);
-//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+			//HAL_UART_Transmit(&huart1, packet_tx_answer->tx_answer, strlen((char*)packet_tx_answer->tx_answer), HAL_MAX_DELAY);
 			for(int i = 0; i < lengh; i++) {
 			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
-			huart2.Instance->TDR = packet_tx_answer->tx_answer[i];
+			
 			    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
-			while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
+			
 		}
-//			HAL_UART_Transmit(&huart1, packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
-//			HAL_UART_Transmit(&huart2, packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
+//		huart2.Instance->TDR = packet_tx_answer->tx_answer[lengh];
+//		while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
-
-
-			//__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE); // Включить прерывания по приему для UART1
 }
 
-void CRC_com(Packet** packet_ptr) {
-	Packet* packet = *packet_ptr;// Разыменовываем указатель на указатель для доступа к структуре Packet
+void CRC_com_Incoming(Packet** packet_input) {
+	Packet* packet = *packet_input;// Разыменовываем указатель на указатель для доступа к структуре Packet
 	packet->CRC8 = 0x00;
 	int lenght = 0;
 	if(packet->size == 9) {
 		lenght = 12;
+		packet->size = 0x01; 
 	} else {
 		lenght = 5;
+		packet->size = 0x0A; 
 	}
-	for(int i =0; i < lenght; i++) {
+	for(int i =0; i < lenght - 1; i++) {
 		packet->CRC8 ^= packet->rx_data[i];
 		if(packet->CRC8 & (1 << 0)) {
 			packet->CRC8 >>= 1;
@@ -468,6 +463,28 @@ void CRC_com(Packet** packet_ptr) {
 			packet->CRC8 >>=1;
 		}
 	}
+}
+
+void CRC_com_Outgoing(Packet** packet_output) {
+	Packet* packet = *packet_output;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	packet->CRC8 = 0x00;
+	int lenght = 0;
+	if(packet->size == 0x0A) {
+		lenght = 13;
+	} else {
+		lenght = 4;
+	}
+	for(int i =0; i < lenght - 1; i++) {
+		packet->CRC8 ^= packet->tx_answer[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+	packet->tx_answer[lenght - 1] = packet->CRC8;
 }
 
 uint16_t My_Start_Timer(uint8_t flag) {
