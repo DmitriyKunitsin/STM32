@@ -364,6 +364,7 @@ void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
 			}
 			CRC_com(&packet);
 			if(packet->CRC8 == 0) {
+				packet->count = counter;
 				Set_tx_answer_Size_2(&packet);
 				Set_tx_answer_uart(packet, 12);
 				counter = 0;
@@ -399,30 +400,23 @@ void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo) {
 
 void Set_tx_answer_Size_2(Packet** packet_full) {
 		Packet* packet = *packet_full;
-//		uint8_t valOne, valTwo;
+		uint8_t valOne, valTwo;
 	
 		packet->tx_answer[0] = 0x23; // adres
 		packet->tx_answer[1] =	0x0A; // Size=10
 		packet->tx_answer[2] =	0x03; // Flag
 		packet->tx_answer[3] =	0x01; // Result
-		packet->tx_answer[4] =	0x27;// Time
-		packet->tx_answer[5] =	0x10;// Time
-//		Split_Comparator(packet->timer, &valOne, &valTwo);
-//		packet->tx_answer[4] =	valOne;// Time
-//		packet->tx_answer[5] =	valTwo;// Time
-//		Split_Comparator(packet->count, &valOne, &valTwo);
-//		packet->tx_answer[6] =	valOne; // CntTotal
-//		packet->tx_answer[7] =	valTwo; // CntTotal
-		packet->tx_answer[6] =	0x00; // CntTotal
-		packet->tx_answer[7] =	0x05; // CntTotal
+		Split_Comparator(packet->timer, &valOne, &valTwo);
+		packet->tx_answer[4] =	valOne;// Time
+		packet->tx_answer[5] =	valTwo;// Time
+		Split_Comparator(packet->count, &valOne, &valTwo);
+		packet->tx_answer[6] =	valOne; // CntTotal
+		packet->tx_answer[7] =	valTwo; // CntTotal
 		packet->tx_answer[8] =	0x00;
 		packet->tx_answer[9] =	0x00;
 		packet->tx_answer[10] =	0;
 		packet->tx_answer[11] =	0;
 		packet->tx_answer[12]	=	0x00; // CRC8
-//		uint16_t check = Test_Get_Comparator(0, 5);
-//		sprintf(output, "Get_Compare ___ : %d\r\n",check);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
 		
 }
 
@@ -437,20 +431,21 @@ void Set_tx_answer_Size_12(Packet** packet_full) {
 //HAL_UART_Transmit(&huart1, (uint8_t*)packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
 void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
 		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
-		__disable_irq();
+//		__disable_irq();
 			//__HAL_UART_DISABLE_IT(&huart1, UART_IT_RXNE); // Отключить прерывания по приему для UART1
-		for(int i = 0; i < lengh; i++) {
+//			sprintf(output, "LENGHT ___ : %d\r\n", lengh);
+//			HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
+			for(int i = 0; i < lengh; i++) {
 			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
 			huart2.Instance->TDR = packet_tx_answer->tx_answer[i];
-			
+			    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
+			while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
 		}
+//			HAL_UART_Transmit(&huart1, packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
+//			HAL_UART_Transmit(&huart2, packet_tx_answer->tx_answer, lengh, HAL_MAX_DELAY);
 		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
 
 
-		//HAL_UART_Transmit(&huart2, (uint8_t*)"||", strlen("||"), HAL_MAX_DELAY);
-    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
-			while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
-		__enable_irq();
 			//__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE); // Включить прерывания по приему для UART1
 }
 
