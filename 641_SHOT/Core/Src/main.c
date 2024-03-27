@@ -29,18 +29,24 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-//	typedef struct {
-//		uint8_t adress;
-//		uint8_t size;
-//		uint8_t command;
-//		uint8_t CRC8;
-//		uint8_t data[UART_BUFFER_SIZE];
-//	} Packet;
+	#define UART_BUFFER_SIZE 13
+	 typedef struct {
+		uint16_t comparator;
+		uint8_t size;
+		uint8_t CRC8;
+		uint8_t count;
+		uint16_t timer;
+		uint8_t rx_data[UART_BUFFER_SIZE];
+		uint8_t tx_answer[UART_BUFFER_SIZE];
+	} Packet;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define UART_BUFFER_SIZE 9
+
+	#define CRC_Polynom 0x3C
+	#define PGS ((10000 + 1) / 80e6f) * 1000000
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,16 +68,18 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-//char test[20];
-//char output[20];
-//uint8_t testUint;
-//uint8_t val_6_bit;
-//uint8_t result = 0;
+char test[20];
+char output[20];
+uint8_t testUint;
+uint8_t rx_data_index = 0;
+uint8_t flag = 0;
+uint16_t counter = 0;
+uint8_t timer_flag = 0;
+int COUNTcheck = 0;
+uint16_t time_per_tick = PGS;
+uint32_t timer_start ;
 uint8_t rx_data;
-//uint8_t uart_rx_index = 0;
-//uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
-//uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
-
+uint8_t rx_data_buffer[UART_BUFFER_SIZE];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -87,6 +95,16 @@ static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
 void TIM15_Init(void);
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet);
+void CRC_com_Incoming(Packet** packet_input);
+void CRC_com_Outgoing(Packet** packet_output);
+uint16_t My_Start_Timer(uint8_t flag);
+uint16_t Get_Comparator(Packet* packet_7_8);
+void Set_tx_answer_Size_2(Packet** packet_full);
+void Set_tx_answer_Size_12(Packet** packet_full);
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh);
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo);
+void clearPacket(Packet** packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -188,6 +206,7 @@ int main(void)
 		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
 		
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+		    Packet packet;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -195,6 +214,17 @@ int main(void)
   while (1)
   {
 		
+            if(rx_data_index == 12 && rx_data_buffer[1] == 9) {
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);
+            }
+						if(rx_data_index == 5 && rx_data_buffer[1] == 2) {
+							packet.timer  =	My_Start_Timer(timer_flag);
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);   
+            }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -696,7 +726,192 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
+	
+		packet->size = rx_data_buffer[1];
+		if(packet->size == 9) {
+			HAL_NVIC_DisableIRQ(USART1_IRQn);
+			for(int i = 0; i < 12; i++) // большой пакет запроса
+			{
+				packet->rx_data[i] = rx_data_buffer[i];
+			}
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[11]) {
+				DAC->DHR12R1 = Get_Comparator(packet);
+				Set_tx_answer_Size_12(&packet);
+				CRC_com_Outgoing(&packet);
+				Set_tx_answer_uart(packet, 3);
+				HAL_NVIC_EnableIRQ(USART1_IRQn);
+			}
+			clearPacket(&packet);
+		} else {
+			HAL_NVIC_DisableIRQ(USART1_IRQn);
+			for(int i = 0; i < 5; i++) { // малый пакет запроса
+				packet->rx_data[i] = rx_data_buffer[i];
+			}
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[4]) {
+				packet->count = counter;
+				Set_tx_answer_Size_2(&packet);
+				CRC_com_Outgoing(&packet);
+				Set_tx_answer_uart(packet, 12);
+				counter = 0;
+				HAL_NVIC_EnableIRQ(USART1_IRQn);
+			}
+			clearPacket(&packet);
+	}
+	rx_data_index = 0;
+}
 
+uint16_t Get_Comparator(Packet* packet_7_8) {
+	uint8_t valueOne = packet_7_8->rx_data[7];
+	uint8_t valueTwo = packet_7_8->rx_data[8];
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;  
+}
+
+uint16_t Test_Get_Comparator(uint8_t One, uint8_t Two) {
+	uint8_t valueOne = One;
+	uint8_t valueTwo = Two;
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;  
+}
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo) {
+		*valueOne = (value >> 8) & 0xFF;// Получаю старший байт путем сдвига на 8 бит вправо и применения маски
+		
+		*valueTwo = value & 0xFF;	// Получаю младший байт путем применения маски
+}
+
+void Set_tx_answer_Size_2(Packet** packet_full) {
+		Packet* packet = *packet_full;
+		uint8_t valOne, valTwo;
+	
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] =	0x0A; // Size=10
+		packet->tx_answer[2] =	0x03; // Flag
+		packet->tx_answer[3] =	0x01; // Result
+		Split_Comparator(packet->timer, &valOne, &valTwo);
+		packet->tx_answer[4] =	valOne;// Time
+		packet->tx_answer[5] =	valTwo;// Time
+		Split_Comparator(packet->count, &valOne, &valTwo);
+		packet->tx_answer[6] =	valOne; // CntTotal
+		packet->tx_answer[7] =	valTwo; // CntTotal
+		packet->tx_answer[8] =	0x00;
+		packet->tx_answer[9] =	0x00;
+		packet->tx_answer[10] =	0;
+		packet->tx_answer[11] =	0;
+		packet->tx_answer[12]	=	packet->CRC8; // CRC8
+}
+
+void Set_tx_answer_Size_12(Packet** packet_full) {
+		Packet* packet = *packet_full;
+	
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] = 0x01; // Size = 1
+		packet->tx_answer[2] = 0x03; // FLAG
+		packet->tx_answer[3] =	packet->CRC8; // CRC8
+}
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
+		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
+			//HAL_UART_Transmit(&huart1, packet_tx_answer->tx_answer, strlen((char*)packet_tx_answer->tx_answer), HAL_MAX_DELAY);
+			for(int i = 0; i < lengh; i++) {
+			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
+			
+			    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
+			
+		}
+			if(lengh == 12) {
+				HAL_UART_Transmit(&huart2, (uint8_t*)"SUCCES 12\r\n", strlen("SUCCES 12\r\n"), HAL_MAX_DELAY);
+			} else {
+				HAL_UART_Transmit(&huart2, (uint8_t*)"SUCCES 3\r\n", strlen("SUCCES 3\r\n"), HAL_MAX_DELAY);
+			}
+//		huart2.Instance->TDR = packet_tx_answer->tx_answer[lengh];
+//		while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
+}
+
+void CRC_com_Incoming(Packet** packet_input) {
+	Packet* packet = *packet_input;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	packet->CRC8 = 0x00;
+	int lenght = 0;
+	if(packet->size == 9) {
+		lenght = 12;
+		packet->size = 0x01; 
+	} else {
+		lenght = 5;
+		packet->size = 0x0A; 
+	}
+	for(int i =0; i < lenght - 1; i++) {
+		packet->CRC8 ^= packet->rx_data[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+}
+
+void CRC_com_Outgoing(Packet** packet_output) {
+	Packet* packet = *packet_output;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	packet->CRC8 = 0x00;
+	int lenght = 0;
+	if(packet->size == 0x0A) {
+		lenght = 13;
+	} else {
+		lenght = 4;
+	}
+	for(int i =0; i < lenght - 1; i++) {
+		packet->CRC8 ^= packet->tx_answer[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+	packet->tx_answer[lenght - 1] = packet->CRC8;
+}
+
+uint16_t My_Start_Timer(uint8_t flag) {
+			
+			static uint32_t timer_end ;
+			uint16_t timer_elapsed = 0;
+	
+			timer_end = TIM15->CNT; // записываю показания окончания таймера
+			uint16_t elapsed_ticks = (timer_end > timer_start) ? (timer_end - timer_start): (timer_start - timer_end);
+	
+	//		uint16_t time_per_tick = ((10000 + 1) / 80e6f) * 1000000; // Время на один тик в МКС // примерно 0.000125 секунды или 125 микросекунды
+	//														10000 + 1 - это зачение преддделителя таймера
+			timer_elapsed = elapsed_ticks * time_per_tick;//расчитываю время работы таймера в МКС
+	//				elapsed_ticks - кол-во тиков    time_per_tick - время на один тик в наносекундах
+			uint16_t result =	timer_elapsed; // Конверт секунд в микросекунды
+	
+			timer_start = 0;// 8e7f частота тактирования МК 80 MHz
+			timer_end = 0;
+			timer_start = TIM15->CNT;
+	return result;
+}
+void clearPacket(Packet** packet_clear) {
+		Packet* packet = *packet_clear;
+    packet->comparator = 0;
+    packet->size = 0;
+    packet->CRC8 = 0;
+    packet->count = 0;
+    packet->timer = 0;
+
+    // Очистка массивов rx_data и tx_answer
+    for (int i = 0; i < UART_BUFFER_SIZE; i++) {
+        packet->rx_data[i] = 0;
+        packet->tx_answer[i] = 0;
+    }
+}
 /* USER CODE END 4 */
 
 /**
