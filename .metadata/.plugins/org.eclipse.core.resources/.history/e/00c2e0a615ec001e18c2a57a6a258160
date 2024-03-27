@@ -92,9 +92,9 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  SSD1306_Init(hi2c1);
+  SSD1306_Init();
   uint16_t count = 1;
-  char print[5] = "";
+  char print[] = "";
   /* USER CODE END 2 */
 
   /* Infinite loop */

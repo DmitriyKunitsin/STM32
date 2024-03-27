@@ -86,7 +86,7 @@ typedef enum {
  *           - 0: LCD was not detected on I2C port
  *           - > 0: LCD initialized OK and ready to use
  */
-uint8_t SSD1306_Init(I2C_HandleTypeDef hi2c1);
+uint8_t SSD1306_Init(void);
 
 /** 
  * @brief  Updates buffer from internal RAM to LCD
