@@ -44,6 +44,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c2;
 
 /* USER CODE BEGIN PV */
 
@@ -53,6 +54,7 @@ I2C_HandleTypeDef hi2c1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
+static void MX_I2C2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -91,10 +93,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
+  MX_I2C2_Init();
   /* USER CODE BEGIN 2 */
   SSD1306_Init(hi2c1);
+  SSD1306_Init(hi2c2);
   uint16_t count = 1;
-  char print[5] = "";
+  uint16_t countLVL = 1;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,14 +107,26 @@ int main(void)
   while (1)
   {
 //	  SSD1306_Clear();
+	  char One_print[5] = "";
+	  char Two_print[5] = "";
 	  	  SSD1306_GotoXY(35, 0);
 	  	  SSD1306_Puts("SCORE", &Font_11x18, 1);
-	  	  sprintf(print, "%u", count);
+	  	  sprintf(One_print, "%u", count);
 			SSD1306_GotoXY(35, 35);
-			SSD1306_Puts(print, &Font_11x18, 1);
-	  	  SSD1306_UpdateScreen();
+			SSD1306_Puts(One_print, &Font_11x18, 1);
+	  	  SSD1306_UpdateScreen(hi2c1);
 	  	  count =  count == 65000 ? 1 : count + 1;
-	  	  HAL_Delay(10);
+	  	  countLVL =  count % 100 == 0 ? countLVL + 1 : countLVL;
+
+
+//
+	  	  SSD1306_GotoXY(35, 0);
+	  	  SSD1306_Puts("SCORE LVL", &Font_7x10, 1);
+	  	  sprintf(Two_print, "%u", countLVL);
+	  	  SSD1306_GotoXY(35, 35);
+ 	  	  SSD1306_Puts(Two_print, &Font_11x18, 1);
+	  	  SSD1306_UpdateScreen(hi2c2);
+//	  	  HAL_Delay(10);
 
     /* USER CODE END WHILE */
 
@@ -194,6 +211,40 @@ static void MX_I2C1_Init(void)
 }
 
 /**
+  * @brief I2C2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_I2C2_Init(void)
+{
+
+  /* USER CODE BEGIN I2C2_Init 0 */
+
+  /* USER CODE END I2C2_Init 0 */
+
+  /* USER CODE BEGIN I2C2_Init 1 */
+
+  /* USER CODE END I2C2_Init 1 */
+  hi2c2.Instance = I2C2;
+  hi2c2.Init.ClockSpeed = 400000;
+  hi2c2.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c2.Init.OwnAddress1 = 0;
+  hi2c2.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c2.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c2.Init.OwnAddress2 = 0;
+  hi2c2.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c2.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C2_Init 2 */
+
+  /* USER CODE END I2C2_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -204,8 +255,8 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

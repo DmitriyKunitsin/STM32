@@ -24,7 +24,7 @@
 
 extern I2C_HandleTypeDef hi2c1;
 /* Write command */
-#define SSD1306_WRITECOMMAND(command)      ssd1306_I2C_Write(SSD1306_I2C_ADDR, 0x00, (command))
+#define SSD1306_WRITECOMMAND(command, hi2c) ssd1306_I2C_Write(SSD1306_I2C_ADDR, 0x00, (command), (hi2c))
 /* Write data */
 #define SSD1306_WRITEDATA(data)            ssd1306_I2C_Write(SSD1306_I2C_ADDR, 0x40, (data))
 /* Absolute value */
@@ -57,76 +57,76 @@ static SSD1306_t SSD1306;
 #define SSD1306_INVERTDISPLAY       0xA7
 
 
-void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row)
+void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c)
 {
-  SSD1306_WRITECOMMAND (SSD1306_RIGHT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
-  SSD1306_WRITECOMMAND(0X00);
-  SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_RIGHT_HORIZONTAL_SCROLL, hi2c);  // send 0x26
+  SSD1306_WRITECOMMAND (0x00, hi2c);  // send dummy
+  SSD1306_WRITECOMMAND(start_row, hi2c);  // start page address
+  SSD1306_WRITECOMMAND(0X00, hi2c);  // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row, hi2c);  // end page address
+  SSD1306_WRITECOMMAND(0X00, hi2c);
+  SSD1306_WRITECOMMAND(0XFF, hi2c);
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL, hi2c); // start scroll
 }
 
 
-void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row)
+void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c)
 {
-  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL);  // send 0x26
-  SSD1306_WRITECOMMAND (0x00);  // send dummy
-  SSD1306_WRITECOMMAND(start_row);  // start page address
-  SSD1306_WRITECOMMAND(0X00);  // time interval 5 frames
-  SSD1306_WRITECOMMAND(end_row);  // end page address
-  SSD1306_WRITECOMMAND(0X00);
-  SSD1306_WRITECOMMAND(0XFF);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL); // start scroll
+  SSD1306_WRITECOMMAND (SSD1306_LEFT_HORIZONTAL_SCROLL, hi2c);  // send 0x26
+  SSD1306_WRITECOMMAND (0x00, hi2c);  // send dummy
+  SSD1306_WRITECOMMAND(start_row, hi2c);  // start page address
+  SSD1306_WRITECOMMAND(0X00, hi2c);  // time interval 5 frames
+  SSD1306_WRITECOMMAND(end_row, hi2c);  // end page address
+  SSD1306_WRITECOMMAND(0X00, hi2c);
+  SSD1306_WRITECOMMAND(0XFF, hi2c);
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL, hi2c); // start scroll
 }
 
 
-void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row)
+void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c)
 {
-  SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
-  SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
+  SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA, hi2c);  // sect the area
+  SSD1306_WRITECOMMAND (0x00, hi2c);   // write dummy
+  SSD1306_WRITECOMMAND(SSD1306_HEIGHT, hi2c);
 
-  SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL);
-  SSD1306_WRITECOMMAND (0x00);
-  SSD1306_WRITECOMMAND(start_row);
-  SSD1306_WRITECOMMAND(0X00);
-  SSD1306_WRITECOMMAND(end_row);
-  SSD1306_WRITECOMMAND (0x01);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL);
+  SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL, hi2c);
+  SSD1306_WRITECOMMAND (0x00, hi2c);
+  SSD1306_WRITECOMMAND(start_row, hi2c);
+  SSD1306_WRITECOMMAND(0X00, hi2c);
+  SSD1306_WRITECOMMAND(end_row, hi2c);
+  SSD1306_WRITECOMMAND (0x01, hi2c);
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL, hi2c);
 }
 
 
-void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row)
+void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c)
 {
-  SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA);  // sect the area
-  SSD1306_WRITECOMMAND (0x00);   // write dummy
-  SSD1306_WRITECOMMAND(SSD1306_HEIGHT);
+  SSD1306_WRITECOMMAND(SSD1306_SET_VERTICAL_SCROLL_AREA, hi2c);  // sect the area
+  SSD1306_WRITECOMMAND (0x00, hi2c);   // write dummy
+  SSD1306_WRITECOMMAND(SSD1306_HEIGHT, hi2c);
 
-  SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL);
-  SSD1306_WRITECOMMAND (0x00);
-  SSD1306_WRITECOMMAND(start_row);
-  SSD1306_WRITECOMMAND(0X00);
-  SSD1306_WRITECOMMAND(end_row);
-  SSD1306_WRITECOMMAND (0x01);
-  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL);
+  SSD1306_WRITECOMMAND(SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL, hi2c);
+  SSD1306_WRITECOMMAND (0x00, hi2c);
+  SSD1306_WRITECOMMAND(start_row, hi2c);
+  SSD1306_WRITECOMMAND(0X00, hi2c);
+  SSD1306_WRITECOMMAND(end_row, hi2c);
+  SSD1306_WRITECOMMAND (0x01, hi2c);
+  SSD1306_WRITECOMMAND (SSD1306_ACTIVATE_SCROLL, hi2c);
 }
 
 
-void SSD1306_Stopscroll(void)
+void SSD1306_Stopscroll( I2C_HandleTypeDef hi2c)
 {
-	SSD1306_WRITECOMMAND(SSD1306_DEACTIVATE_SCROLL);
+	SSD1306_WRITECOMMAND(SSD1306_DEACTIVATE_SCROLL, hi2c);
 }
 
 
 
-void SSD1306_InvertDisplay (int i)
+void SSD1306_InvertDisplay (int i, I2C_HandleTypeDef hi2c)
 {
-  if (i) SSD1306_WRITECOMMAND (SSD1306_INVERTDISPLAY);
+  if (i) SSD1306_WRITECOMMAND (SSD1306_INVERTDISPLAY, hi2c);
 
-  else SSD1306_WRITECOMMAND (SSD1306_NORMALDISPLAY);
+  else SSD1306_WRITECOMMAND (SSD1306_NORMALDISPLAY, hi2c);
 
 }
 
@@ -178,43 +178,43 @@ uint8_t SSD1306_Init(I2C_HandleTypeDef hi2c) {
 		p--;
 	
 	/* Init LCD */
-	SSD1306_WRITECOMMAND(0xAE); //display off
-	SSD1306_WRITECOMMAND(0x20); //Set Memory Addressing Mode   
-	SSD1306_WRITECOMMAND(0x10); //00,Horizontal Addressing Mode;01,Vertical Addressing Mode;10,Page Addressing Mode (RESET);11,Invalid
-	SSD1306_WRITECOMMAND(0xB0); //Set Page Start Address for Page Addressing Mode,0-7
-	SSD1306_WRITECOMMAND(0xC8); //Set COM Output Scan Direction
-	SSD1306_WRITECOMMAND(0x00); //---set low column address
-	SSD1306_WRITECOMMAND(0x10); //---set high column address
-	SSD1306_WRITECOMMAND(0x40); //--set start line address
-	SSD1306_WRITECOMMAND(0x81); //--set contrast control register
-	SSD1306_WRITECOMMAND(0xFF);
-	SSD1306_WRITECOMMAND(0xA1); //--set segment re-map 0 to 127
-	SSD1306_WRITECOMMAND(0xA6); //--set normal display
-	SSD1306_WRITECOMMAND(0xA8); //--set multiplex ratio(1 to 64)
-	SSD1306_WRITECOMMAND(0x3F); //
-	SSD1306_WRITECOMMAND(0xA4); //0xa4,Output follows RAM content;0xa5,Output ignores RAM content
-	SSD1306_WRITECOMMAND(0xD3); //-set display offset
-	SSD1306_WRITECOMMAND(0x00); //-not offset
-	SSD1306_WRITECOMMAND(0xD5); //--set display clock divide ratio/oscillator frequency
-	SSD1306_WRITECOMMAND(0xF0); //--set divide ratio
-	SSD1306_WRITECOMMAND(0xD9); //--set pre-charge period
-	SSD1306_WRITECOMMAND(0x22); //
-	SSD1306_WRITECOMMAND(0xDA); //--set com pins hardware configuration
-	SSD1306_WRITECOMMAND(0x12);
-	SSD1306_WRITECOMMAND(0xDB); //--set vcomh
-	SSD1306_WRITECOMMAND(0x20); //0x20,0.77xVcc
-	SSD1306_WRITECOMMAND(0x8D); //--set DC-DC enable
-	SSD1306_WRITECOMMAND(0x14); //
-	SSD1306_WRITECOMMAND(0xAF); //--turn on SSD1306 panel
+	SSD1306_WRITECOMMAND(0xAE, hi2c); //display off
+	SSD1306_WRITECOMMAND(0x20, hi2c); //Set Memory Addressing Mode
+	SSD1306_WRITECOMMAND(0x10, hi2c); //00,Horizontal Addressing Mode;01,Vertical Addressing Mode;10,Page Addressing Mode (RESET);11,Invalid
+	SSD1306_WRITECOMMAND(0xB0, hi2c); //Set Page Start Address for Page Addressing Mode,0-7
+	SSD1306_WRITECOMMAND(0xC8, hi2c); //Set COM Output Scan Direction
+	SSD1306_WRITECOMMAND(0x00, hi2c); //---set low column address
+	SSD1306_WRITECOMMAND(0x10, hi2c); //---set high column address
+	SSD1306_WRITECOMMAND(0x40, hi2c); //--set start line address
+	SSD1306_WRITECOMMAND(0x81, hi2c); //--set contrast control register
+	SSD1306_WRITECOMMAND(0xFF, hi2c);
+	SSD1306_WRITECOMMAND(0xA1, hi2c); //--set segment re-map 0 to 127
+	SSD1306_WRITECOMMAND(0xA6, hi2c); //--set normal display
+	SSD1306_WRITECOMMAND(0xA8, hi2c); //--set multiplex ratio(1 to 64)
+	SSD1306_WRITECOMMAND(0x3F, hi2c); //
+	SSD1306_WRITECOMMAND(0xA4, hi2c); //0xa4,Output follows RAM content;0xa5,Output ignores RAM content
+	SSD1306_WRITECOMMAND(0xD3, hi2c); //-set display offset
+	SSD1306_WRITECOMMAND(0x00, hi2c); //-not offset
+	SSD1306_WRITECOMMAND(0xD5, hi2c); //--set display clock divide ratio/oscillator frequency
+	SSD1306_WRITECOMMAND(0xF0, hi2c); //--set divide ratio
+	SSD1306_WRITECOMMAND(0xD9, hi2c); //--set pre-charge period
+	SSD1306_WRITECOMMAND(0x22, hi2c); //
+	SSD1306_WRITECOMMAND(0xDA, hi2c); //--set com pins hardware configuration
+	SSD1306_WRITECOMMAND(0x12, hi2c);
+	SSD1306_WRITECOMMAND(0xDB, hi2c); //--set vcomh
+	SSD1306_WRITECOMMAND(0x20, hi2c); //0x20,0.77xVcc
+	SSD1306_WRITECOMMAND(0x8D, hi2c); //--set DC-DC enable
+	SSD1306_WRITECOMMAND(0x14, hi2c); //
+	SSD1306_WRITECOMMAND(0xAF, hi2c); //--turn on SSD1306 panel
 	
 
-	SSD1306_WRITECOMMAND(SSD1306_DEACTIVATE_SCROLL);
+	SSD1306_WRITECOMMAND(SSD1306_DEACTIVATE_SCROLL, hi2c);
 
 	/* Clear screen */
 	SSD1306_Fill(SSD1306_COLOR_BLACK);
 	
 	/* Update screen */
-	SSD1306_UpdateScreen();
+	SSD1306_UpdateScreen(hi2c);
 	
 	/* Set default values */
 	SSD1306.CurrentX = 0;
@@ -227,17 +227,19 @@ uint8_t SSD1306_Init(I2C_HandleTypeDef hi2c) {
 	return 1;
 }
 
-void SSD1306_UpdateScreen(void) {
+void SSD1306_UpdateScreen(I2C_HandleTypeDef hi2c) {
 	uint8_t m;
 	
 	for (m = 0; m < 8; m++) {
-		SSD1306_WRITECOMMAND(0xB0 + m);
-		SSD1306_WRITECOMMAND(0x00);
-		SSD1306_WRITECOMMAND(0x10);
+		SSD1306_WRITECOMMAND(0xB0 + m, hi2c);
+		SSD1306_WRITECOMMAND(0x00, hi2c);
+		SSD1306_WRITECOMMAND(0x10, hi2c);
 		
 		/* Write multi data */
-		ssd1306_I2C_WriteMulti(SSD1306_I2C_ADDR, 0x40, &SSD1306_Buffer[SSD1306_WIDTH * m], SSD1306_WIDTH);
+		ssd1306_I2C_WriteMulti(SSD1306_I2C_ADDR, 0x40, &SSD1306_Buffer[SSD1306_WIDTH * m], SSD1306_WIDTH, hi2c);
+
 	}
+	memset(&SSD1306_Buffer, 0, sizeof(SSD1306_Buffer));
 }
 
 void SSD1306_ToggleInvert(void) {
@@ -601,20 +603,20 @@ void SSD1306_DrawFilledCircle(int16_t x0, int16_t y0, int16_t r, SSD1306_COLOR_t
  
 
 
-void SSD1306_Clear (void)
+void SSD1306_Clear (I2C_HandleTypeDef hi2c)
 {
 	SSD1306_Fill (0);
-    SSD1306_UpdateScreen();
+    SSD1306_UpdateScreen(hi2c);
 }
-void SSD1306_ON(void) {
-	SSD1306_WRITECOMMAND(0x8D);  
-	SSD1306_WRITECOMMAND(0x14);  
-	SSD1306_WRITECOMMAND(0xAF);  
+void SSD1306_ON( I2C_HandleTypeDef hi2c) {
+	SSD1306_WRITECOMMAND(0x8D, hi2c);
+	SSD1306_WRITECOMMAND(0x14, hi2c);
+	SSD1306_WRITECOMMAND(0xAF, hi2c);
 }
-void SSD1306_OFF(void) {
-	SSD1306_WRITECOMMAND(0x8D);  
-	SSD1306_WRITECOMMAND(0x10);
-	SSD1306_WRITECOMMAND(0xAE);  
+void SSD1306_OFF(I2C_HandleTypeDef hi2c) {
+	SSD1306_WRITECOMMAND(0x8D, hi2c);
+	SSD1306_WRITECOMMAND(0x10, hi2c);
+	SSD1306_WRITECOMMAND(0xAE, hi2c);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -635,23 +637,24 @@ void ssd1306_I2C_Init() {
 	//HAL_I2C_DeInit(&hi2c1);
 	//p = 250000;
 	//while(p>0)
-	//	p--;
+	//	p--
 	//MX_I2C1_Init();
 }
 
-void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t* data, uint16_t count) {
+void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t* data, uint16_t count, I2C_HandleTypeDef hi2c) {
 uint8_t dt[256];
 dt[0] = reg;
 uint8_t i;
-for(i = 0; i < count; i++)
-dt[i+1] = data[i];
-HAL_I2C_Master_Transmit(&hi2c1, address, dt, count+1, 10);
+for(i = 0; i < count; i++) {
+	dt[i+1] = data[i];
+}
+HAL_I2C_Master_Transmit(&hi2c, address, dt, count+1, 10);
 }
 
 
-void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data) {
+void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data, I2C_HandleTypeDef hi2c) {
 	uint8_t dt[2];
 	dt[0] = reg;
 	dt[1] = data;
-	HAL_I2C_Master_Transmit(&hi2c1, address, dt, 2, 10);
+	HAL_I2C_Master_Transmit(&hi2c, address, dt, 2, 10);
 }

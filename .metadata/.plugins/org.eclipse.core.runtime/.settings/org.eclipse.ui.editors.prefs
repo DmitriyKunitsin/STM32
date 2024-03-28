@@ -1,4 +1,4 @@
-AbstractTextEditor.Color.Background=13,13,38
+AbstractTextEditor.Color.Background=26,26,26
 AbstractTextEditor.Color.Background.SystemDefault=false
 AbstractTextEditor.Color.FindScope=24,96,124
 AbstractTextEditor.Color.Foreground=171,171,227
@@ -29,6 +29,9 @@ lineNumberColor=80,98,104
 linked.slave.color=66,156,255
 matchingTagIndicationColor=22,22,67
 occurrenceIndicationColor=54,54,4
+org.eclipse.cdt.ui.occurrenceHighlighting=false
+org.eclipse.cdt.ui.occurrenceIndication=true
+org.eclipse.cdt.ui.occurrenceTextStyle=DASHED_BOX
 org.eclipse.cdt.ui.writeOccurrenceIndicationColor=54,54,4
 overriddenByCSS=,AbstractTextEditor.Color.FindScope,AbstractTextEditor.Color.Foreground,AbstractTextEditor.Color.Foreground.SystemDefault,AbstractTextEditor.Color.SelectionBackground,AbstractTextEditor.Color.SelectionForeground,LSP4EReadOccurrenceIndicationColor,LSP4ETextOccurrenceIndicationColor,LSP4EWriteOccurrenceIndicationColor,TextOccurrenceIndicationColor,asOccurencesIndicationColor,breakpointIndicationColor,currentIPColor,currentLineColor,deletionIndicationColor,filteredSearchResultIndicationColor,findBlockColor,findIndicationColor,hyperlinkColor,hyperlinkColor.SystemDefault,infoIndicationColor,lineNumberColor,linked.slave.color,matchingTagIndicationColor,occurrenceIndicationColor,org.eclipse.cdt.ui.writeOccurrenceIndicationColor,overrideIndicatorColor,printMarginColor,searchResultHighlighting,searchResultIndication,searchResultIndicationColor,searchResultTextStyle,secondaryIPColor,spellingIndicationColor,writeOccurrenceIndicationColor,
 overrideIndicatorColor=62,96,93
