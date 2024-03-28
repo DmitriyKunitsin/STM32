@@ -1006,3 +1006,14 @@
 2024-03-28 10:25:36,439 [INFO] ApiDb:448 - Save user favorites file C:\Users\d.kunicin/.stm32cubeide/favorites.mcus.txt: 0 item(s)
 2024-03-28 10:25:36,439 [INFO] ApiDb:452 - User favorites MCUs=[]
 2024-03-28 10:58:46,014 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2024-03-28 10:59:57,200 [INFO] Activator:176 - 
+
+
+2024-03-28 10:59:57,200 [INFO] Activator:177 - !SESSION log4j initialized
+2024-03-28 11:00:00,809 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] ???. 28, 2024 11:00:02 AM org.glassfish.grizzly.http.server.NetworkListener start
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] INFO: Started listener bound to [localhost:1596]
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] ???. 28, 2024 11:00:02 AM org.glassfish.grizzly.http.server.HttpServer start
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] INFO: [HttpServer] Started.
+2024-03-28 11:00:02,291 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
