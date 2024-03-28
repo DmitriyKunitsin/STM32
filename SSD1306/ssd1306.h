@@ -23,10 +23,10 @@
 #ifndef SSD1306_H
 #define SSD1306_H 100
 
-/* C++ detection */
-#ifdef __cplusplus
-extern C {
-#endif
+///* C++ detection */
+//#ifdef __cplusplus
+//extern C {
+//#endif
 
 /**
  * This SSD1306 LCD uses I2C for communication
@@ -45,7 +45,7 @@ SCL        |PB6          |Serial clock line
 SDA        |PB7          |Serial data line
  */
 
-#include "stm32f1xx_hal.h"
+#include "stm32f4xx_hal.h"
 
 #include "fonts.h"
 
@@ -86,7 +86,7 @@ typedef enum {
  *           - 0: LCD was not detected on I2C port
  *           - > 0: LCD initialized OK and ready to use
  */
-uint8_t SSD1306_Init(void);
+uint8_t SSD1306_Init(I2C_HandleTypeDef hi2c1);
 
 /** 
  * @brief  Updates buffer from internal RAM to LCD
@@ -94,7 +94,7 @@ uint8_t SSD1306_Init(void);
  * @param  None
  * @retval None
  */
-void SSD1306_UpdateScreen(void);
+void SSD1306_UpdateScreen(I2C_HandleTypeDef hi2c);
 
 /**
  * @brief  Toggles pixels invertion inside internal RAM
@@ -245,7 +245,7 @@ void ssd1306_I2C_Init();
  * @param  data: data to be written
  * @retval None
  */
-void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data);
+void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data, I2C_HandleTypeDef hi2c);
 
 /**
  * @brief  Writes multi bytes to slave
@@ -256,7 +256,7 @@ void ssd1306_I2C_Write(uint8_t address, uint8_t reg, uint8_t data);
  * @param  count: how many bytes will be written
  * @retval None
  */
-void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t *data, uint16_t count);
+void ssd1306_I2C_WriteMulti(uint8_t address, uint8_t reg, uint8_t *data, uint16_t count, I2C_HandleTypeDef hi2c);
 
 /**
  * @brief  Draws the Bitmap
@@ -271,25 +271,25 @@ void SSD1306_DrawBitmap(int16_t x, int16_t y, const unsigned char* bitmap, int16
 
 // scroll the screen for fixed rows
 
-void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row);
+void SSD1306_ScrollRight(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c);
 
 
-void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row);
+void SSD1306_ScrollLeft(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c);
 
 
-void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row);
+void SSD1306_Scrolldiagright(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c);
 
 
-void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row);
+void SSD1306_Scrolldiagleft(uint8_t start_row, uint8_t end_row, I2C_HandleTypeDef hi2c);
 
 
 
-void SSD1306_Stopscroll(void);
+void SSD1306_Stopscroll( I2C_HandleTypeDef hi2c);
 
 
 // inverts the display i = 1->inverted, i = 0->normal
 
-void SSD1306_InvertDisplay (int i);
+void SSD1306_InvertDisplay (int i,  I2C_HandleTypeDef hi2c);
 
 
 
@@ -298,12 +298,12 @@ void SSD1306_InvertDisplay (int i);
 
 // clear the display
 
-void SSD1306_Clear (void);
+void SSD1306_Clear (I2C_HandleTypeDef hi2c);
 
 
-/* C++ detection */
-#ifdef __cplusplus
-}
-#endif
+///* C++ detection */
+//#ifdef __cplusplus
+//}
+//#endif
 
 #endif

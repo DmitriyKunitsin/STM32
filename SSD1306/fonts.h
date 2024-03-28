@@ -22,10 +22,10 @@
 #ifndef FONTS_H
 #define FONTS_H 120
 
-/* C++ detection */
-#ifdef __cplusplus
-extern C {
-#endif
+///* C++ detection */
+//#ifdef __cplusplus
+//extern C {
+//#endif
 
 /**
  *
@@ -38,7 +38,7 @@ extern C {
  *  - 11 x 18 pixels
  *  - 16 x 26 pixels
  */
-#include "stm32f1xx_hal.h"
+#include "stm32f4xx_hal.h"
 #include "string.h"
 
 /**
@@ -120,10 +120,10 @@ char* FONTS_GetStringSize(char* str, FONTS_SIZE_t* SizeStruct, FontDef_t* Font);
  * @}
  */
 
-/* C++ detection */
-#ifdef __cplusplus
-}
-#endif
+///* C++ detection */
+//#ifdef __cplusplus
+//}
+//#endif
 
  
 #endif
