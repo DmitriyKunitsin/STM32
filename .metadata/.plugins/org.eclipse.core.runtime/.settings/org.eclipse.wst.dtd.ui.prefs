@@ -1,2 +1,10 @@
+dtdComment=\#7CFC00 | null | false | false | false | false
+dtdData=\#E0E0E0 | null | null | null | null | null
+dtdDefault=\#E0E0E0 | null | null | null | null | null
+dtdKeyword=\#40C4FF | null | false | false | false | false
+dtdString=\#FF80FF | null | false | false | false | false
+dtdSymbol=\#E0E0E0 | null | false | false | false | false
+dtdTag=\#E0E0E0 | null | false | false | false | false
+dtdTagName=\#E0E0E0 | null | false | false | false | false
 eclipse.preferences.version=1
-overriddenByCSS=,
+overriddenByCSS=,dtdKeyword,dtdTag,dtdString,dtdTagName,dtdDefault,dtdData,dtdSymbol,dtdComment,

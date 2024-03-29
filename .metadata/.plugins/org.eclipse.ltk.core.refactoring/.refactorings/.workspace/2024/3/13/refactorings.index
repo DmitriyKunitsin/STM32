@@ -3,3 +3,4 @@
 1711523697857	Delete resource 'Display'
 1711617418089	Delete resource 'StaticIndication/Drivers/SSD1306'
 1711618682800	Delete resource 'StaticIndication/Core/Inc/lcd_static'
+1711703256931	Delete resource 'HAL_ADC'

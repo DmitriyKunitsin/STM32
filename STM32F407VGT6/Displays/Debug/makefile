@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (10.3-2021.10)
+# Toolchain: GNU Tools for STM32 (12.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -60,8 +60,8 @@ all: main-build
 main-build: Displays.elf secondary-outputs
 
 # Tool invocations
-Displays.elf Displays.map: $(OBJS) $(USER_OBJS) C:\Users\d.kunicin\NewProject\Displays\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Displays.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\d.kunicin\NewProject\Displays\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Displays.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Displays.elf Displays.map: $(OBJS) $(USER_OBJS) C:\Users\d.kunicin\NewProject\STM32F407VGT6\Displays\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Displays.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\d.kunicin\NewProject\STM32F407VGT6\Displays\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Displays.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
