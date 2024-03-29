@@ -1,18 +1,10 @@
-10:23:07 **** Incremental Build of configuration Debug for project Displays ****
+16:45:23 **** Incremental Build of configuration Debug for project Displays ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/ssd1306.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/ssd1306.d" -MT"Core/Src/ssd1306.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/ssd1306.o"
-arm-none-eabi-gcc -o "Displays.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\d.kunicin\NewProject\Displays\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Displays.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Displays.elf
- 
 arm-none-eabi-size   Displays.elf 
-arm-none-eabi-objdump -h -S  Displays.elf  > "Displays.list"
    text	   data	    bss	    dec	    hex	filename
   19156	    136	   2792	  22084	   5644	Displays.elf
 Finished building: default.size.stdout
  
-Finished building: Displays.list
- 
 
-10:23:08 Build Finished. 0 errors, 0 warnings. (took 901ms)
+16:45:24 Build Finished. 0 errors, 0 warnings. (took 285ms)
 
