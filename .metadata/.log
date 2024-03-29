@@ -12772,3 +12772,9 @@ org.eclipse.jface.text.BadLocationException
 
 !ENTRY org.eclipse.core.filebuffers 4 0 2024-03-29 09:18:55.993
 !MESSAGE The content type with id "com.genuitec.eclipse.codetogether.type" specified in the extension point does not exist.
+
+!ENTRY org.eclipse.core.filebuffers 4 0 2024-03-29 09:28:51.158
+!MESSAGE The content type with id "com.genuitec.eclipse.codetogether.type" specified in the extension point does not exist.
+
+!ENTRY org.eclipse.core.filebuffers 4 0 2024-03-29 09:28:51.158
+!MESSAGE The content type with id "com.genuitec.eclipse.codetogether.type" specified in the extension point does not exist.
