@@ -1,18 +1,25 @@
-09:28:51 **** Incremental Build of configuration Debug for project StaticIndication ****
+10:54:38 **** Incremental Build of configuration Debug for project Displays ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "StaticIndication.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\d.kunicin\NewProject\StaticIndication\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="StaticIndication.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: StaticIndication.elf
- 
-arm-none-eabi-size   StaticIndication.elf 
-arm-none-eabi-objdump -h -S  StaticIndication.elf  > "StaticIndication.list"
+arm-none-eabi-size   Displays.elf 
    text	   data	    bss	    dec	    hex	filename
-   6816	     20	   1572	   8408	   20d8	StaticIndication.elf
+  19156	    136	   2792	  22084	   5644	Displays.elf
 Finished building: default.size.stdout
  
-Finished building: StaticIndication.list
+10:54:42 **** Incremental Build of configuration Debug for project Displays ****
+make -j16 all 
+arm-none-eabi-size   Displays.elf 
+   text	   data	    bss	    dec	    hex	filename
+  19156	    136	   2792	  22084	   5644	Displays.elf
+Finished building: default.size.stdout
  
-09:28:54 **** Incremental Build of configuration Debug for project StaticIndication ****
+10:55:18 **** Incremental Build of configuration Debug for project Displays ****
+make -j16 all 
+arm-none-eabi-size   Displays.elf 
+   text	   data	    bss	    dec	    hex	filename
+  19156	    136	   2792	  22084	   5644	Displays.elf
+Finished building: default.size.stdout
+ 
+10:59:00 **** Incremental Build of configuration Debug for project StaticIndication ****
 make -j16 all 
 arm-none-eabi-size   StaticIndication.elf 
    text	   data	    bss	    dec	    hex	filename

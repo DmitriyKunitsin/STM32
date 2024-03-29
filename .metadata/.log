@@ -12778,3 +12778,17 @@ org.eclipse.jface.text.BadLocationException
 
 !ENTRY org.eclipse.core.filebuffers 4 0 2024-03-29 09:28:51.158
 !MESSAGE The content type with id "com.genuitec.eclipse.codetogether.type" specified in the extension point does not exist.
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-03-29 11:31:14.612
+!MESSAGE Indexed 'HAL_ADC' (19 sources, 81 headers) in 1.15 sec: 4,376 declarations; 17,620 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0091%)
+
+!ENTRY org.eclipse.core.resources 2 2 2024-03-29 11:36:06.972
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-03-29 11:36:06.972
+!MESSAGE The project description file (.project) for 'Displays' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-03-29 11:36:06.972
+!MESSAGE The project description file (.project) for 'HAL_ADC' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-03-29 11:36:06.972
+!MESSAGE The project description file (.project) for 'PWM' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-03-29 11:36:06.972
+!MESSAGE The project description file (.project) for 'StaticIndication' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
