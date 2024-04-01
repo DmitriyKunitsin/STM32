@@ -25,6 +25,7 @@
 #include  "stdio.h"
 #include "ssd1306.h"
 #include "fonts.h"
+#include "float_to_char.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -72,8 +73,8 @@ static void MX_I2C1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	char str[9] = {0};
-	uint16_t i;
+	char str[8] = {0};
+	float u;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -108,10 +109,12 @@ int main(void)
 	  // нужно дождаться конца преобразования.
 	  HAL_ADC_PollForConversion(&hadc1, 100);
 	  // Возьмем результат и сохраним его в переменную
-	  i = (uint32_t)HAL_ADC_GetValue(&hadc1);
+	  u = ((float)HAL_ADC_GetValue(&hadc1))*3/4096;
 	  // Остановим преобразования
 	  HAL_ADC_Stop(&hadc1);
-	  sprintf(str, "%04d", i);
+//	  uint8_t result;
+//	  sprintf(str, "%04d", i);
+	  float_to_char(&str, u, 5);
 	  // Указаываю координаты символа
 	  SSD1306_GotoXY(35, 0);
 	  // передаю строку

@@ -12,5 +12,9 @@
 		<item key="SmartImportRootWizardPage.STORE_CLOSE_IMPORTED" value="false"/>
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
+		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\d.kunicin\NewProject\STM32F407VGT6"/>
+			<item value="C:\Users\d.kunicin\NewProject\STM32F407VGT6\HAL_ADC"/>
+		</list>
 	</section>
 </section>
