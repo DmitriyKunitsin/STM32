@@ -73,7 +73,7 @@ static void MX_I2C1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	char str[8] = {0};
+	char str[9] = {0};
 	float u;
   /* USER CODE END 1 */
 
@@ -112,8 +112,7 @@ int main(void)
 	  u = ((float)HAL_ADC_GetValue(&hadc1))*3/4096;
 	  // Остановим преобразования
 	  HAL_ADC_Stop(&hadc1);
-//	  uint8_t result;
-//	  sprintf(str, "%04d", i);
+
 	  float_to_char(&str, u, 5);
 	  // Указаываю координаты символа
 	  SSD1306_GotoXY(35, 0);
