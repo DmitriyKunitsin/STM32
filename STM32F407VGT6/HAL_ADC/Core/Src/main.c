@@ -113,13 +113,14 @@ int main(void)
 	  // Остановим преобразования
 	  HAL_ADC_Stop(&hadc1);
 
-	  float_to_char(&str, u, 5);
+	  float_to_char((uint8_t*)&str, u, 5);
 	  // Указаываю координаты символа
 	  SSD1306_GotoXY(35, 0);
 	  // передаю строку
 	  SSD1306_Puts(str,  &Font_11x18, 1);
 	  // обновляю экран
 	  SSD1306_UpdateScreen(hi2c1);
+
 	  HAL_Delay(500);
     /* USER CODE END WHILE */
 

@@ -1514,7 +1514,7 @@ int main(void)
  8001072:	4813      	ldr	r0, [pc, #76]	; (80010c0 <main+0xbc>)
  8001074:	f001 f828 	bl	80020c8 <HAL_ADC_Stop>
 
-	  float_to_char(&str, u, 5);
+	  float_to_char((uint8_t*)&str, u, 5);
  8001078:	463b      	mov	r3, r7
  800107a:	2105      	movs	r1, #5
  800107c:	ed97 0a03 	vldr	s0, [r7, #12]
@@ -1542,6 +1542,7 @@ int main(void)
  80010a6:	f002 ff6b 	bl	8003f80 <memcpy>
  80010aa:	e894 000f 	ldmia.w	r4, {r0, r1, r2, r3}
  80010ae:	f000 fae3 	bl	8001678 <SSD1306_UpdateScreen>
+
 	  HAL_Delay(500);
  80010b2:	f44f 70fa 	mov.w	r0, #500	; 0x1f4
  80010b6:	f000 fecd 	bl	8001e54 <HAL_Delay>

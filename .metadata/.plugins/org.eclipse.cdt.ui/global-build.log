@@ -1,4 +1,4 @@
-08:24:49 **** Incremental Build of configuration Debug for project HAL_ADC ****
+08:35:44 **** Incremental Build of configuration Debug for project HAL_ADC ****
 make -j16 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function 'main':
@@ -21,4 +21,11 @@ arm-none-eabi-objdump -h -S  HAL_ADC.elf  > "HAL_ADC.list"
 Finished building: default.size.stdout
  
 Finished building: HAL_ADC.list
+ 
+08:35:49 **** Incremental Build of configuration Debug for project HAL_ADC ****
+make -j16 all 
+arm-none-eabi-size   HAL_ADC.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23820	    128	   2776	  26724	   6864	HAL_ADC.elf
+Finished building: default.size.stdout
  
