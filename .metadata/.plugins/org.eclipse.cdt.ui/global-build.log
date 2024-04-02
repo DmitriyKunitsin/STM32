@@ -1,0 +1,31 @@
+08:35:44 **** Incremental Build of configuration Debug for project HAL_ADC ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:116:18: warning: passing argument 1 of 'float_to_char' from incompatible pointer type [-Wincompatible-pointer-types]
+  116 |    float_to_char(&str, u, 5);
+      |                  ^~~~
+      |                  |
+      |                  char (*)[9]
+In file included from ../Core/Src/main.c:28:
+../Core/Inc/float_to_char.h:9:29: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char (*)[9]'
+    9 | void float_to_char(uint8_t *out, float x,int decimalPoin);
+      |                    ~~~~~~~~~^~~
+arm-none-eabi-gcc -o "HAL_ADC.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\d.kunicin\NewProject\STM32F407VGT6\HAL_ADC\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HAL_ADC.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: HAL_ADC.elf
+ 
+arm-none-eabi-size   HAL_ADC.elf 
+arm-none-eabi-objdump -h -S  HAL_ADC.elf  > "HAL_ADC.list"
+   text	   data	    bss	    dec	    hex	filename
+  23820	    128	   2776	  26724	   6864	HAL_ADC.elf
+Finished building: default.size.stdout
+ 
+Finished building: HAL_ADC.list
+ 
+08:35:49 **** Incremental Build of configuration Debug for project HAL_ADC ****
+make -j16 all 
+arm-none-eabi-size   HAL_ADC.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23820	    128	   2776	  26724	   6864	HAL_ADC.elf
+Finished building: default.size.stdout
+ 

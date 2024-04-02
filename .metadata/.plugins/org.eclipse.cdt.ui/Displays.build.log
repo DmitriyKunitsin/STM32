@@ -1,0 +1,10 @@
+10:55:18 **** Incremental Build of configuration Debug for project Displays ****
+make -j16 all 
+arm-none-eabi-size   Displays.elf 
+   text	   data	    bss	    dec	    hex	filename
+  19156	    136	   2792	  22084	   5644	Displays.elf
+Finished building: default.size.stdout
+ 
+
+10:55:19 Build Finished. 0 errors, 0 warnings. (took 232ms)
+

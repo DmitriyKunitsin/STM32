@@ -39,3 +39,7 @@
 637_shot\stm32l4xx_it.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart.h
 637_shot\stm32l4xx_it.o: ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_uart_ex.h
 637_shot\stm32l4xx_it.o: ../Core/Inc/stm32l4xx_it.h
+637_shot\stm32l4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+637_shot\stm32l4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+637_shot\stm32l4xx_it.o: .\RTE\_637_SHOT\../../Register_UART.h
+637_shot\stm32l4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

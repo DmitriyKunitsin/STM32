@@ -1,0 +1,10 @@
+AbstractTextEditor.Color.Background=13,13,38
+AbstractTextEditor.Color.Background.SystemDefault=false
+AbstractTextEditor.Color.SelectionBackground.SystemDefault=false
+AbstractTextEditor.Color.SelectionForeground.SystemDefault=false
+eclipse.preferences.version=1
+errorIndicationColor=255,255,0
+errorTextStyle=SQUIGGLES
+org.eclipse.cdt.ui.occurrenceHighlighting=false
+org.eclipse.cdt.ui.occurrenceIndication=true
+org.eclipse.cdt.ui.occurrenceTextStyle=DASHED_BOX

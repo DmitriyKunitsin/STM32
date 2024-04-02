@@ -21,26 +21,32 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define UART_BUFFER_SIZE 9
-#define CRC_Polynom 0x3C
+//#define UART_BUFFER_SIZE 9
+//#define CRC_Polynom 0x3C
 #include "string.h"
 #include "../../Register_UART.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-	typedef struct {
-		uint8_t adress;
+	#define UART_BUFFER_SIZE 13
+	 typedef struct {
+		uint16_t comparator;
 		uint8_t size;
-		uint8_t command;
 		uint8_t CRC8;
-		uint8_t data[UART_BUFFER_SIZE];
+		uint8_t count;
+		uint16_t timer;
+		uint8_t rx_data[UART_BUFFER_SIZE];
+		uint8_t tx_answer[UART_BUFFER_SIZE];
 	} Packet;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-	
+
+	#define CRC_Polynom 0x3C
+	#define PGS ((10000 + 1) / 80e6f) * 1000000
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,14 +71,15 @@ UART_HandleTypeDef huart2;
 char test[20];
 char output[20];
 uint8_t testUint;
-uint8_t val_6_bit;
-uint8_t result = 0;
-
+uint8_t rx_data_index = 0;
+uint8_t flag = 0;
+uint16_t counter = 0;
+uint8_t timer_flag = 0;
+int COUNTcheck = 0;
+uint16_t time_per_tick = PGS;
+uint32_t timer_start ;
 uint8_t rx_data;
-uint8_t uart_rx_index = 0;
-uint8_t uart_rx_buffer[UART_BUFFER_SIZE];
-uint8_t uart_tx_buffer[UART_BUFFER_SIZE];
-
+uint8_t rx_data_buffer[UART_BUFFER_SIZE];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -82,14 +89,22 @@ static void MX_ADC1_Init(void);
 static void MX_DAC1_Init(void);
 static void MX_TIM6_Init(void);
 static void MX_TIM7_Init(void);
-static void MX_TIM15_Init(void);
+//static void MX_TIM15_Init(void);
 static void MX_TIM16_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN PFP */
-void My_Data_Processing_Function(uint8_t* data_buffer);
-void CRC_com(Packet* packet);
-uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
+void TIM15_Init(void);
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet);
+void CRC_com_Incoming(Packet** packet_input);
+void CRC_com_Outgoing(Packet** packet_output);
+uint16_t My_Start_Timer(uint8_t flag);
+uint16_t Get_Comparator(Packet* packet_7_8);
+void Set_tx_answer_Size_2(Packet** packet_full);
+void Set_tx_answer_Size_12(Packet** packet_full);
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh);
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo);
+void clearPacket(Packet** packet);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -102,15 +117,14 @@ uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
 //	}
 //	//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
 //	//HAL_UART_RxCpltCallback(&huart1);
-////	strcpy(test, "suc\r\n");
-////								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
+//	
 //	EXTI->PR1 = EXTI_PR1_PIF0;
-////	
-////	NVIC_DisableIRQ(EXTI0_IRQn);
-////	
-////	NVIC_ClearPendingIRQ(EXTI0_IRQn);
-////	
-////	NVIC_EnableIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_DisableIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_ClearPendingIRQ(EXTI0_IRQn);
+//	
+//	//NVIC_EnableIRQ(EXTI0_IRQn);
 //}
 
 //void blobBlob() {
@@ -123,134 +137,6 @@ uint8_t My_Read_Uart(UART_HandleTypeDef* huart1, UART_HandleTypeDef* huart2);
 //	for(int i = 0; i < 5000; i++) {}
 //}
 
-
-
-//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//	
-//	if (huart == &huart1) {
-//		  
-////				HAL_UART_Transmit(&huart2, (uint8_t*)"UART1 event\r\n", 13, HAL_MAX_DELAY);
-////				uart_rx_buffer[uart_rx_index] = huart->Instance->RDR;//My_Read_Uart(&huart1, &huart2);
-//		
-//				while((huart->Instance->ISR & USART_ISR_RXNE) == 0) {}
-//					rx_data = huart->Instance->RDR;
-//					
-//				while((huart2.Instance->ISR & USART_ISR_TXE) == 0) {}
-//					huart2.Instance->RDR = rx_data;
-//					//HAL_UART_Transmit(&huart2, &rx_data, 8, HAL_MAX_DELAY);
-//        //uart_rx_buffer[uart_rx_index] = rx_data; // rx_data - прочитанный байт из UART
-////        if (uart_rx_index == UART_BUFFER_SIZE) {
-////            // Обработка принятого пакета
-////						My_Data_Processing_Function(uart_rx_buffer);
-////            uart_rx_index = 0; // Сброс индекса для приема следующего пакета
-////        }
-////				uart_rx_index++;
-////				sprintf(test, "index : %d\r\n", uart_rx_index);
-////				HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//				HAL_UART_Receive_IT(&huart1, &rx_data, 1); // Запуск приема следующего байта
-//    }
-//}
-
-void My_Data_Processing_Function(uint8_t* data_buffer) {
-		
-		Packet* packet = (Packet*)data_buffer;
-		packet->command = packet->data[3];
-		testUint = packet->command;
-		sprintf(output, "command : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-		
-		packet->adress = packet->data[0];
-		testUint = packet->adress;
-		sprintf(output, "adress : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-	
-		packet->size = packet->data[1];
-		testUint = packet->size;
-		sprintf(output, "size : %d\r\n", testUint);
-		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-			if(packet->adress == 0x40) {
-				
-				switch(packet->command) {
-					case 0x11:
-						strcpy(test, "0x11"); 
-						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-								strcpy(test, "suc\r\n");
-								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-							}
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[8]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					case 0x13:
-						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						CRC_com(packet);
-						if(packet->CRC8 == packet->data[4]) {
-							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-						}
-						break;
-					default:
-						
-						break;
-				}
-			}
-}
-
-//void My_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-//	if(huart == &huart1) {
-//		
-//		Packet* packet = (Packet*)uart_rx_buffer;
-//		packet->command = packet->data[3];
-//		testUint = packet->command;
-//		sprintf(output, "command : %d", testUint);
-//		HAL_UART_Transmit(&huart2, (uint8_t*)output, strlen(output), HAL_MAX_DELAY);
-//		
-//		packet->adress = packet->data[0];
-//		packet->size = packet->data[1];
-//			if(packet->adress == 0x40) {
-//				
-//				switch(packet->command) {
-//					case 0x11:
-//						strcpy(test, "0x11"); 
-//						HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							if(HAL_UART_GetState(&huart2) == HAL_UART_STATE_READY) {
-//								strcpy(test, "suc\r\n");
-//								HAL_UART_Transmit(&huart2, (uint8_t*)test, strlen(test), HAL_MAX_DELAY);
-//							}
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[8]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					case 0x13:
-//						//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						CRC_com(packet);
-//						if(packet->CRC8 == packet->data[4]) {
-//							//HAL_UART_Transmit(&huart2, test, 1, HAL_MAX_DELAY);
-//						}
-//						break;
-//					default:
-//						
-//						break;
-//				}
-//			}
-//	}
-//}
-
-void CRC_com(Packet* packet) {
-	packet->CRC8 = 0x00;
-	for(int i =0; i < packet->size; i++) {
-		packet->CRC8 ^= packet->data[i];
-		if(packet->CRC8 & (1 << 0)) {
-			packet->CRC8 >>= 1;
-			packet->CRC8 |= (1 << 7);
-			packet->CRC8 ^= CRC_Polynom;
-		} else {
-			packet->CRC8 >>=1;
-		}
-	}
-}
 /* USER CODE END 0 */
 
 /**
@@ -285,11 +171,13 @@ int main(void)
   MX_DAC1_Init();
   MX_TIM6_Init();
   MX_TIM7_Init();
-  MX_TIM15_Init();
+  //MX_TIM15_Init();
+	TIM15_Init();
   MX_TIM16_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+	HAL_TIM_Base_Start_IT(&htim15);// запускаю таймер
 		// USART __________________
 		// ON Usart
 		rUART->CR1.UE = 1;
@@ -299,11 +187,11 @@ int main(void)
 		DAC->CR |= 0x1;
 		// 4095 - MAX VALUE 0xFFF
 		// 0 - MIN VALUE 
-		DAC->DHR12R1 = 0xFFF;
+		
 		
 		// GPIO_EXT _______________
 		// Включение прерывания на пине
-		//EXTI->IMR1 |= EXTI_IMR1_IM0;
+		EXTI->IMR1 |= EXTI_IMR1_IM0;
 		
 		// Настройка типов срабатывания(по фронту или спаду)
 		// Register RTSR1 for FRONT
@@ -312,20 +200,31 @@ int main(void)
 		// Register FTSR1 for Spad
 		/*		EXTI->FTSR1 |= EXTI_FTSR1_FT0;    */
 		
-		//NVIC_SetPriority(EXTI0_IRQn, 0);// Устанавливаю приоритет прерывания EXT
+		NVIC_SetPriority(EXTI0_IRQn, 1);// Устанавливаю приоритет прерывания EXT
+		NVIC_SetPriority(USART1_IRQn, 0);
 		
-		//NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
+		NVIC_EnableIRQ(EXTI0_IRQn);// разрешаю прерывание EXT
 		
 		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_RESET);
+		    Packet packet;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		//if (HAL_UART_Receive_IT(&huart1, uart_rx_buffer, UART_BUFFER_SIZE) == HAL_OK) {
-      // Обработка принятых данных
-    //}
+		
+            if(rx_data_index == 12 && rx_data_buffer[1] == 9) {
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);
+            }
+						if(rx_data_index == 5 && rx_data_buffer[1] == 2) {
+							packet.timer  =	My_Start_Timer(timer_flag);
+							rx_data_index = 0;
+              My_rx_data_Processing_Function(rx_data_buffer, &packet);
+              memset(rx_data_buffer, 0, UART_BUFFER_SIZE);   
+            }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -576,50 +475,92 @@ static void MX_TIM7_Init(void)
   * @param None
   * @retval None
   */
-static void MX_TIM15_Init(void)
-{
+void TIM15_Init(void) {
+    // Включаем тактирование TIM15
+    RCC->APB2ENR |= RCC_APB2ENR_TIM15EN;
 
-  /* USER CODE BEGIN TIM15_Init 0 */
+    // Устанавливаем значение предделителя
+		TIM15->PSC = 10000; // такое значение по причине, что тактирование таймера равно 80MHz
+		// без предделителя частота периода 12.5 наносекунд
+		// с этим значением 125 микросекунд
+		/*
+			Период = (PSC + 1) / Частота_тактирования
 
-  /* USER CODE END TIM15_Init 0 */
+			где PSC - значение предделителя таймера.
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
+			Подставляя значения:
 
-  /* USER CODE BEGIN TIM15_Init 1 */
+			Период = (10000 + 1) / 80 МГц
+			Период ≈ 125 мкс (микросекунд)
+	
+    */
+	
+    // Устанавливаем режим счета
+    TIM15->CR1 &= ~TIM_CR1_DIR; // Режим счета вверх
+    TIM15->CR1 &= ~TIM_CR1_CMS; // Выравнивание по фронту
 
-  /* USER CODE END TIM15_Init 1 */
-  htim15.Instance = TIM15;
-  htim15.Init.Prescaler = 0;
-  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim15.Init.Period = 65535;
-  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim15.Init.RepetitionCounter = 0;
-  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim15) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim15, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_OnePulse_Init(&htim15, TIM_OPMODE_SINGLE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM15_Init 2 */
+    // Устанавливаем значение периода счета
+    TIM15->ARR = 65535;
 
-  /* USER CODE END TIM15_Init 2 */
+    // Устанавливаем делитель тактового сигнала
+    TIM15->CR1 &= ~TIM_CR1_CKD; // Делитель равен 1
 
+    // Устанавливаем источник тактового сигнала
+    TIM15->SMCR &= ~TIM_SMCR_SMS; // Внутренний источник тактового сигнала
+
+    // Отключаем режим повторного запуска
+    TIM15->RCR = 0;
+
+    // Отключаем предзагрузку ARR
+    TIM15->CR1 &= ~TIM_CR1_ARPE;
+
+    // Включаем таймер
+    TIM15->CR1 |= TIM_CR1_CEN;
 }
+//static void MX_TIM15_Init(void)
+//{
+
+//  /* USER CODE BEGIN TIM15_Init 0 */
+
+//  /* USER CODE END TIM15_Init 0 */
+
+//  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+//  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+//  /* USER CODE BEGIN TIM15_Init 1 */
+
+//  /* USER CODE END TIM15_Init 1 */
+//  htim15.Instance = TIM15;
+//  htim15.Init.Prescaler = 0;
+//  htim15.Init.CounterMode = TIM_COUNTERMODE_UP;
+//  htim15.Init.Period = 65535;
+//  htim15.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+//  htim15.Init.RepetitionCounter = 0;
+//  htim15.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+//  if (HAL_TIM_Base_Init(&htim15) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+//  if (HAL_TIM_ConfigClockSource(&htim15, &sClockSourceConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  if (HAL_TIM_OnePulse_Init(&htim15, TIM_OPMODE_SINGLE) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+//  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+//  if (HAL_TIMEx_MasterConfigSynchronization(&htim15, &sMasterConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//  /* USER CODE BEGIN TIM15_Init 2 */
+
+//  /* USER CODE END TIM15_Init 2 */
+
+//}
 
 /**
   * @brief TIM16 Initialization Function
@@ -775,10 +716,202 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
+void My_rx_data_Processing_Function(uint8_t* rx_data_buffer, Packet* packet) {
+	
+		packet->size = rx_data_buffer[1];
+		if(packet->size == 9) {
+			HAL_NVIC_DisableIRQ(USART1_IRQn);
+			for(int i = 0; i < 12; i++) // большой пакет запроса
+			{
+				packet->rx_data[i] = rx_data_buffer[i];
+			}
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[11]) {
+				DAC->DHR12R1 = Get_Comparator(packet);
+				Set_tx_answer_Size_12(&packet);
+				CRC_com_Outgoing(&packet);
+				Set_tx_answer_uart(packet, 3);
+				HAL_NVIC_EnableIRQ(USART1_IRQn);
+			}
+			clearPacket(&packet);
+		} else {
+			HAL_NVIC_DisableIRQ(USART1_IRQn);
+			for(int i = 0; i < 5; i++) { // малый пакет запроса
+				packet->rx_data[i] = rx_data_buffer[i];
+			}
+			CRC_com_Incoming(&packet);
+			if(packet->CRC8 == packet->rx_data[4]) {
+				packet->count = counter;
+				Set_tx_answer_Size_2(&packet);
+				CRC_com_Outgoing(&packet);
+				Set_tx_answer_uart(packet, 12);
+				counter = 0;
+				HAL_NVIC_EnableIRQ(USART1_IRQn);
+			}
+			clearPacket(&packet);
+	}
+	rx_data_index = 0;
+}
 
+uint16_t Get_Comparator(Packet* packet_7_8) {
+	uint8_t valueOne = packet_7_8->rx_data[7];
+	uint8_t valueTwo = packet_7_8->rx_data[8];
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;  
+}
+
+uint16_t Test_Get_Comparator(uint8_t One, uint8_t Two) {
+	uint8_t valueOne = One;
+	uint8_t valueTwo = Two;
+	
+	uint16_t result = (valueOne << 8) | valueTwo;// Объединяем два значения в одно 16-битное значение
+	// используя побитовый сдвиг на 8 бит влево для первого значения и побитовое ИЛИ для объединения двух значений
+	return result;  
+}
+void Split_Comparator(uint16_t value, uint8_t* valueOne, uint8_t* valueTwo) {
+		*valueOne = (value >> 8) & 0xFF;// Получаю старший байт путем сдвига на 8 бит вправо и применения маски
+		
+		*valueTwo = value & 0xFF;	// Получаю младший байт путем применения маски
+}
+
+void Set_tx_answer_Size_2(Packet** packet_full) {
+		Packet* packet = *packet_full;
+		uint8_t valOne, valTwo;
+	
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] =	0x0A; // Size=10
+		packet->tx_answer[2] =	0x03; // Flag
+		packet->tx_answer[3] =	0x01; // Result
+		Split_Comparator(packet->timer, &valOne, &valTwo);
+		packet->tx_answer[4] =	valOne;// Time
+		packet->tx_answer[5] =	valTwo;// Time
+		Split_Comparator(packet->count, &valOne, &valTwo);
+		packet->tx_answer[6] =	valOne; // CntTotal
+		packet->tx_answer[7] =	valTwo; // CntTotal
+		packet->tx_answer[8] =	0x00;
+		packet->tx_answer[9] =	0x00;
+		packet->tx_answer[10] =	0;
+		packet->tx_answer[11] =	0;
+		packet->tx_answer[12]	=	packet->CRC8; // CRC8
+}
+
+void Set_tx_answer_Size_12(Packet** packet_full) {
+		Packet* packet = *packet_full;
+	
+		packet->tx_answer[0] = 0x23; // adres
+		packet->tx_answer[1] = 0x01; // Size = 1
+		packet->tx_answer[2] = 0x03; // FLAG
+		packet->tx_answer[3] =	packet->CRC8; // CRC8
+}
+void Set_tx_answer_uart(Packet* packet_tx_answer, uint8_t lengh) {
+		while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE))){}
+			//HAL_UART_Transmit(&huart1, packet_tx_answer->tx_answer, strlen((char*)packet_tx_answer->tx_answer), HAL_MAX_DELAY);
+			for(int i = 0; i < lengh; i++) {
+			huart1.Instance->TDR = packet_tx_answer->tx_answer[i];
+			
+			    while(!(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TC))) {} // Ждем завершения передачи
+			
+		}
+			if(lengh == 12) {
+				HAL_UART_Transmit(&huart2, (uint8_t*)"SUCCES 12\r\n", strlen("SUCCES 12\r\n"), HAL_MAX_DELAY);
+			} else {
+				HAL_UART_Transmit(&huart2, (uint8_t*)"SUCCES 3\r\n", strlen("SUCCES 3\r\n"), HAL_MAX_DELAY);
+			}
+//		huart2.Instance->TDR = packet_tx_answer->tx_answer[lengh];
+//		while(!(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_TC))) {} // Ждем завершения передачи для UART2
+		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
+}
+
+void CRC_com_Incoming(Packet** packet_input) {
+	Packet* packet = *packet_input;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	packet->CRC8 = 0x00;
+	int lenght = 0;
+	if(packet->size == 9) {
+		lenght = 12;
+		packet->size = 0x01; 
+	} else {
+		lenght = 5;
+		packet->size = 0x0A; 
+	}
+	for(int i =0; i < lenght - 1; i++) {
+		packet->CRC8 ^= packet->rx_data[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+}
+
+void CRC_com_Outgoing(Packet** packet_output) {
+	Packet* packet = *packet_output;// Разыменовываем указатель на указатель для доступа к структуре Packet
+	packet->CRC8 = 0x00;
+	int lenght = 0;
+	if(packet->size == 0x0A) {
+		lenght = 13;
+	} else {
+		lenght = 4;
+	}
+	for(int i =0; i < lenght - 1; i++) {
+		packet->CRC8 ^= packet->tx_answer[i];
+		if(packet->CRC8 & (1 << 0)) {
+			packet->CRC8 >>= 1;
+			packet->CRC8 |= (1 << 7);
+			packet->CRC8 ^= CRC_Polynom;
+		} else {
+			packet->CRC8 >>=1;
+		}
+	}
+	packet->tx_answer[lenght - 1] = packet->CRC8;
+}
+
+uint16_t My_Start_Timer(uint8_t flag) {
+			
+			static uint32_t timer_end ;
+			uint16_t timer_elapsed = 0;
+	
+			timer_end = TIM15->CNT; // записываю показания окончания таймера
+			uint16_t elapsed_ticks = (timer_end > timer_start) ? (timer_end - timer_start): (timer_start - timer_end);
+	
+	//		uint16_t time_per_tick = ((10000 + 1) / 80e6f) * 1000000; // Время на один тик в МКС // примерно 0.000125 секунды или 125 микросекунды
+	//														10000 + 1 - это зачение преддделителя таймера
+			timer_elapsed = elapsed_ticks * time_per_tick;//расчитываю время работы таймера в МКС
+	//				elapsed_ticks - кол-во тиков    time_per_tick - время на один тик в наносекундах
+			uint16_t result =	timer_elapsed; // Конверт секунд в микросекунды
+	
+			timer_start = 0;// 8e7f частота тактирования МК 80 MHz
+			timer_end = 0;
+			timer_start = TIM15->CNT;
+	return result;
+}
+void clearPacket(Packet** packet_clear) {
+		Packet* packet = *packet_clear;
+    packet->comparator = 0;
+    packet->size = 0;
+    packet->CRC8 = 0;
+    packet->count = 0;
+    packet->timer = 0;
+
+    // Очистка массивов rx_data и tx_answer
+    for (int i = 0; i < UART_BUFFER_SIZE; i++) {
+        packet->rx_data[i] = 0;
+        packet->tx_answer[i] = 0;
+    }
+}
 /* USER CODE END 4 */
 
 /**
