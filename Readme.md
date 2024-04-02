@@ -1,5 +1,5 @@
 # STM32
-# Folder with project STM32F407VGT6
+# [Folder with project STM32F407VGT6](./STM32F407VGT6/Readme.md) 
 ## Проект Display №1
 ![alt text](/Screenshots/image.png)
 В данном проекте реализована библиотека для работы с данными дисплеями, которая позволяет обращаться к разным I2C, в связи с тем, что дисплеи одинаковые, то использовал разные I2C
