@@ -6,4 +6,4 @@
 
 ## [Folder with project STM32F407VGT6](/STM32F407VGT6/)
 
-## [Floder with projects STM32F103C8T6](/STM32F103C8T/README.md)
+## [Floder with projects STM32F103C8T6](/STM32F103C8T/)
