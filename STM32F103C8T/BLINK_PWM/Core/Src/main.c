@@ -30,7 +30,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define My_Period 65535
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -107,16 +107,16 @@ int main(void) {
 			T = HAL_GetTick();
 			if (flag) {
 				TIM2->CCR2 = i;
-				TIM2->CCR3 = 65535 - i;
+				TIM2->CCR3 = My_Period - i;
 				i++;
-				i = (i == 65535) ? 0 : i;
-				flag = (i == 65535) ? 0 : 1;
+				i = (i == My_Period) ? 0 : i;
+				flag = (i == My_Period) ? 0 : 1;
 			} else {
 				TIM2->CCR3 = i;
-				TIM2->CCR2 = 65535 - i;
+				TIM2->CCR2 = My_Period - i;
 				i++;
-				i = (i == 65535) ? 0 : i;
-				flag = (i == 65535) ? 1 : 0;
+				i = (i == My_Period) ? 0 : i;
+				flag = (i == My_Period) ? 1 : 0;
 			}
 		}
 	}

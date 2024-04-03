@@ -67,3 +67,8 @@ void Button_2() {
 	}
 }
 ```
+
+## Проект Blink_PWM 
+![alt text](./Screenshots/image3.png)
+В данном проекте настроен ШИП таймера 2 на двух каналах
+> Макетная плата STM32F103C8T6
