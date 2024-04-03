@@ -42,7 +42,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-bool flag;
+bool flag, flag_block_1, flag_set_1, flag_block_2, flag_set_2;
 unsigned long T;
 /* USER CODE END PV */
 
@@ -50,35 +50,14 @@ unsigned long T;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void Blink();
+void Button_1();
+void Button_2();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void Blink() {
-	//LED_GPIO_Port = GPIOC;
-	//LED_Pin = GPIO_PIN_13
-	if (flag == 1) {
-		if (HAL_GetTick() - T >= 2000) {
-			flag = 0;
-			T = HAL_GetTick();
-		}
-	}
-	if (flag == 0) {
-		if (HAL_GetTick() - T >= 2000) {
-			flag = 1;
-			T = HAL_GetTick();
-		}
-	}
-	/* OR
-	 if(flag) {
-	 GPIOC->BSRR = (uint32_t) LED_Pin << 16u;
-	 } else {
-	 GPIOC->BSRR = LED_Pin;
-	 }
-	 */
-	HAL_GPIO_WritePin(GPIOC, LED_Pin, flag);
-}
+
 /* USER CODE END 0 */
 
 /**
@@ -119,13 +98,8 @@ int main(void) {
 
 		/* USER CODE BEGIN 3 */
 		Blink();
-		if(HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin)) {
-//			HAL_GPIO_WritePin(RED_GPIO_Port, RED_Pin, GPIO_PIN_SET);
-			GPIOA->BSRR = RED_Pin;
-		} else {
-//			HAL_GPIO_WritePin(RED_GPIO_Port, RED_Pin, GPIO_PIN_RESET);
-			GPIOA->BRR = RED_Pin;
-		}
+		Button_1();
+		Button_2();
 	}
 	/* USER CODE END 3 */
 }
@@ -218,7 +192,58 @@ static void MX_GPIO_Init(void) {
 }
 
 /* USER CODE BEGIN 4 */
+void Blink() {
+	//LED_GPIO_Port = GPIOC;
+	//LED_Pin = GPIO_PIN_13
+	if (flag == 1) {
+		if (HAL_GetTick() - T >= 2000) {
+			flag = 0;
+			T = HAL_GetTick();
+		}
+	}
+	if (flag == 0) {
+		if (HAL_GetTick() - T >= 2000) {
+			flag = 1;
+			T = HAL_GetTick();
+		}
+	}
+	/* OR
+	 if(flag) {
+	 GPIOC->BSRR = (uint32_t) LED_Pin << 16u;
+	 } else {
+	 GPIOC->BSRR = LED_Pin;
+	 }
+	 */
+	HAL_GPIO_WritePin(GPIOC, LED_Pin, flag);
+}
 
+void Button_1() {
+	if ((GPIOC->IDR & BUTTON_1_Pin) && !flag_block_1) {
+		flag_block_1 = 1;
+		flag_set_1 = !flag_set_1;
+		if (flag_set_1) {
+			GPIOA->BSRR = RED_Pin;
+		} else if (!flag_set_1) {
+			GPIOA->BRR = RED_Pin;
+		}
+	} else if (!(GPIOC->IDR & BUTTON_1_Pin) && flag_block_1) {
+		flag_block_1 = 0;
+	}
+}
+
+void Button_2() {
+	if ((GPIOC->IDR & BUTTON_2_Pin) && !flag_block_1) {
+		flag_block_2 = 1;
+		flag_set_2 = !flag_set_2;
+		if (flag_set_1) {
+			GPIOA->BSRR = GREEN_Pin;
+		} else if (!flag_set_2) {
+			GPIOA->BRR = GREEN_Pin;
+		}
+	} else if (!(GPIOC->IDR & BUTTON_2_Pin) && flag_block_2) {
+		flag_block_2 = 0;
+	}
+}
 /* USER CODE END 4 */
 
 /**
