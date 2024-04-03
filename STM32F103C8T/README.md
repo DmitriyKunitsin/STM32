@@ -72,3 +72,21 @@ void Button_2() {
 ![alt text](./Screenshots/image3.png)
 В данном проекте настроен ШИП таймера 2 на двух каналах
 > Макетная плата STM32F103C8T6
+```
+if (HAL_GetTick() - T >= 1) {
+			T = HAL_GetTick();
+			if (flag) {
+				TIM2->CCR2 = i;
+				TIM2->CCR3 = My_Period - i;
+				i++;
+				i = (i == My_Period) ? 0 : i;
+				flag = (i == My_Period) ? 0 : 1;
+			} else {
+				TIM2->CCR3 = i;
+				TIM2->CCR2 = My_Period - i;
+				i++;
+				i = (i == My_Period) ? 0 : i;
+				flag = (i == My_Period) ? 1 : 0;
+			}
+		}
+```
