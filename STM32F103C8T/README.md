@@ -31,3 +31,39 @@ while (1) {
 		HAL_GPIO_WritePin(GPIOC,  LED_Pin, flag);
 	}
 ```
+
+
+## Проект Blink_Button_002
+![alt text](./Screenshots/image2.png)
+Реализована моргание светодиодом за счет нажатия на кнопки BT_1 и BT_2
+> Макетная плата STM32F103C8T6
+
+```
+void Button_1() {
+	if ((GPIOC->IDR & BUTTON_1_Pin) && !flag_block_1) {
+		flag_block_1 = 1;
+		flag_set_1 = !flag_set_1;
+		if (flag_set_1) {
+			GPIOA->BSRR = RED_Pin;
+		} else if (!flag_set_1) {
+			GPIOA->BRR = RED_Pin;
+		}
+	} else if (!(GPIOC->IDR & BUTTON_1_Pin) && flag_block_1) {
+		flag_block_1 = 0;
+	}
+}
+
+void Button_2() {
+	if ((GPIOC->IDR & BUTTON_2_Pin) && !flag_block_1) {
+		flag_block_2 = 1;
+		flag_set_2 = !flag_set_2;
+		if (flag_set_1) {
+			GPIOA->BSRR = GREEN_Pin;
+		} else if (!flag_set_2) {
+			GPIOA->BRR = GREEN_Pin;
+		}
+	} else if (!(GPIOC->IDR & BUTTON_2_Pin) && flag_block_2) {
+		flag_block_2 = 0;
+	}
+}
+```
