@@ -1,0 +1,12 @@
+../Core/Src/main.c:71:6:SSPI_Write	24	static
+../Core/Src/main.c:85:7:setValuePD_OUT	16	static
+../Core/Src/main.c:95:6:push	32	static
+../Core/Src/main.c:109:5:main	8	static
+../Core/Src/main.c:156:6:SystemClock_Config	96	static
+../Core/Src/main.c:202:13:MX_ADC1_Init	32	static
+../Core/Src/main.c:257:13:MX_DAC1_Init	48	static
+../Core/Src/main.c:304:13:MX_SPI1_Init	8	static
+../Core/Src/main.c:344:13:MX_TIM2_Init	40	static
+../Core/Src/main.c:390:13:MX_USART2_UART_Init	8	static
+../Core/Src/main.c:423:13:MX_GPIO_Init	40	static
+../Core/Src/main.c:465:6:Error_Handler	4	static,ignoring_inline_asm
