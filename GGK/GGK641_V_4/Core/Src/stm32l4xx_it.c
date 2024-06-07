@@ -48,7 +48,7 @@
 /* USER CODE BEGIN PFP */
 void upArrayIndex(uint32_t *arr, uint8_t index);
 void checkValueArr(uint32_t *arr);
-uint8_t ConvertFloatToInt(float inputValue);
+uint8_t ConvertFloatToInt(uint16_t inputValue);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -192,11 +192,21 @@ void SysTick_Handler(void) {
  */
 void EXTI0_IRQHandler(void) {
 	/* USER CODE BEGIN EXTI0_IRQn 0 */
-	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-	checkValueArr(WorkValue);
+//	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
+	/* Variant 1*/
+//	checkValueArr(WorkValue); // 22 us
+	/*______________*/
+	/*Variant 2*/
+//	uint16_t test_1 = setValuePD_OUT();
+//	uint8_t val = ConvertFloatToInt(test_1);
+//	upArrayIndex(WorkValue, val);
+	/*______________*/
+	/*Variant 3*/
+	setValuePD_OUT(WorkValue);
+	/*______________*/ // 17 us
 	HAL_GPIO_WritePin(GPIOA, PD_RESET_Pin, GPIO_PIN_SET);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	HAL_GPIO_WritePin(GPIOA, PD_RESET_Pin, GPIO_PIN_RESET);
+//	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	/* USER CODE END EXTI0_IRQn 0 */
 	HAL_GPIO_EXTI_IRQHandler(INP_TRHD_Pin);
 	/* USER CODE BEGIN EXTI0_IRQn 1 */
@@ -210,9 +220,13 @@ void EXTI0_IRQHandler(void) {
 void TIM2_IRQHandler(void) {
 	/* USER CODE BEGIN TIM2_IRQn 0 */
 	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-	push(WorkValue);
+//	__disable_irq();
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+//	push(WorkValue);
 	memset(WorkValue, 0, sizeof(WorkValue));
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+//	__enable_irq();
 	/* USER CODE END TIM2_IRQn 0 */
 	HAL_TIM_IRQHandler(&htim2);
 	/* USER CODE BEGIN TIM2_IRQn 1 */
@@ -222,19 +236,18 @@ void TIM2_IRQHandler(void) {
 
 /* USER CODE BEGIN 1 */
 void upArrayIndex(uint32_t *arr, uint8_t index) {
-	uint32_t checkCurrentIndex = arr[index];
-	checkCurrentIndex++;
+	uint16_t checkCurrentIndex = arr[index];
+	++checkCurrentIndex;
 	arr[index] = checkCurrentIndex;
 }
-void checkValueArr(uint32_t *arr) {
-	uint8_t val = ConvertFloatToInt(setValuePD_OUT());
-	upArrayIndex(arr, val);
-}
+//void checkValueArr(uint32_t *arr) {
+//	uint8_t val = ConvertFloatToInt(setValuePD_OUT(arr));
+//	upArrayIndex(arr, val);
+//}
 
-uint8_t ConvertFloatToInt(float inputValue) {
-	int result = inputValue * 255 / 3.3;
-	uint8_t ret = result & 0xFF;
-	return ret;
+uint8_t ConvertFloatToInt(uint16_t inputValue) {
+	uint8_t ret = inputValue * 255 / 3300;
+	return ret;//203
 }
 
 /* USER CODE END 1 */

@@ -77,21 +77,30 @@ void SSPI_Write(uint8_t adress, uint8_t data) {
 	data_buffer[0] = adress; // Младший байт
 	data_buffer[1] = data; // Старший байт
 	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_RESET);
-	HAL_SPI_Transmit(&hspi1, data_buffer, sizeof(data_buffer),1000);
+	HAL_SPI_Transmit(&hspi1, data_buffer, sizeof(data_buffer), 1000);
 	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_SET);
 //	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 //	__enable_irq();
 }
-float setValuePD_OUT() {
-	HAL_ADC_Start(&hadc1);
+void setValuePD_OUT(uint32_t *arr) {
+//	HAL_ADC_Start(&hadc1);
+//	ADC_Disable(&hadc1);
 	// нужно дождаться конца преобразования.
-	HAL_ADC_PollForConversion(&hadc1, 1);
+//	HAL_ADC_PollForConversion(&hadc1, 1);
 	// Возьмем результат и сохраним его в переменную
-	float u = ((float) HAL_ADC_GetValue(&hadc1)) * 3.3 / 4096;
+//	uint16_t u = (HAL_ADC_GetValue(&hadc1)) * 3300 / 4096;
+//	uint16_t u = (hadc1.Instance->DR) * 3300 / 4096;
+//	uint32_t te = hadc1.Instance->DR;
+
+	uint8_t index = ((hadc1.Instance->DR) * 3300 / 4096) * 255 / 3300;
+	uint16_t checkCurrentIndex = arr[index];
+	++checkCurrentIndex;
+	arr[index] = checkCurrentIndex;
 	// Остановим преобразования
-	HAL_ADC_Stop(&hadc1);
-	return u;
+//	ADC_Enable(&hadc1);
+//	HAL_ADC_Stop(&hadc1);
 }
+
 void push(uint32_t *arr) {
 	for (int i = 0; i < 256; ++i) {
 		char result[5];
@@ -313,12 +322,12 @@ static void MX_SPI1_Init(void) {
 	/* SPI1 parameter configuration*/
 	hspi1.Instance = SPI1;
 	hspi1.Init.Mode = SPI_MODE_MASTER;
-	hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+	hspi1.Init.Direction = SPI_DIRECTION_1LINE;
 	hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
 	hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
 	hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-	hspi1.Init.NSS = SPI_NSS_SOFT;
-	hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+	hspi1.Init.NSS = SPI_NSS_HARD_INPUT;
+	hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
 	hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
 	hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
 	hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -397,7 +406,7 @@ static void MX_USART2_UART_Init(void) {
 
 	/* USER CODE END USART2_Init 1 */
 	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 115200; // 14.400 байт в секунду
+	huart2.Init.BaudRate = 115200;
 	huart2.Init.WordLength = UART_WORDLENGTH_8B;
 	huart2.Init.StopBits = UART_STOPBITS_1;
 	huart2.Init.Parity = UART_PARITY_NONE;
@@ -431,7 +440,7 @@ static void MX_GPIO_Init(void) {
 	__HAL_RCC_GPIOB_CLK_ENABLE();
 
 	/*Configure GPIO pin Output Level */
-	HAL_GPIO_WritePin(PD_RESET_GPIO_Port, PD_RESET_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, PD_RESET_Pin | GPIO_PIN_11, GPIO_PIN_RESET);
 
 	/*Configure GPIO pin : INP_TRHD_Pin */
 	GPIO_InitStruct.Pin = INP_TRHD_Pin;
@@ -439,12 +448,12 @@ static void MX_GPIO_Init(void) {
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(INP_TRHD_GPIO_Port, &GPIO_InitStruct);
 
-	/*Configure GPIO pin : PD_RESET_Pin */
-	GPIO_InitStruct.Pin = PD_RESET_Pin;
+	/*Configure GPIO pins : PD_RESET_Pin PA11 */
+	GPIO_InitStruct.Pin = PD_RESET_Pin | GPIO_PIN_11;
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-	HAL_GPIO_Init(PD_RESET_GPIO_Port, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 	/* EXTI interrupt init*/
 

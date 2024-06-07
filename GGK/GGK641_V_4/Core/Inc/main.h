@@ -55,7 +55,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-float setValuePD_OUT();
+void setValuePD_OUT(uint32_t *arr);
 void push(uint32_t *arr);
 /* USER CODE END EFP */
 
