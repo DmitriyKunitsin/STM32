@@ -63,14 +63,15 @@ static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
-void SSPI_Write(uint8_t adress, uint8_t data);
+uint8_t get_ADSTART_value();
+void set_ADSTART_bit_1();
+void set_ADSTART_bit_0();
+uint32_t getValueADC();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void SSPI_Write(uint8_t adress, uint8_t data) {
-//	__disable_irq();
-//	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
 	uint8_t data_buffer[2]; // Создаем буфер из двух байтов для хранения данных типа uint16_t
 
 // Копируем данные типа uint16_t в буфер
@@ -79,26 +80,33 @@ void SSPI_Write(uint8_t adress, uint8_t data) {
 	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_RESET);
 	HAL_SPI_Transmit(&hspi1, data_buffer, sizeof(data_buffer), 1000);
 	HAL_GPIO_WritePin(SPI_CS_GPIO_Port, SPI_CS_Pin, GPIO_PIN_SET);
-//	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-//	__enable_irq();
+}
+uint8_t get_ADSTART_value() {
+	return (ADC1->CR & ADC_CR_ADSTART) ? 1 : 0;
+}
+/*Установка регистра в 1, запуск преобразования*/
+void set_ADSTART_bit_1() {
+	ADC1->CR |= ADC_CR_ADSTART;
+}
+void set_ADSTART_bit_0() {
+	ADC1->CR &= ~ADC_CR_ADSTART;
+}
+uint32_t getValueADC() {
+	uint32_t result = 0;
+	if (get_ADSTART_value() == 0) {
+		set_ADSTART_bit_1();
+		while (!(ADC1->ISR & ADC_ISR_EOC)) {
+		}
+		result = (uint16_t) ADC1->DR;
+		set_ADSTART_bit_0();
+	}
+	return result;
 }
 void setValuePD_OUT(uint32_t *arr) {
-//	HAL_ADC_Start(&hadc1);
-//	ADC_Disable(&hadc1);
-	// нужно дождаться конца преобразования.
-//	HAL_ADC_PollForConversion(&hadc1, 1);
-	// Возьмем результат и сохраним его в переменную
-//	uint16_t u = (HAL_ADC_GetValue(&hadc1)) * 3300 / 4096;
-//	uint16_t u = (hadc1.Instance->DR) * 3300 / 4096;
-//	uint32_t te = hadc1.Instance->DR;
-
-	uint8_t index = ((hadc1.Instance->DR) * 3300 / 4096) * 255 / 3300;
+	uint8_t index = (getValueADC() * 3300 / 4096) * 255 / 3300;
 	uint16_t checkCurrentIndex = arr[index];
 	++checkCurrentIndex;
 	arr[index] = checkCurrentIndex;
-	// Остановим преобразования
-//	ADC_Enable(&hadc1);
-//	HAL_ADC_Stop(&hadc1);
 }
 
 void push(uint32_t *arr) {
@@ -137,15 +145,14 @@ int main(void) {
 	/* USER CODE END SysInit */
 
 	/* Initialize all configured peripherals */
-	MX_ADC1_Init();
 	MX_GPIO_Init();
-	MX_SPI1_Init();
+	MX_ADC1_Init();
 	MX_DAC1_Init();
+	MX_SPI1_Init();
 	MX_USART2_UART_Init();
 	MX_TIM2_Init();
 	/* USER CODE BEGIN 2 */
-//  uint8_t valueResistor = 0xFF;
-//  uint8_t flag = 1;
+
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -180,8 +187,8 @@ void SystemClock_Config(void) {
 	RCC_OscInitStruct.HSEState = RCC_HSE_ON;
 	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
 	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-	RCC_OscInitStruct.PLL.PLLM = 1;
-	RCC_OscInitStruct.PLL.PLLN = 10;
+	RCC_OscInitStruct.PLL.PLLM = 2;
+	RCC_OscInitStruct.PLL.PLLN = 20;
 	RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
 	RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
 	RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
@@ -223,7 +230,7 @@ static void MX_ADC1_Init(void) {
 	/** Common config
 	 */
 	hadc1.Instance = ADC1;
-	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
+	hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV8;
 	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
 	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
@@ -253,7 +260,7 @@ static void MX_ADC1_Init(void) {
 		Error_Handler();
 	}
 	/* USER CODE BEGIN ADC1_Init 2 */
-
+	HAL_ADC_Start_IT(&hadc1);
 	/* USER CODE END ADC1_Init 2 */
 
 }
@@ -338,8 +345,7 @@ static void MX_SPI1_Init(void) {
 		Error_Handler();
 	}
 	/* USER CODE BEGIN SPI1_Init 2 */
-//	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-	SSPI_Write(0x00, 0x20);
+	SSPI_Write(0x00, 0x10);
 	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	/* USER CODE END SPI1_Init 2 */
 
@@ -459,11 +465,11 @@ static void MX_GPIO_Init(void) {
 
 	/* USER CODE BEGIN MX_GPIO_Init_2 */
 	HAL_NVIC_SetPriority(EXTI0_IRQn, 1, 0);
-//	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 	/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+
 
 /* USER CODE END 4 */
 

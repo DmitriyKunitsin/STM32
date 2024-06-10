@@ -56,6 +56,7 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 void setValuePD_OUT(uint32_t *arr);
+void SSPI_Write(uint8_t adress, uint8_t data);
 void push(uint32_t *arr);
 /* USER CODE END EFP */
 
