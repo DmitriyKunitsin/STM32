@@ -1,0 +1,5 @@
+Manchester.c:3:9:getCurrentValueByte	1
+Manchester.c:9:7:getCurrentStructByte	1
+Manchester.c:14:6:readByteFromPort	1
+Manchester.c:26:6:WriteByteFromStructure	1
+Manchester.c:39:6:WritePortsFromStructure	1

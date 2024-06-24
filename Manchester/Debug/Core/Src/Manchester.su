@@ -1,0 +1,5 @@
+../Core/Src/Manchester.c:3:9:getCurrentValueByte	16	static
+../Core/Src/Manchester.c:9:7:getCurrentStructByte	4	static
+../Core/Src/Manchester.c:14:6:readByteFromPort	16	static
+../Core/Src/Manchester.c:26:6:WriteByteFromStructure	24	static
+../Core/Src/Manchester.c:39:6:WritePortsFromStructure	16	static
