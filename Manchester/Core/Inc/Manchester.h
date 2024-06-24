@@ -26,6 +26,7 @@ void WriteByteFromStructure(uint8_t valueFromUart);
 void WritePortsFromStructure();
 
 
+void pushDatesToPort(uint8_t oneByte, uint8_t secondDate);
 
 
 #endif

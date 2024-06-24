@@ -3,3 +3,4 @@
 ../Core/Src/Manchester.c:14:6:readByteFromPort	16	static
 ../Core/Src/Manchester.c:26:6:WriteByteFromStructure	24	static
 ../Core/Src/Manchester.c:39:6:WritePortsFromStructure	16	static
+../Core/Src/Manchester.c:51:6:pushDatesToPort	16	static

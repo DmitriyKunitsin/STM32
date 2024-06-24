@@ -48,3 +48,24 @@ void WritePortsFromStructure() {
 	HAL_GPIO_WritePin(GPIOA, DA7_Pin, byte->bit7_DA07);
 }
 
+void pushDatesToPort(uint8_t oneByte, uint8_t secondDate) {
+		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
+		}
+		WriteByteFromStructure(oneByte);
+		WritePortsFromStructure();
+		HAL_GPIO_WritePin(GPIOA, AWRL_1byte_Pin, GPIO_PIN_SET);
+		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != 0) {
+		}
+		HAL_GPIO_WritePin(GPIOB, AWRL_1byte_Pin, GPIO_PIN_RESET);
+		WriteByteFromStructure(secondDate);
+		WritePortsFromStructure();
+		HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_SET);
+		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
+		}
+		HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_SET);
+		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) == GPIO_PIN_SET) {
+		}
+		HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_RESET);
+		HAL_Delay(1);
+	}
