@@ -49,23 +49,38 @@ void WritePortsFromStructure() {
 }
 
 void pushDatesToPort(uint8_t oneByte, uint8_t secondDate) {
-		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
-		}
-		WriteByteFromStructure(oneByte);
-		WritePortsFromStructure();
-		HAL_GPIO_WritePin(GPIOA, AWRL_1byte_Pin, GPIO_PIN_SET);
-		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != 0) {
-		}
-		HAL_GPIO_WritePin(GPIOB, AWRL_1byte_Pin, GPIO_PIN_RESET);
-		WriteByteFromStructure(secondDate);
-		WritePortsFromStructure();
-		HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_SET);
-		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
-		}
-		HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_SET);
-		while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) == GPIO_PIN_SET) {
-		}
-		HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_RESET);
-		HAL_Delay(1);
+	while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
 	}
+	WriteByteFromStructure(oneByte);
+	WritePortsFromStructure();
+	HAL_GPIO_WritePin(GPIOB, AWRL_1byte_Pin, GPIO_PIN_SET);
+	while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != 0) {
+	}
+	HAL_GPIO_WritePin(GPIOB, AWRL_1byte_Pin, GPIO_PIN_RESET);
+	WriteByteFromStructure(secondDate);
+	WritePortsFromStructure();
+	HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_SET);
+	while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
+	}
+	HAL_GPIO_WritePin(GPIOB, AWRH_2byte_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_SET);
+	while (HAL_GPIO_ReadPin(GPIOA, AINTTX_Pin) != GPIO_PIN_RESET) {
+	}
+	HAL_GPIO_WritePin(GPIOB, ASD_Pin, GPIO_PIN_RESET);
+}
+
+uint16_t readDatesToPorts() {
+
+	HAL_GPIO_WritePin(GPIOB, ARDL_1byte_Pin, GPIO_PIN_SET);
+	readByteFromPort();
+	uint8_t firstByte = getCurrentValueByte();
+	HAL_GPIO_WritePin(GPIOB, ARDL_1byte_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOB, ARDH_2byte_Pin, GPIO_PIN_SET);
+	readByteFromPort();
+	uint8_t secondByte = getCurrentValueByte();
+	HAL_GPIO_WritePin(GPIOB, ARDH_2byte_Pin, GPIO_PIN_RESET);
+
+	uint16_t result = (firstByte << 8) | secondByte;
+
+	return result;
+}

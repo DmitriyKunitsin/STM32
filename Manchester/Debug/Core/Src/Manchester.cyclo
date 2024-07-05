@@ -4,3 +4,4 @@ Manchester.c:14:6:readByteFromPort	1
 Manchester.c:26:6:WriteByteFromStructure	1
 Manchester.c:39:6:WritePortsFromStructure	1
 Manchester.c:51:6:pushDatesToPort	5
+Manchester.c:72:10:readDatesToPorts	1

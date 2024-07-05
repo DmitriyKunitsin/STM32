@@ -15,7 +15,7 @@ typedef struct {
 } Byte;
 
 /*Возвращает указатель на текущую структуру с текущими значениями*/
-Byte *getCurrentStructByte();
+Byte* getCurrentStructByte();
 /*Возвращает конкретное значение в uint8_t, что лежит в структуре*/
 uint8_t getCurrentValueByte();
 /*Записывает в структуру значения каждого порта в каждый бит*/
@@ -25,8 +25,8 @@ void WriteByteFromStructure(uint8_t valueFromUart);
 /*В зависимости от байта в структуре записывает это в порты*/
 void WritePortsFromStructure();
 
-
 void pushDatesToPort(uint8_t oneByte, uint8_t secondDate);
 
+uint16_t readDatesToPorts();
 
 #endif
