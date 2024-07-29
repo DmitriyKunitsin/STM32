@@ -155,6 +155,8 @@ void change_Conffigure_GPIO_Write();
 
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+//void TIM6_DAC_IRQHandler(void);
+
 
 
 // Задача реализации протокола SKLP.Slave
@@ -260,7 +262,7 @@ static void MX_TIM1_Init(void) {
 	htim1.Instance = TIM1;
 	htim1.Init.Prescaler = 1;
 	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim1.Init.Period = 79;
+	htim1.Init.Period = 63;
 	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim1.Init.RepetitionCounter = 0;
 	htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -282,7 +284,7 @@ static void MX_TIM1_Init(void) {
 		//Error_Handler();
 	}
 	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 39;
+	sConfigOC.Pulse = 32;
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
@@ -412,6 +414,44 @@ void fillDataBuffre(uint16_t value) {
 			}
 	}
 }
+
+static void MX_TIM6_Init (void)
+{
+
+  /* USER CODE BEGIN TIM6_Init 0 */
+  TIM_HandleTypeDef htim6;
+
+  /* USER CODE END TIM6_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig =
+    { 0 };
+
+  /* USER CODE BEGIN TIM6_Init 1 */
+
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 0;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 8000;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init (&htim6) != HAL_OK)
+    {
+//      Error_Handler ();
+    }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization (&htim6, &sMasterConfig) != HAL_OK)
+    {
+//      Error_Handler ();
+    }
+  /* USER CODE BEGIN TIM6_Init 2 */
+  /* USER CODE END TIM6_Init 2 */
+
+}
+
+
+
+
 static void SKLP_SlaveTask( void *pParameters )
 {
 	( void ) pParameters;
@@ -438,14 +478,15 @@ static void SKLP_SlaveTask( void *pParameters )
 //	const char[10] const mTimerManchester = "Manchester";
 //	xTimerCreate(mTimerManchester, pdMS_TO_TICKS(1), const UBaseType_t uxAutoReload, void * const pvTimerID, TimerCallbackFunction_t pxCallbackFunction)
 
-	static uint8_t aTmpBuff[1024] = {0};
-	static uint32_t startTime = 0;
-	static uint32_t currentTime = 0;
-        static uint16_t dates = 0;
+//	static uint8_t aTmpBuff[1024] = {0};
+//	static uint32_t startTime = 0;
+//	static uint32_t currentTime = 0;
+//        static uint16_t dates = 0;
+	MX_TIM6_Init();
 
 	while( 1 )
 	{
-		SKLP_Message_t Message;
+//		SKLP_Message_t Message;
 		DataBuffer *rxBuffer = getDataBuffer();
 		// Ожидать событие от последовательных интерфейсов
 //		aSKLP_Interfaces[iSKLP_Machester].State = SKLP_STATE_WaitStart;
@@ -475,11 +516,6 @@ static void SKLP_SlaveTask( void *pParameters )
 //			Message.mTxEventManchester = 1;
 //		}
 //		vTaskDelay(2);
-		if(HAL_GPIO_ReadPin(GPIOA, AINTRX_Pin) == 1) {
-			
-			GPIO_Common_Toggle(iGPIO_KT1);
-			GPIO_Common_Toggle(iGPIO_KT1);
-		}
 //		if( 1 == rxBuffer->rxEventFull )
 		assert_param( NULL != EventGroup_System );
 		EventBits_t EventsResult = xEventGroupWaitBits( EventGroup_System, EVENTSYSTEM_MANCHESTER_RX_COMPLETE, true, false, portMAX_DELAY );
@@ -488,8 +524,6 @@ static void SKLP_SlaveTask( void *pParameters )
 			rxBuffer->stopRead = 1;
 			rxBuffer->rxEventFull = 0;
 			rxBuffer->count = 0;
-//			rxBuffer->data[34] = '\r';
-//			rxBuffer->data[35] = '\n';
 			HAL_UART_Ext_Transmit(aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl, rxBuffer->data, 36, EVENT_UART_EXT_TX_COMPLETE );
 			xEventGroupWaitBits( aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl->EventGroup, EVENT_UART_EXT_TX_COMPLETE, true, false, portMAX_DELAY );
 			for(int i = 0; i < 36; ++i) {
@@ -558,3 +592,10 @@ void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 		fillDataBuffre(dates);                
 	}
 }
+
+
+//void TIM6_DAC_IRQHandler(void) {
+//
+//
+//}
+

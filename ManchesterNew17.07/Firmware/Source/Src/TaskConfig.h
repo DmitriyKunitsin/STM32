@@ -55,6 +55,7 @@ extern bool SKLP_TaskInit( void );
 // Единая группа событий, отображающая работоспособность различных компонентов системы
 extern EventGroupHandle_t EventGroup_System;
 #define	EVENTSYSTEM_SPRINTF_READY				( 1 << 0 )
+#define EVENTSYSTEM_PACKET_TIMED_OUT			( 1 << 9 )
 #define	EVENTSYSTEM_MANCHESTER_RX_COMPLETE		( 1 << 10 )
 
 extern void SysState_AppendTaskHandler( TaskHandle_t xTaskHandle );
