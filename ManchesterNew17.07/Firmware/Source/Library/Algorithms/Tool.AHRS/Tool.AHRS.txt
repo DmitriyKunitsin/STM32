@@ -1,0 +1,94 @@
+7.авг.2020 11:12
+Пересборка пакета определения направления (AHRS) на основе датчика MPU9250.
+
+Состав пакета:
+**************
+\\Library\Algorithms\Tool.AHRS\AHRS.c, h - алгоритм определения направления по данным
+от произвольного 9-и осевого датчика (акселерометры, гироскопы, магнитометры).
+
+\\Library\Algorithms\Tool.AHRS\IMU_InvenSense.c, h - инициализация и сбор данных с
+датчиков направления производства InvenSense (MPU9250, ICM-20948).
+
+\\Library\Platforms\Components\Driver_IMU_InvenSense.c, h - драйвер последовательного
+канала датчиков направления производства InvenSense (MPU9250, ICM-20948).
+Претендует на универсальность (работа через I2C/SPI, в блокирующем режиме и через
+события). По факту отработана реализация через I2C, DMA, события FreeRTOS.
+
+\\Library\Platforms\Components\MPU9250_RegisterMap.h - описание регистров MPU9250.
+\\Library\Platforms\Components\ICM20948_RegisterMap.h - описание регистров ICM-20948.
+
+Требования для интеграции пакета в проект:
+******************************************
+- В ProjectConfig.h определить, см. на примере для STM32L496xx
+\\Projects\ACP\ACPB_2018\Master\Firmware\Source\Inc\ProjectConfig.h под платформу USE_PLATFORM_LOOCH_624_00_04_00
+// Включение использования пакета
+#define	USE_IMU
+#define	USE_MPU9250
+#define	USE_ICM20948		// по желанию, не обязательно
+#define	USE_IMU_I2C
+#define	IMU_I2C_USE_EVENTS
+// Приоритеты прерываний I2C и DMA
+#define IMU_I2C_IRQ_PREEMTPRIORITY	( NVIC_PRIORITY_LOWEST_WITHIN_RTOS - 1 )
+#define IMU_I2C_IRQ_SUBPRIORITY 	NVIC_SUBPRIORITY_DEFAULT
+#define IMU_I2C_DMA_PRIORITY		DMA_PRIORITY_LOW
+#define IMU_I2C_DMA_IRQ_PREEMTPRIORITY	IMU_I2C_IRQ_PREEMTPRIORITY
+#define IMU_I2C_DMA_IRQ_SUBPRIORITY 	IMU_I2C_IRQ_SUBPRIORITY
+// Адерса IMU, выставляемые железом
+#define MPU9250_I2C_ADDRESS 		MPU9250_ADDRESS_AD0_LOW		// если MPU9250.AD0 подтЯнут к GND
+#define ICM20948_I2C_ADDRESS		PX4_I2C_EXT_ICM20948_0		// если ICM-20948.AD0 подтЯнут к GND
+// Настройка I2C - канал, тактирование, порты
+#define IMU_I2C_INSTANCE		I2C4
+#define IMU_I2C_PORT			GPIOC
+#define IMU_I2C_PIN_SCL 		GPIO_PIN_0
+#define IMU_I2C_PIN_SDA 		GPIO_PIN_1
+#define IMU_I2C_RCC_PERIF_INIT_STRUCT( __STRUCT__ ) 				\
+	( __STRUCT__ ).PeriphClockSelection	= RCC_PERIPHCLK_I2C4;		\
+	( __STRUCT__ ).I2c4ClockSelection	= RCC_I2C4CLKSOURCE_PCLK1;
+#define IMU_I2C_SCL_SDA_AF( __I2C__ )	GPIO_AF2_I2C4
+#define IMU_I2C_TIMING			0x00D0093B
+// ******** I2C.IRQ  *********************
+#define	IMU_I2C_ER_IRQn			I2C4_ER_IRQn
+#define	IMU_I2C_ER_IRQHandler		I2C4_ER_IRQHandler
+#define	IMU_I2C_EV_IRQn			I2C4_EV_IRQn
+#define	IMU_I2C_EV_IRQHandler		I2C4_EV_IRQHandler
+// ******** I2C.DMA.Tx  ******************
+#define	IMU_I2C_DMA_TX_CHANNEL		DMA2_Channel2
+#define	IMU_I2C_DMA_TX_REQUEST		0
+#define	IMU_I2C_DMA_TX_IRQn		DMA2_Channel2_IRQn
+#define	IMU_I2C_DMA_TX_IRQHandler	DMA2_Channel2_IRQHandler
+// ******** I2C.DMA.Rx  ******************
+#define	IMU_I2C_DMA_RX_CHANNEL		DMA2_Channel1
+#define	IMU_I2C_DMA_RX_REQUEST		0
+#define	IMU_I2C_DMA_RX_IRQn		DMA2_Channel1_IRQn
+#define	IMU_I2C_DMA_RX_IRQHandler	DMA2_Channel1_IRQHandler
+// Определить матрицу поворота осей IMU на оси прибора
+#define MPU9250_ROTATION		\
+{	{	0,	-1,	0 },	\
+	{	1,	0,	0 },	\
+	{	0,	0,	1 } }
+// Дополнительный поворт нуля отклонителя прибора относительно оси Y
+#define MPU9250_ROTATION_ROLL		71.0f
+#define IMU_ROTATION_ROLL		MPU9250_ROTATION_ROLL
+
+Порядок привязки осей и углов IMU и прибора
+*******************************************
+  Базис осей IMU определяются по спецификациям микросхем. У акселерометров и гироскопов MPU9250 и ICM-20948
+оси совпадают (правая тройка) - этот базис считается основным для этих IMU. Оси магнитометров в составе
+этих IMU не совпадают с основным базисом, поэтому в драйвере IMU в функциях <IMU_Type>_ConvertRaw2Bin()
+производится приведение осей магнитометра к основному базису.
+  Базис осей скважинного прибора (X по направлению бурения, Z по нулевому отклонителю, Y против часовой стрелки
+от Z вокруг X) могут не совпадать с осями IMU. Для приведения осей IMU к осям прибора, используется матрица
+поворота <IMU_Type>_ROTATION, которую необходимо задать в проекте. Ожидается, что оси IMU и оси прибора
+ортогональны, т.е. матрица должна содержать только 0, +1, -1. Матрица в примере выше приводит к преобразованию:
+Device.X := -IMU.Y, Device.Y := IMU.X, Device.Z := IMU.Z - фактически, это поворот на 90 градусов
+против часовой стрелки вокруг Z.
+  Если направление отклонителя прибора не совпадает ни с одной из осей IMU, требуетсЯ задать дополнительную
+константу IMU_ROTATION_ROLL - угол, на который необходимо дополнительно повернуть ось Z IMU вокруг X, чтобы
+направление оси Z IMU совпало с нулевым отклонителем прибора.
+  В результате выполнения алгоритма AHRS, применяемого к показаниям 9-и датчиков, привязанных к осям прибора,
+рассчитывается кватернион направления, по которому могут быть определены углы направлениЯ прибора:
+- Roll (TFG) - угол поворота вокруг X, т.е. вращение прибора вокруг оси, он же угол гравитационного отклонителя
+(действует на зенитах 0 и 180 из-за сингулярности);
+- Pitch (ZENI) - угол поворота вокруг Y;
+- Yaw (AZIM) - угол поворота вокруг Z;
+

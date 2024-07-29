@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BuildDb>
+    <Tool>
+        <Name>linker</Name>
+        <Parent>
+            <Path>D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Exe\RUS_Regul.out</Path>
+            <Output>
+                <Path>D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\List\RUS_Regul.map</Path>
+            </Output>
+        </Parent>
+    </Tool>
+</BuildDb>

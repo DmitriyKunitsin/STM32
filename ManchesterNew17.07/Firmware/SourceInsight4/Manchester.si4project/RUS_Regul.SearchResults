@@ -1,0 +1,148 @@
+---- EventGroup Matches (274 in 16 files) ----
+HAL_SD_TxCpltCallback in common_sd.c (Library\Platforms\Common) : 	assert_param( pdPASS == xEventGroupSetBitsFromISR( EventGroup_System, EVENTSYSTEM_FS_DMA_WRITE_COMPLETE, &xHigherPriorityTaskWoken ) );
+HAL_SD_RxCpltCallback in common_sd.c (Library\Platforms\Common) : 	assert_param( pdPASS == xEventGroupSetBitsFromISR( EventGroup_System, EVENTSYSTEM_FS_DMA_READ_COMPLETE, &xHigherPriorityTaskWoken ) );
+HAL_SD_ErrorCallback in common_sd.c (Library\Platforms\Common) : 	assert_param( pdPASS == xEventGroupSetBitsFromISR( EventGroup_System, EVENTSYSTEM_FS_DMA_ERROR, &xHigherPriorityTaskWoken ) );
+SPEED_COUNTER_TIM_OC_DelayElapsedCallback in DRIVER_CM36-3650.c (Library\Platforms\Components) : 	assert_param( NULL != RUS_Regul_EventGroup );
+SPEED_COUNTER_TIM_OC_DelayElapsedCallback in DRIVER_CM36-3650.c (Library\Platforms\Components) : 	xEventGroupSetBitsFromISR( RUS_Regul_EventGroup, EVENTS_RUS_REGUL_PROCESS_CALLBACK, &xHigherPriorityTaskWoken );
+Motor_CurrentSpeed_Get_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	assert_param( NULL != RUS_Regul_EventGroup );
+Motor_CurrentSpeed_Get_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	xEventGroupSetBits( RUS_Regul_EventGroup, EVENTS_RUS_REGUL_TIMER_SPEED_COUNT_X_READY );
+Motor_Calibration_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	assert_param( NULL != RUS_Regul_EventGroup );
+Motor_Calibration_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	xEventGroupSetBits( RUS_Regul_EventGroup, EVENTS_RUS_REGUL_OPAMP_VALUE_READY );
+Motor_Calibration_Press_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	assert_param( NULL != RUS_Regul_EventGroup );
+Motor_Calibration_Press_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	xEventGroupSetBits( RUS_Regul_EventGroup, EVENTS_RUS_REGUL_CALIBR_PRESS_PROCESS );
+Motor_Stabilization_Press_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	assert_param(NULL != RUS_Regul_EventGroup);
+Motor_Stabilization_Press_Callback in DRIVER_Motor.c (Library\Platforms\Components) : 	xEventGroupSetBits(RUS_Regul_EventGroup, EVENTS_RUS_REGUL_HOLD_PRESS);
+SPEED_COUNTER_TIM_OC_DelayElapsedCallback in DRIVER_Small_Motor.c (Library\Platforms\Components) : 	assert_param( NULL != RUS_Regul_EventGroup );
+SPEED_COUNTER_TIM_OC_DelayElapsedCallback in DRIVER_Small_Motor.c (Library\Platforms\Components) : 	xEventGroupSetBitsFromISR( RUS_Regul_EventGroup, EVENTS_RUS_REGUL_PROCESS_CALLBACK, &xHigherPriorityTaskWoken );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 63 : typedef struct EventGroupDef_t
+EventGroupDef_t in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		UBaseType_t uxEventGroupNumber;
+EventGroupDef_t in event_groups.c (Library\Middlewares\FreeRTOS\Source) : } EventGroup_t;
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	EventGroupHandle_t xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer )
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	EventGroup_t *pxEventBits;
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		configASSERT( pxEventGroupBuffer );
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 			volatile size_t xSize = sizeof( StaticEventGroup_t );
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 			configASSERT( xSize == sizeof( EventGroup_t ) );
+prvTestWaitCondition in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		pxEventBits = ( EventGroup_t * ) pxEventGroupBuffer; /*lint !e740 !e9087 EventGroup_t and StaticEventGroup_t are deliberately aliased for data hiding purposes and guaranteed to have the same size and alignment requirement - checked by configASSERT(). */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 145 : 	EventGroupHandle_t xEventGroupCreate( void )
+xEventGroupCreate in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	EventGroup_t *pxEventBits;
+xEventGroupCreate in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		pxEventBits = ( EventGroup_t * ) pvPortMalloc( sizeof( EventGroup_t ) ); /*lint !e9087 !e9079 see comment above. */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 191 : EventBits_t xEventGroupSync( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, const EventBits_t uxBitsToWaitFor, TickType_t xTicksToWait )
+xEventGroupSync in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t *pxEventBits = xEventGroup;
+xEventGroupSync in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		( void ) xEventGroupSetBits( xEventGroup, uxBitsToSet );
+xEventGroupSync in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 				traceEVENT_GROUP_SYNC_BLOCK( xEventGroup, uxBitsToSet, uxBitsToWaitFor );
+xEventGroupSync in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	traceEVENT_GROUP_SYNC_END( xEventGroup, uxBitsToSet, uxBitsToWaitFor, xTimeoutOccurred );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 311 : EventBits_t xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToWaitFor, const BaseType_t xClearOnExit, const BaseType_t xWaitForAllBits, TickType_t xTicksToWait )
+xEventGroupWaitBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t *pxEventBits = xEventGroup;
+xEventGroupWaitBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	configASSERT( xEventGroup );
+xEventGroupWaitBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 			traceEVENT_GROUP_WAIT_BITS_BLOCK( xEventGroup, uxBitsToWaitFor );
+xEventGroupWaitBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	traceEVENT_GROUP_WAIT_BITS_END( xEventGroup, uxBitsToWaitFor, xTimeoutOccurred );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 461 : EventBits_t xEventGroupClearBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear )
+xEventGroupClearBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t *pxEventBits = xEventGroup;
+xEventGroupClearBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	configASSERT( xEventGroup );
+xEventGroupClearBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		traceEVENT_GROUP_CLEAR_BITS( xEventGroup, uxBitsToClear );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 490 : 	BaseType_t xEventGroupClearBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear )
+xEventGroupClearBitsFromISR in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		traceEVENT_GROUP_CLEAR_BITS_FROM_ISR( xEventGroup, uxBitsToClear );
+xEventGroupClearBitsFromISR in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		xReturn = xTimerPendFunctionCallFromISR( vEventGroupClearBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToClear, NULL ); /*lint !e9087 Can't avoid cast to void* as a generic callback function not specific to this use case. Callback casts back to original type so safe. */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 503 : EventBits_t xEventGroupGetBitsFromISR( EventGroupHandle_t xEventGroup )
+xEventGroupGetBitsFromISR in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t const * const pxEventBits = xEventGroup;
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 519 : EventBits_t xEventGroupSetBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet )
+xEventGroupSetBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t *pxEventBits = xEventGroup;
+xEventGroupSetBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	configASSERT( xEventGroup );
+xEventGroupSetBits in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		traceEVENT_GROUP_SET_BITS( xEventGroup, uxBitsToSet );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 613 : void vEventGroupDelete( EventGroupHandle_t xEventGroup )
+vEventGroupDelete in event_groups.c (Library\Middlewares\FreeRTOS\Source) : EventGroup_t *pxEventBits = xEventGroup;
+vEventGroupDelete in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		traceEVENT_GROUP_DELETE( xEventGroup );
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 657 : void vEventGroupSetBitsCallback( void *pvEventGroup, const uint32_t ulBitsToSet )
+vEventGroupSetBitsCallback in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	( void ) xEventGroupSetBits( pvEventGroup, ( EventBits_t ) ulBitsToSet ); /*lint !e9079 Can't avoid cast to void* as a generic timer callback prototype. Callback casts back to original type so safe. */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 665 : void vEventGroupClearBitsCallback( void *pvEventGroup, const uint32_t ulBitsToClear )
+vEventGroupClearBitsCallback in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	( void ) xEventGroupClearBits( pvEventGroup, ( EventBits_t ) ulBitsToClear ); /*lint !e9079 Can't avoid cast to void* as a generic timer callback prototype. Callback casts back to original type so safe. */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 708 : 	BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, BaseType_t *pxHigherPriorityTaskWoken )
+xEventGroupSetBitsFromISR in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		traceEVENT_GROUP_SET_BITS_FROM_ISR( xEventGroup, uxBitsToSet );
+xEventGroupSetBitsFromISR in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		xReturn = xTimerPendFunctionCallFromISR( vEventGroupSetBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToSet, pxHigherPriorityTaskWoken ); /*lint !e9087 Can't avoid cast to void* as a generic callback function not specific to this use case. Callback casts back to original type so safe. */
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 723 : 	UBaseType_t uxEventGroupGetNumber( void* xEventGroup )
+uxEventGroupGetNumber in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 	EventGroup_t const *pxEventBits = ( EventGroup_t * ) xEventGroup; /*lint !e9087 !e9079 EventGroupHandle_t is a pointer to an EventGroup_t, but EventGroupHandle_t is kept opaque outside of this file for data hiding purposes. */
+uxEventGroupGetNumber in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		if( xEventGroup == NULL )
+uxEventGroupGetNumber in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 			xReturn = pxEventBits->uxEventGroupNumber;
+event_groups.c (Library\Middlewares\FreeRTOS\Source) line 745 : 	void vEventGroupSetNumber( void * xEventGroup, UBaseType_t uxEventGroupNumber )
+vEventGroupSetNumber in event_groups.c (Library\Middlewares\FreeRTOS\Source) : 		( ( EventGroup_t * ) xEventGroup )->uxEventGroupNumber = uxEventGroupNumber; /*lint !e9087 !e9079 EventGroupHandle_t is a pointer to an EventGroup_t, but EventGroupHandle_t is kept opaque outside of this file for data hiding purposes. */
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 81 : struct EventGroupDef_t;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 82 : typedef struct EventGroupDef_t * EventGroupHandle_t;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 147 : 	EventGroupHandle_t xEventGroupCreate( void ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 200 : 	EventGroupHandle_t xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 295 : EventBits_t xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToWaitFor, const BaseType_t xClearOnExit, const BaseType_t xWaitForAllBits, TickType_t xTicksToWait ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 352 : EventBits_t xEventGroupClearBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 408 : 	BaseType_t xEventGroupClearBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 410 : 	#define xEventGroupClearBitsFromISR( xEventGroup, uxBitsToClear ) xTimerPendFunctionCallFromISR( vEventGroupClearBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToClear, NULL )
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 485 : EventBits_t xEventGroupSetBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 560 : 	BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, BaseType_t *pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 562 : 	#define xEventGroupSetBitsFromISR( xEventGroup, uxBitsToSet, pxHigherPriorityTaskWoken ) xTimerPendFunctionCallFromISR( vEventGroupSetBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToSet, pxHigherPriorityTaskWoken )
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 689 : EventBits_t xEventGroupSync( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, const EventBits_t uxBitsToWaitFor, TickType_t xTicksToWait ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 708 : #define xEventGroupGetBits( xEventGroup ) xEventGroupClearBits( xEventGroup, 0 )
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 725 : EventBits_t xEventGroupGetBitsFromISR( EventGroupHandle_t xEventGroup ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 739 : void vEventGroupDelete( EventGroupHandle_t xEventGroup ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 742 : void vEventGroupSetBitsCallback( void *pvEventGroup, const uint32_t ulBitsToSet ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 743 : void vEventGroupClearBitsCallback( void *pvEventGroup, const uint32_t ulBitsToClear ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 747 : 	UBaseType_t uxEventGroupGetNumber( void* xEventGroup ) PRIVILEGED_FUNCTION;
+event_groups.h (Library\Middlewares\FreeRTOS\Source\include) line 748 : 	void vEventGroupSetNumber( void* xEventGroup, UBaseType_t uxEventGroupNumber ) PRIVILEGED_FUNCTION;
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 556 : 	#define traceEVENT_GROUP_CREATE( xEventGroup )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 564 : 	#define traceEVENT_GROUP_SYNC_BLOCK( xEventGroup, uxBitsToSet, uxBitsToWaitFor )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 568 : 	#define traceEVENT_GROUP_SYNC_END( xEventGroup, uxBitsToSet, uxBitsToWaitFor, xTimeoutOccurred ) ( void ) xTimeoutOccurred
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 572 : 	#define traceEVENT_GROUP_WAIT_BITS_BLOCK( xEventGroup, uxBitsToWaitFor )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 576 : 	#define traceEVENT_GROUP_WAIT_BITS_END( xEventGroup, uxBitsToWaitFor, xTimeoutOccurred ) ( void ) xTimeoutOccurred
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 580 : 	#define traceEVENT_GROUP_CLEAR_BITS( xEventGroup, uxBitsToClear )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 584 : 	#define traceEVENT_GROUP_CLEAR_BITS_FROM_ISR( xEventGroup, uxBitsToClear )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 588 : 	#define traceEVENT_GROUP_SET_BITS( xEventGroup, uxBitsToSet )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 592 : 	#define traceEVENT_GROUP_SET_BITS_FROM_ISR( xEventGroup, uxBitsToSet )
+FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) line 596 : 	#define traceEVENT_GROUP_DELETE( xEventGroup )
+xSTATIC_EVENT_GROUP in FreeRTOS.h (Library\Middlewares\FreeRTOS\Source\include) : } StaticEventGroup_t;
+main.c (Src) line 18 : EventGroupHandle_t EventGroup_System;
+main in main.c (Src) : 	assert_param( NULL != ( EventGroup_System = xEventGroupCreate( ) ) );
+MemoryThread_SprintfMutexGive in main.c (Src) : 	assert_param( NULL != EventGroup_System );
+MemoryThread_SprintfMutexGive in main.c (Src) : 	( void ) xEventGroupSetBits( EventGroup_System, EVENTSYSTEM_SPRINTF_READY );
+MemoryThread_SprintfMutexTake in main.c (Src) : 	assert_param( NULL != EventGroup_System );
+MemoryThread_SprintfMutexTake in main.c (Src) : 	return ( EventToWait & xEventGroupWaitBits( EventGroup_System, EventToWait, pdTRUE, pdTRUE, xTicksToWait ) );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 128 : EventGroupHandle_t MPU_xEventGroupCreate( void );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 129 : EventGroupHandle_t MPU_xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 130 : EventBits_t MPU_xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToWaitFor, const BaseType_t xClearOnExit, const BaseType_t xWaitForAllBits, TickType_t xTicksToWait );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 131 : EventBits_t MPU_xEventGroupClearBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 132 : EventBits_t MPU_xEventGroupSetBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 133 : EventBits_t MPU_xEventGroupSync( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, const EventBits_t uxBitsToWaitFor, TickType_t xTicksToWait );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 134 : void MPU_vEventGroupDelete( EventGroupHandle_t xEventGroup );
+mpu_prototypes.h (Library\Middlewares\FreeRTOS\Source\include) line 135 : UBaseType_t MPU_uxEventGroupGetNumber( void* xEventGroup );
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 132 : 		#define xEventGroupCreate						MPU_xEventGroupCreate
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 133 : 		#define xEventGroupCreateStatic					MPU_xEventGroupCreateStatic
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 134 : 		#define xEventGroupWaitBits						MPU_xEventGroupWaitBits
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 135 : 		#define xEventGroupClearBits					MPU_xEventGroupClearBits
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 136 : 		#define xEventGroupSetBits						MPU_xEventGroupSetBits
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 137 : 		#define xEventGroupSync							MPU_xEventGroupSync
+mpu_wrappers.h (Library\Middlewares\FreeRTOS\Source\include) line 138 : 		#define vEventGroupDelete						MPU_vEventGroupDelete
+SKLP_ProcessPacketGatewayV2 in SKLP_MS_Transport.c (Library\Tools\SKLP) : 		EventBits_t EventBitsResult = EventBitsMask & xEventGroupWaitBits( pUART_Hdl->EventGroup, EventBitsMask, pdTRUE, pdFALSE, PossibleTimout );
+SKLP_ProcessPacketGateway in SKLP_MS_Transport.c (Library\Tools\SKLP) : 		EventBitsResult = EventBitsMask & xEventGroupWaitBits( pGatewayHdl_UART->EventGroup, EventBitsMask, pdTRUE, pdTRUE, pdMS_TO_TICKS( 50 ) );
+SKLP_ProcessPacketGateway in SKLP_MS_Transport.c (Library\Tools\SKLP) : 			EventBitsResult = EventBitsMask & xEventGroupWaitBits( pGatewayHdl_UART->EventGroup, EventBitsMask, pdTRUE, pdTRUE, PossibleTimout );
+SKLP_ProcessPacketGateway in SKLP_MS_Transport.c (Library\Tools\SKLP) : 			EventBits_t EventBitsResult = EventBitsMask & xEventGroupWaitBits( pGatewayHdl_UART->EventGroup, EventBitsMask, pdTRUE, pdTRUE, PossibleTimout );
+SKLP_ProcessPacketGateway in SKLP_MS_Transport.c (Library\Tools\SKLP) : 		( void ) xEventGroupSetBits( pGatewayHdl_UART->EventGroup, EVENT_UART_EXT_ACCESS_READY );
+SKLP_SendPacket in SKLP_MS_Transport.c (Library\Tools\SKLP) : 			EventBits_t EventBitsResult = EventBitsMask & xEventGroupWaitBits( pUART_Hdl->EventGroup, EventBitsMask, pdTRUE, pdFALSE, PossibleTimout );
+SKLP_SlaveTask in SKLP_MS_TransportLocal_354_10.c (Src) : 		xEventGroupWaitBits( EventGroup)
+SKLP_ProcessCommand_TimeSinchronization in SKLP_ServiceDefault.c (Library\Tools\SKLP) : 				( void ) xEventGroupSetBits( EventGroup_System, EVENTSYSTEM_RTC_SYNC );
+HAL_UART_Ext_Init in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		assert_param( NULL != ( huart_ext->EventGroup = xEventGroupCreate( ) ) );		// Инициализировать хендлер событий
+HAL_UART_Ext_Init in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		( void ) xEventGroupSetBits( huart_ext->EventGroup, EVENT_UART_EXT_INIT_COMPLETE | EVENT_UART_EXT_ACCESS_READY );
+HAL_UART_Ext_DeInit in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 	vEventGroupDelete( huart->EventGroup );
+HAL_UART_Ext_Transmit in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		( void ) xEventGroupClearBits( huart_ext->EventGroup, EVENT_UART_EXT_TX_ALL );
+HAL_UART_Ext_ReceiveCyclicStart in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 	xEventGroupClearBits( huart_ext->EventGroup, EVENT_UART_EXT_RX_ALL );
+HAL_UART_Ext_ReceiveCyclicReset in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		xEventGroupClearBits( huart_ext->EventGroup, EVENT_UART_EXT_RX_ALL );
+HAL_UART_Ext_ReceiveStart in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 	xEventGroupClearBits( huart_ext->EventGroup, EVENT_UART_EXT_RX_ALL );
+UART_Ext_DMATransmitCplt in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		assert_param( pdPASS == xEventGroupSetBitsFromISR( huart_ext->EventGroup, EVENT_UART_EXT_TX_DMA_COMPLETE, &xHigherPriorityTaskWoken ) );
+UART_Ext_DMAError in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 	assert_param( pdPASS == xEventGroupSetBitsFromISR( huart_ext->EventGroup, EventBits, &xHigherPriorityTaskWoken ) );
+UART_Ext_Transmit_Complete_IT in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		assert_param( pdPASS == xEventGroupSetBitsFromISR( huart_ext->EventGroup, EVENT_UART_EXT_TX_COMPLETE, &xHigherPriorityTaskWoken ) );
+UART_Ext_Receive_Idle_IT in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		assert_param( pdPASS == xEventGroupSetBitsFromISR( huart_ext->EventGroup, EVENT_UART_EXT_RX_IDLE, &xHigherPriorityTaskWoken ) );
+UART_Ext_DMAReceiveCplt in Stm32xxxx_hal_uart_ext.c (Library\Platforms\Common) : 		assert_param( pdPASS == xEventGroupSetBitsFromISR( huart_ext->EventGroup, EVENT_UART_EXT_RX_COMPLETE, &xHigherPriorityTaskWoken ) );
+{anonUART_Ext_HandleTypeDef} in Stm32xxxx_hal_uart_ext.h (Library\Platforms\Common) : 	EventGroupHandle_t	EventGroup;				// События при работе с расширенным драйвером (можно удалить при необходимости)
+TaskConfig.h (Src) line 56 : extern EventGroupHandle_t EventGroup_System;
+---- EventGroup Search Errors Encountered (6) ----
+The following 6 files could not be processed:
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\Common_spi.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\Common_spi.h : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\flash_interface.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\flash_interface.h : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\RUS_Regul_Periphery.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\SKLP_Interface_RUS_Regul.c : File could not be opened.
