@@ -640,9 +640,9 @@ void HAL_TIM_OC_DelayElapsedCallback( TIM_HandleTypeDef *htim )
 	void TIM5_IRQHandler( void )	 	{	HAL_TIM_IRQHandler( &TIM5_hdl ); }
 #endif	// TIM5_USE_IRQ
 
-#ifdef	TIM6_USE_IRQ
-	void TIM6_IRQHandler( void )	 	{	HAL_TIM_IRQHandler( &TIM6_hdl ); }
-#endif	// TIM6_USE_IRQ
+//#ifdef	TIM6_USE_IRQ
+//	void TIM6_IRQHandler( void )	 	{	HAL_TIM_IRQHandler( &TIM6_hdl ); }
+//#endif	// TIM6_USE_IRQ
 
 #ifdef	TIM7_USE_IRQ
 	void TIM7_IRQHandler( void ) 		{	HAL_TIM_IRQHandler( &TIM7_hdl ); }

@@ -37,7 +37,19 @@ BYTE_QUEUE_CREATE( SKLP_RxQueue_Manchester, SKLP_RX_BUFFER_SIZE );
 #define	iSKLP_Machester	0
 #define	iSKLP_USART		1
 static __no_init SKLP_Interface_t aSKLP_Interfaces[2];
+TIM_HandleTypeDef htim6;
 
+typedef struct {
+	uint8_t data[1024];
+	uint16_t count;
+	uint8_t rxEventFull;
+	uint8_t stopRead;
+} DataBuffer;
+
+DataBuffer* getDataBuffer() {
+	static DataBuffer Buffer;
+	return &Buffer;
+}
 
 // Коллбек из обработчика прерывания UART.RxIdle от любых UART
 void HAL_UART_RxIdleCallback( UART_HandleTypeDef *huart )
@@ -56,11 +68,23 @@ void SKLP_Timer_Service_PeriodElapsedCallback( void )
 {
 	SKLP_TimerElapsed( &aSKLP_Interfaces[iSKLP_Machester] );
 }
-
+/* ------------------------------------------------------- */
+/* ПРЕРЫВАНИЕ ТАЙМЕРА */
 void SKLP_Timer_Aux_PeriodElapsedCallback( void )
-{
+{ 
+	DataBuffer *rxBuffer = getDataBuffer();
+	rxBuffer->stopRead = 1; 
+	GPIO_Common_Toggle(iGPIO_KT1);
+	assert_param( NULL != EventGroup_System );
+	xEventGroupSetBitsFromISR( EventGroup_System, EVENTSYSTEM_MANCHESTER_RX_COMPLETE, NULL );
+	GPIO_Common_Toggle(iGPIO_KT1);
+
+
+
 	SKLP_TimerElapsed( &aSKLP_Interfaces[iSKLP_USART] );
 }
+/* ------------------------------------------------------- */
+
 
 // Инициализация периферии интерфейсов SKLP
 static void SKLP_InterfacePeripheryInit( void )
@@ -378,48 +402,38 @@ void change_Conffigure_GPIO_Write() {
 // Задача приема по протоколу СКЛ, нормально заблокирована ожиданием сообщений от последовательного канала.
 // Прием пакетов производится в обработчике прерывания UART.Rx.Idle - SKLP_ReceivePacketFragment(), который добавляет в очередь сообщение о приеме.
 // Коллбеки ошибок UART добавляют сообщения об ошибках, которые также надо обрабатывать.
-typedef struct {
-	uint8_t data[36];
-	uint16_t count;
-	uint8_t rxEventFull;
-	uint8_t stopRead;
-} DataBuffer;
 
-DataBuffer* getDataBuffer() {
-	static DataBuffer Buffer;
-	return &Buffer;
-}
 
 void fillDataBuffre(uint16_t value) {
 	DataBuffer *rxBuffer = getDataBuffer();
+	__HAL_TIM_SET_COUNTER(&htim6, 0);
 	if(rxBuffer->stopRead == 0) {
 		if(rxBuffer->count < (sizeof(rxBuffer->data) - 1) ) {
-//			GPIO_Common_Toggle(iGPIO_KT2);
+			
+		GPIO_Common_Toggle(iGPIO_KT3);
 			rxBuffer->data[rxBuffer->count] = value;
 			rxBuffer->data[rxBuffer->count+1] = value >> 8;
 			rxBuffer->count += 2;
-			rxBuffer->rxEventFull = 0;
+			
+		GPIO_Common_Toggle(iGPIO_KT3);
+    }
+		}
+		// else {
+//				
+////			GPIO_Common_Toggle(iGPIO_KT2);
+//			rxBuffer->count = 0;
+//			rxBuffer->rxEventFull = 1;
+//
+//
+
 //			GPIO_Common_Toggle(iGPIO_KT2);
-			} else {
-				
-			GPIO_Common_Toggle(iGPIO_KT2);
-			rxBuffer->count = 0;
-			rxBuffer->rxEventFull = 1;
-
-
-			assert_param( NULL != EventGroup_System );
-			xEventGroupSetBitsFromISR( EventGroup_System, EVENTSYSTEM_MANCHESTER_RX_COMPLETE, NULL );
-
-			GPIO_Common_Toggle(iGPIO_KT2);
-			}
-	}
 }
 
 static void MX_TIM6_Init (void)
 {
 
   /* USER CODE BEGIN TIM6_Init 0 */
-  TIM_HandleTypeDef htim6;
+  
 
   /* USER CODE END TIM6_Init 0 */
 
@@ -430,9 +444,9 @@ static void MX_TIM6_Init (void)
 
   /* USER CODE END TIM6_Init 1 */
   htim6.Instance = TIM6;
-  htim6.Init.Prescaler = 0;
+  htim6.Init.Prescaler = 5;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim6.Init.Period = 8000;
+  htim6.Init.Period = 80000000;
   htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init (&htim6) != HAL_OK)
     {
@@ -445,6 +459,7 @@ static void MX_TIM6_Init (void)
 //      Error_Handler ();
     }
   /* USER CODE BEGIN TIM6_Init 2 */
+  
   /* USER CODE END TIM6_Init 2 */
 
 }
@@ -474,20 +489,19 @@ static void SKLP_SlaveTask( void *pParameters )
 	/*Включаю режим чтения с портов */
 	change_Configure_GPIO_Read();
 	
-	
 //	const char[10] const mTimerManchester = "Manchester";
 //	xTimerCreate(mTimerManchester, pdMS_TO_TICKS(1), const UBaseType_t uxAutoReload, void * const pvTimerID, TimerCallbackFunction_t pxCallbackFunction)
 
-//	static uint8_t aTmpBuff[1024] = {0};
+	static uint8_t aTmpBuff[1024] = {0};
 //	static uint32_t startTime = 0;
 //	static uint32_t currentTime = 0;
 //        static uint16_t dates = 0;
 	MX_TIM6_Init();
-
+	
+	HAL_TIM_Base_Start_IT(&htim6);
 	while( 1 )
 	{
-//		SKLP_Message_t Message;
-		DataBuffer *rxBuffer = getDataBuffer();
+				SKLP_Message_t Message;
 		// Ожидать событие от последовательных интерфейсов
 //		aSKLP_Interfaces[iSKLP_Machester].State = SKLP_STATE_WaitStart;
 //		xQueueReset(pSKLP_ManchesterMessageQueueHdl);
@@ -517,19 +531,71 @@ static void SKLP_SlaveTask( void *pParameters )
 //		}
 //		vTaskDelay(2);
 //		if( 1 == rxBuffer->rxEventFull )
+		GPIO_Common_Toggle(iGPIO_KT2);
 		assert_param( NULL != EventGroup_System );
 		EventBits_t EventsResult = xEventGroupWaitBits( EventGroup_System, EVENTSYSTEM_MANCHESTER_RX_COMPLETE, true, false, portMAX_DELAY );
+		DataBuffer *rxBuffer = getDataBuffer();
+		GPIO_Common_Toggle(iGPIO_KT2);
 		if( EventsResult & EVENTSYSTEM_MANCHESTER_RX_COMPLETE )
 		{	// На основной интерфейс допускаютсЯ запросы по всем поддерживаемым адресам
-			rxBuffer->stopRead = 1;
-			rxBuffer->rxEventFull = 0;
-			rxBuffer->count = 0;
-			HAL_UART_Ext_Transmit(aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl, rxBuffer->data, 36, EVENT_UART_EXT_TX_COMPLETE );
-			xEventGroupWaitBits( aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl->EventGroup, EVENT_UART_EXT_TX_COMPLETE, true, false, portMAX_DELAY );
-			for(int i = 0; i < 36; ++i) {
-				rxBuffer->data[i] = 0;
+//			rxBuffer->stopRead = 1;
+//			rxBuffer->rxEventFull = 0;
+//			uint16_t sizePacket = rxBuffer->count;
+			if(rxBuffer->count > 0) {
+				uint16_t sizePacket = rxBuffer->data[1];
+				uint16_t indexCRC = sizePacket + 2;// получение индекса CRC
+				uint32_t sizeAllPacket = indexCRC + 1; // Длина всего пакета
+				rxBuffer->data[3] = 0x13;
+//				uint8_t calc_crc_result = CalcCRC8SKLP_Load(rxBuffer->data, indexCRC, rxBuffer->data[indexCRC]);
+				uint8_t calc_crc_result = CalcCRC8SKLP(rxBuffer->data, sizeAllPacket);
+				
+				if(0 == calc_crc_result) {
+
+//				CalcCRC8SKLP(rxBuffer->data, rxBuffer->count);
+//				bool ReceiverValid = SKLP_ReceivePacket(aTmpBuff, sizeoff(aTmpBuff), rxBuffer->data, rxBuffer->count);
+				/* Отправка пакета данных на МПИ */
+			HAL_UART_Ext_Transmit(aSKLP_Interfaces[iSKLP_USART].pUART_Hdl, rxBuffer->data, sizeAllPacket, EVENT_UART_EXT_TX_COMPLETE );
+			GPIO_Common_Toggle(iGPIO_KT2);
+			GPIO_Common_Toggle(iGPIO_KT2);
+			
+			xEventGroupWaitBits( aSKLP_Interfaces[iSKLP_USART].pUART_Hdl->EventGroup, EVENT_UART_EXT_TX_COMPLETE, true, false, portMAX_DELAY );
+			xQueueReset(pSKLP_UsartMessageQueueHdl);
+			assert_param( pdTRUE == xQueueReceive( pSKLP_UsartMessageQueueHdl, &Message, pdMS_TO_TICKS( 100 ) ) );
+			GPIO_Common_Toggle(iGPIO_KT2);
+			GPIO_Common_Toggle(iGPIO_KT2);
+			switch ( Message.Event )
+				{
+					case EVENT_SKLP_ANSWER:
+						    static bool ReceiverValid = false;
+							ReceiverValid = SKLP_ReceivePacket(aTmpBuff, sizeof(aTmpBuff), &SKLP_RxQueue_USART , Message.Packet);
+													if(true == ReceiverValid) {
+														for(int i = 0; i < Message.Packet.Size; i+=2) {
+																pushDatesToPort(aTmpBuff[i], aTmpBuff[i+1]);
+																HAL_Delay(100);
+															}
+													}
+//					break;
+//					case EVENT_SKLP_QUERY_2ME: 		// Персональный пакет для этого слейва по любому из допустимых адресов
+//						SKLP_ProcessPacket( Message.pInterface, Message.Packet );
+//						break;
+					break;
+					default:						// Недопустимое событие
+					assert_param( 0 );
+						break;
 				}
+			
+			} else {
+//				HAL_UART_Ext_Transmit(aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl, rxBuffer->data, 2, EVENT_UART_EXT_TX_COMPLETE );
+//				assert_param( 0 );
+
+				}
+			}
+			for(int i = 0; i < 1024; ++i) {
+						rxBuffer->data[i] = 0;
+					}
+			rxBuffer->count = 0;
 			rxBuffer->stopRead = 0;
+
 /*	
 			switch( Message.Event )
 			{
@@ -569,9 +635,7 @@ static void SKLP_SlaveTask( void *pParameters )
 
 void EXTI9_5_IRQHandler( void )
 {
-	GPIO_Common_Toggle(iGPIO_KT3);
 	HAL_NVIC_ClearPendingIRQ( EXTI9_5_IRQn );
-	GPIO_Common_Toggle(iGPIO_KT3);
 	// Вызвать обработчик для каждого возможного источника
 	for( uint32_t PinMask = GPIO_PIN_5; PinMask < GPIO_PIN_9; PinMask <<= 1 )
 		HAL_GPIO_EXTI_IRQHandler( ( uint16_t ) PinMask );
@@ -587,11 +651,23 @@ void HAL_GPIO_EXTI_Callback( uint16_t GPIO_Pin )
 	if( GPIO_Pin == GPIO_PIN_8 )
 	{
 	
-												while(1 == HAL_GPIO_ReadPin(GPIOB, ACHD_Pin)){}
+		while(1 == HAL_GPIO_ReadPin(GPIOB, ACHD_Pin)){}
 		uint16_t dates = readDatesToPorts();
-		fillDataBuffre(dates);                
+		fillDataBuffre(dates);     
 	}
 }
+void TIM6_IRQHandler( void )	 	{	HAL_TIM_IRQHandler( &TIM6_hdl ); }
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(htim);
+
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the HAL_TIM_IC_CaptureCallback could be implemented in the user file
+   */
+}
+
 
 
 //void TIM6_DAC_IRQHandler(void) {

@@ -37,7 +37,7 @@
         <stlinkResetStrategy>0</stlinkResetStrategy>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>1873071119</Checksum>
+        <Checksum>624996414</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -134,12 +134,16 @@
     </DisassembleMode>
     <Breakpoints2>
         <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\main.c}.205.3" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.277.2" 0 0 1 "" 0 "" 0</Bp1>
-        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.277.2" 0 0 1 "" 0 "" 0</Bp2>
+        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.286.2" 0 0 1 "" 0 "" 0</Bp1>
+        <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.286.2" 0 0 1 "" 0 "" 0</Bp2>
         <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Library\Tools\SKLP\SKLP_MS_Transport.c}.751.3" 0 0 1 "" 0 "" 0</Bp3>
-        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.274.2" 0 0 1 "" 0 "" 0</Bp4>
+        <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.286.2" 0 0 1 "" 0 "" 0</Bp4>
         <Bp5>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\main.c}.33.2" 0 0 1 "" 0 "" 0</Bp5>
-        <Count>6</Count>
+        <Bp6>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.572.23" 0 0 1 "" 0 "" 0</Bp6>
+        <Bp7>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.565.4" 0 0 1 "" 0 "" 0</Bp7>
+        <Bp8>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.552.5" 0 0 1 "" 0 "" 0</Bp8>
+        <Bp9>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.559.4" 0 0 1 "" 0 "" 0</Bp9>
+        <Count>10</Count>
     </Breakpoints2>
     <Aliases>
         <Count>0</Count>
