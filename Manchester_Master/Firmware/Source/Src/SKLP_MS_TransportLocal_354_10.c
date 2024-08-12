@@ -445,6 +445,24 @@ static void MX_TIM6_Init (void)
   /* USER CODE BEGIN TIM6_Init 1 */
 
   /* USER CODE END TIM6_Init 1 */
+  /*
+	------------------------------------------------------
+	Формула для расчета частоты прерывания
+	------------------------------------------------------
+    ------------------------------------------------------
+	1. Частота тактирования таймера : 80MHz
+	2. Предделитель : 5
+	3. Период : 80000000
+
+	Частота таймера = Частота тактирования / предделитель + 1
+	80 MHz / 5 + 1 = 80 MHz / 6 = 13.33 MHz
+
+    Время таймера = Period / Частота таймера 
+    80000000 / 13.33 MHz = 6000 мс = 6 секунд
+
+    С такими настройками, прерывание каждые 6 секунд
+    ------------------------------------------------------
+  */
   htim6.Instance = TIM6;
   htim6.Init.Prescaler = 5;
   htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
@@ -488,7 +506,11 @@ static void SKLP_SlaveTask( void *pParameters )
 	assert_param( HAL_OK == HAL_UART_Ext_ReceiveCyclicStart( aSKLP_Interfaces[iSKLP_Machester].pUART_Hdl, &SKLP_RxQueue_Manchester, 0 ) );
 	assert_param( HAL_OK == HAL_UART_Ext_ReceiveCyclicStart( aSKLP_Interfaces[iSKLP_USART].pUART_Hdl, &SKLP_RxQueue_USART, 0 ) );
 	DWT_AppendTimestampTag( "Start SKLP" );
-	/*Включаю режим чтения с портов */
+	/*
+	------------------------------------------------------
+	Изменение конфигурации портов для чтения 
+	------------------------------------------------------
+	*/
 	change_Configure_GPIO_Read();
 	
 //	const char[10] const mTimerManchester = "Manchester";
@@ -503,30 +525,67 @@ static void SKLP_SlaveTask( void *pParameters )
 	HAL_TIM_Base_Start_IT(&htim6);
 	while( 1 )
 	{
-	/* MANCHESTER - MASTER */
+	/*
+	********************************************************
+	|||||||||||||   MANCHESTER - MASTER ||||||||||||||||||||s
+	********************************************************
+	*/
 				SKLP_Message_t Message;
 			GPIO_Common_Toggle(iGPIO_KT2); 
 			xQueueReset(pSKLP_UsartMessageQueueHdl);
 			GPIO_Common_Toggle(iGPIO_KT2);
+			/*
+			---------------------------------------------------
+			Ожидание по UART 1 команды для отправки по Manchester
+			---------------------------------------------------
+			*/
 			assert_param( pdTRUE == xQueueReceive( pSKLP_UsartMessageQueueHdl, &Message, pdMS_TO_TICKS( portMAX_DELAY ) ) );
-			/* запись в порты */
+			/* 
+			---------------------------------------------------
+			Изменения конфигурации портов для записи 
+			---------------------------------------------------
+			*/
 			change_Conffigure_GPIO_Write();
 			GPIO_Common_Toggle(iGPIO_KT2);
 			static bool ReceiverValid = false;
 			switch ( Message.Event )
 				{
+					/*
+					-----------------------------------------------
+					Если запрос на чужой адрес
+					-----------------------------------------------
+					*/
 					case EVENT_SKLP_QUERY_2OTHER:
+						/*
+						-------------------------------------------------
+						Перемещение пакет из кольцевого буфера в линейный
+						расчет его CRC, если пакет корректный бьется, то
+						ReceiverValid будет true
+						-------------------------------------------------
+						*/
 							ReceiverValid = SKLP_ReceivePacket(aTmpBuff, sizeof(aTmpBuff), &SKLP_RxQueue_USART , Message.Packet);
 													if(true == ReceiverValid) {
 														
 														GPIO_Common_Toggle(iGPIO_KT2);
-														uint32_t size_packet = (Message.Packet.Size % 2 == 0) ? Message.Packet.Size : Message.Packet.Size + 1 ;
-														for(int i = 0; i < size_packet; i+=2) {
+														/*
+														---------------------------------------------------------------
+														Корректировка размера пакета, чтобы по Manchester
+														отправлять всегда четные пакеты
+														---------------------------------------------------------------
+														*/
+														uint32_t size_input_packet = (Message.Packet.Size % 2 == 0) ? Message.Packet.Size : Message.Packet.Size + 1 ;
+														for(int i = 0; i < size_input_packet; i+=2) {
 																pushDatesToPort(aTmpBuff[i], aTmpBuff[i+1]);
+																HAL_Delay(1);
 														}
 														GPIO_Common_Toggle(iGPIO_KT2);
 													}
 					break;
+					/*
+					-----------------------------------------------
+					Если запрос на мой адрес
+					-----------------------------------------------
+					*/
 					case EVENT_SKLP_QUERY_2ME: 		// Персональный пакет для этого слейва по любому из допустимых адресов
 						SKLP_ProcessPacket( Message.pInterface, Message.Packet );
 						break;
@@ -536,8 +595,17 @@ static void SKLP_SlaveTask( void *pParameters )
 						break;
 				}
 			GPIO_Common_Toggle(iGPIO_KT2);
-			/*Включаю режим чтения с портов */
+			/*
+			------------------------------------------------------
+			Изменение конфигурации портов для чтения 
+			------------------------------------------------------
+			*/
 			change_Configure_GPIO_Read();
+			/*
+			------------------------------------------------------
+			После отправки, ожидаем ответа с Manchester
+			------------------------------------------------------
+			*/
 			EventBits_t EventsResult = xEventGroupWaitBits( EventGroup_System, EVENTSYSTEM_MANCHESTER_RX_COMPLETE, true, false, portMAX_DELAY );
 			DataBuffer *rxBuffer = getDataBuffer();
 			GPIO_Common_Toggle(iGPIO_KT2);
@@ -551,13 +619,28 @@ static void SKLP_SlaveTask( void *pParameters )
 								uint16_t indexCRC = sizePacket + 2;// получение индекса CRC
 								uint32_t sizeAllPacket = indexCRC + 1; // Длина всего пакета
 				////				uint8_t calc_crc_result = CalcCRC8SKLP_Load(rxBuffer->data, indexCRC, rxBuffer->data[indexCRC]);
+								/*
+								-------------------------------------------------------
+								Расчет CRC полученного пакета по Manchester
+								-------------------------------------------------------
+								*/
 								uint8_t calc_crc_result = CalcCRC8SKLP(rxBuffer->data, sizeAllPacket);
-								
+								/*
+								-------------------------------------------------------
+								Если пакет корректен
+								-------------------------------------------------------
+								*/
 								if(0 == calc_crc_result) {
-
-								
-								
-
+									
+									
+									HAL_UART_Ext_Transmit(aSKLP_Interfaces[iSKLP_USART].pUART_Hdl, rxBuffer->data, sizeAllPacket, 0);
+									/*
+									---------------------------------------------------
+									Ждем окончания отправки пакета по UART 1
+									---------------------------------------------------
+									*/
+									xEventGroupWaitBits( aSKLP_Interfaces[iSKLP_USART].pUART_Hdl->EventGroup, EVENT_UART_EXT_TX_COMPLETE, true, false, portMAX_DELAY );
+									xQueueReset(pSKLP_UsartMessageQueueHdl);
 
 
 

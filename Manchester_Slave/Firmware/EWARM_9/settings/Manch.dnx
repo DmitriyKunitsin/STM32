@@ -25,8 +25,8 @@
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.2\arm\config\debugger\ST\STM32L433CC.ddf</MemConfigValue>
     </PlDriver>
     <ArmDriver>
-        <EnableCache>0</EnableCache>
         <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+        <EnableCache>0</EnableCache>
     </ArmDriver>
     <StLinkDriver>
         <stlinkserialNo>B55B5A1A00000000EAC5EF01</stlinkserialNo>
@@ -37,7 +37,7 @@
         <stlinkResetStrategy>0</stlinkResetStrategy>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>3662669401</Checksum>
+        <Checksum>3902903193</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -125,6 +125,13 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
+    <DriverProfiling>
+        <Enabled>0</Enabled>
+        <Mode>3</Mode>
+        <Graph>0</Graph>
+        <Symbiont>0</Symbiont>
+        <Exclusions />
+    </DriverProfiling>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -140,21 +147,14 @@
         <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.288.2" 0 0 1 "" 0 "" 0</Bp4>
         <Bp5>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.1.1" 0 0 1 "" 0 "" 0</Bp5>
         <Bp6>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\main.c}.33.2" 0 0 1 "" 0 "" 0</Bp6>
-        <Bp7>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.618.9" 0 0 1 "" 0 "" 0</Bp7>
+        <Bp7>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.622.5" 0 0 1 "" 0 "" 0</Bp7>
         <Bp8>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.579.5" 0 0 1 "" 0 "" 0</Bp8>
-        <Bp9>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.498.2" 0 0 1 "" 0 "" 0</Bp9>
-        <Bp10>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.562.14" 0 0 1 "" 0 "" 0</Bp10>
+        <Bp9>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.500.2" 0 0 1 "" 0 "" 0</Bp9>
+        <Bp10>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Source\Src\SKLP_MS_TransportLocal_354_10.c}.567.3" 0 0 1 "" 0 "" 0</Bp10>
         <Count>11</Count>
     </Breakpoints2>
     <Aliases>
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
-    <DriverProfiling>
-        <Enabled>0</Enabled>
-        <Mode>3</Mode>
-        <Graph>0</Graph>
-        <Symbiont>0</Symbiont>
-        <Exclusions />
-    </DriverProfiling>
 </settings>

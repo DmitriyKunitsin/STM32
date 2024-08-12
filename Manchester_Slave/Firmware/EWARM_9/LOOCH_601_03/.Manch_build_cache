@@ -3,15 +3,15 @@
     <Tool>
         <Name>linker</Name>
         <Parent>
-            <Path>C:\Work\Manchester_Slave\Firmware\EWARM_9\LOOCH_601_03\Exe\Manch.out</Path>
-            <Output>
-                <Path>C:\Work\Manchester_Slave\Firmware\EWARM_9\LOOCH_601_03\List\Manch.map</Path>
-            </Output>
-        </Parent>
-        <Parent>
             <Path>C:\Work\ManchesterNew17.07\Firmware\EWARM_9\LOOCH_601_03\Exe\Manch.out</Path>
             <Output>
                 <Path>C:\Work\ManchesterNew17.07\Firmware\EWARM_9\LOOCH_601_03\List\Manch.map</Path>
+            </Output>
+        </Parent>
+        <Parent>
+            <Path>C:\Work\Manchester_Slave\Firmware\EWARM_9\LOOCH_601_03\Exe\Manch.out</Path>
+            <Output>
+                <Path>C:\Work\Manchester_Slave\Firmware\EWARM_9\LOOCH_601_03\List\Manch.map</Path>
             </Output>
         </Parent>
     </Tool>
