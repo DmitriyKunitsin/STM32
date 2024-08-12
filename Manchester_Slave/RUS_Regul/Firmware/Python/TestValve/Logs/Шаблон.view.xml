@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<LViewTemplate xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" IsHorizontal="false" TVD="false" Scale="20">
+  <Tracks>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="SPEE" CurveRule="Speed Meas" />
+          </Rules>
+          <Different Units="" Label="Измеренная скорость" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="192" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="SPEE" CurveRule="Speed Set" />
+          </Rules>
+          <Different Units="" Label="Выставленная скорость" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="192" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Angle Set" />
+          </Rules>
+          <Different Units="" Label="Выставленный угол" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Cur Position" />
+          </Rules>
+          <Different Units="" Label="Текущее положение" AutoMinMax="False" Min="" Max="360" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="192" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="CNT Value" />
+          </Rules>
+          <Different Units="" Label="" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="PRESS" CurveRule="Press" />
+          </Rules>
+          <Different Units="" Label="Давление" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="3">
+              <Color A="255" R="255" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Current Press" />
+          </Rules>
+          <Different Units="" Label="Мгновенное давление" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="PRESS" CurveRule="Press ADC code" />
+          </Rules>
+          <Different Units="" Label="Давление - код АЦП" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Power Supply" />
+          </Rules>
+          <Different Units="" Label="Напряжение питания" AutoMinMax="False" Min="" Max="13" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="255" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Current" />
+          </Rules>
+          <Different Units="" Label="Ток потребления" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="255" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Calibr Null" />
+          </Rules>
+          <Different Units="" Label="Калибровочный ноль" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Min Angle" />
+          </Rules>
+          <Different Units="" Label="Мин. угол (калибр)" AutoMinMax="False" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="192" G="0" B="192" />
+            </Pen>
+          </Different>
+        </LCurve>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Max Angle" />
+          </Rules>
+          <Different Units="" Label="Макс. угол (калибр)" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="4">
+              <Color A="255" R="192" G="0" B="192" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Min Press" />
+          </Rules>
+          <Different Units="" Label="Мин. давление (калибр)" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="255" />
+            </Pen>
+          </Different>
+        </LCurve>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Max Press" />
+          </Rules>
+          <Different Units="" Label="Макс. давление (калибр)" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="4">
+              <Color A="255" R="0" G="0" B="255" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="WorkZone" />
+          </Rules>
+          <Different Units="" Label="Рабочая зона" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="255" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="WorkState" />
+          </Rules>
+          <Different Units="" Label="Состояние мотора" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="WorkMode" />
+          </Rules>
+          <Different Units="" Label="Режим работы" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Error flag" />
+          </Rules>
+          <Different Units="" Label="Флаг ошибок" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+    <LTrack Name="Unnamed" Width="200" IsLograrithmeic="false" GridValueCountMainField="3" GridValueCountSecondInMainField="6" GridCountMainField="2" GridCountSecondInMainField="1">
+      <MainGrid Type="SOLID" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </MainGrid>
+      <SlaveGrid Type="DASH" Thinkness="1">
+        <Color A="255" R="0" G="0" B="0" />
+      </SlaveGrid>
+      <Curves>
+        <LCurve>
+          <Rules>
+            <LDefineCurveRule FamilyRule="" CurveRule="Logical flag" />
+          </Rules>
+          <Different Units="" Label="Флаг логики" AutoMinMax="" Min="" Max="" WrapRight="" WrapLeft="">
+            <Pen Type="SOLID" Thinkness="2">
+              <Color A="255" R="0" G="0" B="0" />
+            </Pen>
+          </Different>
+        </LCurve>
+      </Curves>
+    </LTrack>
+  </Tracks>
+</LViewTemplate>

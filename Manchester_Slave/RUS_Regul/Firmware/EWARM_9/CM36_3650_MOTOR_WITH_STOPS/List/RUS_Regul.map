@@ -1,0 +1,2358 @@
+###############################################################################
+#
+# IAR ELF Linker V9.50.1.380/W64 for ARM                  15/Jul/2024  13:23:53
+# Copyright 2007-2023 IAR Systems AB.
+#
+#    Output file  =
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Exe\RUS_Regul.out
+#    Map file     =
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\List\RUS_Regul.map
+#    Command line =
+#        -f
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Exe\RUS_Regul.out.rsp
+#        (D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\BuildInfo.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\ByteQueue.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\Common_dac.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\common_gpio.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\common_rcc.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\Common_tim.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\common_uart.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Components_18095364908024136817.dir\Driver_ADS1231.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Components_18095364908024136817.dir\DRIVER_CM36-3650.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Components_18095364908024136817.dir\DRIVER_Motor.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\eeprom_emul.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir\event_groups.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\flash_interface.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Heap_10681622352241717.dir\heap_4.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir\list.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\main.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\MathUtils.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\NVM.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CortexM4-F_9125968611666436719.dir\port.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CortexM4-F_9125968611666436719.dir\portasm.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir\queue.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\RebootUtils.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\RUS_Regul_ADC.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\RUS_Regul_Main.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\RUS_Regul_Periphery.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\RUS_Regul_PeripheryPD.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\SKLP_Interface_RUS_Regul.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir\SKLP_MS_Transport.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir\SKLP_MS_TransportLocal_354_10.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir\SKLP_Service.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir\SKLP_ServiceDefault.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir\SKLP_Time.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CMSIS_6603591812247902717.dir\startup_stm32l433xx.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_adc.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_adc_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_comp.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_cortex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_dac.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_dac_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_dma.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_dma_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_exti.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_flash.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_flash_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_gpio.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_iwdg.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_opamp.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_opamp_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_pwr.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_pwr_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_rcc.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_rcc_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_spi.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_spi_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_tim.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_tim_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_uart.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_hal_uart_ex.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir\stm32l4xx_ll_adc.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir\Stm32xxxx_hal_uart_ext.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_5654020855996028257.dir\system_stm32l4xx.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir\tasks.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir\timers.o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir\Utils.o
+#        --no_out_extension -o
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Exe\RUS_Regul.out
+#        --map
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\List\RUS_Regul.map
+#        --config "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.2\arm/config/linker/ST/stm32l433xC.icf" --semihosting --entry
+#        __iar_program_start --vfe --text_out locale --cpu=Cortex-M4
+#        --fpu=VFPv4_sp) --dependencies=n
+#        D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Exe\RUS_Regul.out.iar_deps
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x800'0000 { ro section .intvec };
+"P1":  place in [from 0x0 to 0x0] |
+                [from 0x800'0000 to 0x803'ffff] { ro };
+define block CSTACK with size = 8K, alignment = 8 { };
+define block PROC_STACK with size = 0, alignment = 8 { };
+define block HEAP with size = 8K, alignment = 8 { };
+"P3":  place in [from 0x2000'0000 to 0x2000'bfff] {
+          rw, block CSTACK, block PROC_STACK, block HEAP };
+initialize by copy { rw };
+
+No sections matched the following patterns:
+
+  ro section application_specific_ro  in "P2|P5"
+  rw section application_specific_rw  in "P2|P5"
+  section .textrw                     in "P4"
+
+
+  Section            Kind         Address  Aligment      Size  Object
+  -------            ----         -------  --------      ----  ------
+"A0":                                                   0x18c
+  .intvec            ro code   0x800'0000         4     0x18c  startup_stm32l433xx.o [3]
+                             - 0x800'018c               0x18c
+
+"P1":                                                0x1'5ac4
+  .text              ro code   0x800'018c         4    0x1d0c  eeprom_emul.o [12]
+  .text              ro code   0x800'1e98         4      0x32  flash_interface.o [12]
+  .text              ro code   0x800'1eca         2      0x2a  copy_init3.o [15]
+  .text              ro code   0x800'1ef4         4     0x32c  stm32l4xx_hal_flash.o [11]
+  .text              ro code   0x800'2220         4     0x54e  NVM.o [12]
+  .text              ro code   0x800'276e         2      0x1e  xsscin.o [13]
+  .text              ro code   0x800'278c         4     0x1d4  main.o [2]
+  .text              ro code   0x800'2960         4     0x240  stm32l4xx_hal_flash_ex.o [11]
+  .text              ro code   0x800'2ba0         4       0xc  stm32l4xx_hal.o [11]
+  .text              ro code   0x800'2bac         4      0xa6  ABImemcpy.o [15]
+  .text              ro code   0x800'2c52         2      0x1a  xsnprout.o [13]
+  .text              ro code   0x800'2c6c         4      0x66  ABImemset.o [15]
+  .rodata            const     0x800'2cd2         2       0x2  xlocale_c.o [13]
+  .text              ro code   0x800'2cd4         4     0x228  port.o [5]
+  .text              ro code   0x800'2efc         4     0x538  RebootUtils.o [12]
+  .text              ro code   0x800'3434         4     0x154  common_rcc.o [8]
+  .text              ro code   0x800'3588         4     0x1e0  common_gpio.o [8]
+  .text              ro code   0x800'3768         4     0x29c  event_groups.o [6]
+  .text              ro code   0x800'3a04         4     0x464  SKLP_MS_TransportLocal_354_10.o [2]
+  .text              ro code   0x800'3e68         4    0x1350  RUS_Regul_Main.o [2]
+  .text              ro code   0x800'51b8         4     0x428  DRIVER_CM36-3650.o [4]
+  .text              ro code   0x800'55e0         4     0x3c4  DRIVER_Motor.o [4]
+  .text              ro code   0x800'59a4         4      0x5c  common_gpio.o [8]
+  .text              ro code   0x800'5a00         4     0xb10  tasks.o [6]
+  .text              ro code   0x800'6510         4     0x554  timers.o [6]
+  .text              ro code   0x800'6a64         4      0x18  stm32l4xx_hal.o [11]
+  .text              ro code   0x800'6a7c         4     0x228  stm32l4xx_hal_cortex.o [11]
+  .text              ro code   0x800'6ca4         4      0x88  stm32l4xx_hal_pwr.o [11]
+  .text              ro code   0x800'6d2c         4      0x34  port.o [5]
+  CODE               ro code   0x800'6d60         4      0xb0  portasm.o [5]
+  .text              ro code   0x800'6e10         4      0xe6  stm32l4xx_hal_iwdg.o [11]
+  .rodata            const     0x800'6ef6         2       0x2  xlocale_c.o [13]
+  .text              ro code   0x800'6ef8         4     0x160  system_stm32l4xx.o [10]
+  .text              ro code   0x800'7058         4      0x24  stm32l4xx_hal.o [11]
+  .text              ro code   0x800'707c         4      0x44  snprintf.o [13]
+  .text              ro code   0x800'70c0         4     0x110  SKLP_Time.o [9]
+  .text              ro code   0x800'71d0         4     0xdec  stm32l4xx_hal_rcc.o [11]
+  .text              ro code   0x800'7fbc         4      0x70  strncpy.o [15]
+  .text              ro code   0x800'802c         4      0x54  common_gpio.o [8]
+  .text              ro code   0x800'8080         4     0x444  stm32l4xx_hal_gpio.o [11]
+  .text              ro code   0x800'84c4         4     0x28c  heap_4.o [7]
+  .text              ro code   0x800'8750         2      0x9a  list.o [6]
+  .rodata            const     0x800'87ea                 0x1  xlocale_c.o [13]
+  .rodata            const     0x800'87eb                 0x1  xlocale_c.o [13]
+  .text              ro code   0x800'87ec         4      0x38  SKLP_MS_TransportLocal_354_10.o [2]
+  .text              ro code   0x800'8824         4     0xaac  SKLP_MS_Transport.o [9]
+  .text              ro code   0x800'92d0         4     0xb66  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x800'9e36                 0x1  xlocale_c.o [13]
+  .text              ro code   0x800'9e38         4     0x1d4  Common_tim.o [8]
+  .text              ro code   0x800'a00c         4    0x1540  stm32l4xx_hal_tim.o [11]
+  .text              ro code   0x800'b54c         4     0x2c8  SKLP_Service.o [9]
+  .text              ro code   0x800'b814         4     0x6c0  queue.o [6]
+  .text              ro code   0x800'bed4         4     0x220  Driver_ADS1231.o [4]
+  .text              ro code   0x800'c0f4         4     0x6c8  SKLP_Interface_RUS_Regul.o [2]
+  .text              ro code   0x800'c7bc         4     0x92c  RUS_Regul_ADC.o [2]
+  .text              ro code   0x800'd0e8         4       0x6  ABImemclr4.o [15]
+  .text              ro code   0x800'd0f0         4     0x3a8  stm32l4xx_hal_tim_ex.o [11]
+  .text              ro code   0x800'd498         4     0x32c  stm32l4xx_hal_opamp.o [11]
+  .text              ro code   0x800'd7c4         2       0x2  stm32l4xx_hal_cortex.o [11]
+  .text              ro code   0x800'd7c8         4      0x60  stm32l4xx_hal_pwr_ex.o [11]
+  .text              ro code   0x800'd828         4      0x60  stm32l4xx_hal.o [11]
+  .text              ro code   0x800'd888         2       0x2  stm32l4xx_hal.o [11]
+  .text              ro code   0x800'd88c         4     0xd12  xprintflarge_nomb.o [13]
+  .text              ro code   0x800'e5a0         4      0xe0  mktime64.o [13]
+  .text              ro code   0x800'e680         2       0xe  ctime64.o [13]
+  .text              ro code   0x800'e690         4      0x36  strlen.o [15]
+  .text              ro code   0x800'e6c6         2      0x1a  ByteQueue.o [12]
+  .text              ro code   0x800'e6e0         2      0x22  ByteQueue.o [12]
+  .text              ro code   0x800'e702         2     0x126  ByteQueue.o [12]
+  .text              ro code   0x800'e828         2      0x16  SKLP_MS_Transport.o [9]
+  .text              ro code   0x800'e840         4     0x210  Utils.o [12]
+  .text              ro code   0x800'ea50         4     0x910  stm32l4xx_hal_uart.o [11]
+  .text              ro code   0x800'f360         4     0x4d4  stm32l4xx_hal_dma.o [11]
+  .text              ro code   0x800'f834         2       0xa  Stm32xxxx_hal_uart_ext.o [8]
+  .text              ro code   0x800'f83e         2       0x2  stm32l4xx_hal_uart.o [11]
+  .text              ro code   0x800'f840         2       0x2  stm32l4xx_hal_uart.o [11]
+  .text              ro code   0x800'f842         2      0x14  Stm32xxxx_hal_uart_ext.o [8]
+  .text              ro code   0x800'f856         2       0x2  stm32l4xx_hal_tim.o [11]
+  .text              ro code   0x800'f858         2       0x2  stm32l4xx_hal_tim.o [11]
+  .text              ro code   0x800'f85a         2       0x2  stm32l4xx_hal_tim_ex.o [11]
+  .text              ro code   0x800'f85c         2       0x2  stm32l4xx_hal_tim_ex.o [11]
+  .text              ro code   0x800'f85e         2       0x2  stm32l4xx_hal_tim.o [11]
+  .text              ro code   0x800'f860         2       0x2  stm32l4xx_hal_tim_ex.o [11]
+  .text              ro code   0x800'f864         4      0x28  sscanf.o [13]
+  .text              ro code   0x800'f88c         2       0x6  SKLP_Service.o [9]
+  .text              ro code   0x800'f894         4     0xa5c  stm32l4xx_hal_spi.o [11]
+  .text              ro code   0x801'02f0         4    0x126a  stm32l4xx_hal_adc.o [11]
+  .text              ro code   0x801'155c         4      0xf0  stm32l4xx_hal_adc_ex.o [11]
+  .text              ro code   0x801'164c         4      0x32  ABImemset48.o [15]
+  .text              ro code   0x801'1680         4      0x16  strchr.o [15]
+  .text              ro code   0x801'1698         4      0x40  xfail_s.o [13]
+  .text              ro code   0x801'16d8         4      0x58  memchr.o [15]
+  .text              ro code   0x801'1730         4      0x70  frexp.o [14]
+  .text              ro code   0x801'17a0         4     0x246  DblDiv.o [14]
+  .text              ro code   0x801'19e8         4      0x22  DblToU32.o [14]
+  .text              ro code   0x801'1a0c         4      0x1c  U32ToDbl.o [14]
+  .text              ro code   0x801'1a28         4     0x24e  DblAddSub.o [14]
+  .text              ro code   0x801'1c78         4     0x1aa  DblMul.o [14]
+  .text              ro code   0x801'1e24         4      0xc8  xlocale_c.o [13]
+  .text              ro code   0x801'1eec         4     0x274  I64DivMod.o [15]
+  .text              ro code   0x801'2160         4      0xcc  xDaysTo64.o [13]
+  .text              ro code   0x801'222c         4     0x15c  xttotm64.o [13]
+  .text              ro code   0x801'2388         2       0x4  xTzoff_nop.o [13]
+  .text              ro code   0x801'238c         2      0x20  localtim64.o [13]
+  .text              ro code   0x801'23ac         4      0x28  asctime.o [13]
+  .text              ro code   0x801'23d4         2      0x16  ByteQueue.o [12]
+  .text              ro code   0x801'23ec         4     0x3d4  common_uart.o [8]
+  .text              ro code   0x801'27c0         2      0x24  Stm32xxxx_hal_uart_ext.o [8]
+  .text              ro code   0x801'27e4         4     0x644  xscanfsmall_nomb.o [13]
+  .text              ro code   0x801'2e28         2       0x6  abort.o [13]
+  .text              ro code   0x801'2e30         4       0x2  I64DivZer.o [15]
+  .text              ro code   0x801'2e32         2       0x6  xisdst_nop64.o [13]
+  .text              ro code   0x801'2e38         2     0x112  xstrftim.o [13]
+  .text              ro code   0x801'2f4a         2      0x18  ByteQueue.o [12]
+  .text              ro code   0x801'2f62         2      0x14  isspace.o [13]
+  .text              ro code   0x801'2f78         4     0x14e  iar_Stoulx.o [13]
+  .text              ro code   0x801'30c6         2      0x90  iar_Stolx.o [13]
+  .text              ro code   0x801'3158         4      0x14  exit.o [16]
+  .text              ro code   0x801'316c         4     0x836  xgentime.o [13]
+  .text              ro code   0x801'39a2         2      0x14  tolower.o [13]
+  .text              ro code   0x801'39b6         2      0x40  xgettime.o [13]
+  .text              ro code   0x801'39f6         2       0x4  getzone_nop.o [13]
+  .rodata            const     0x801'39fc         4     0x100  Utils.o [12]
+  .text              ro code   0x801'3afc         4      0xe0  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'3bdc         4      0xc4  RUS_Regul_ADC.o [2]
+  .text              ro code   0x801'3ca0         4      0xa0  SKLP_ServiceDefault.o [9]
+  .text              ro code   0x801'3d40         2       0x8  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'3d48         4      0x88  xlocale_c.o [13]
+  .text              ro code   0x801'3dd0         4      0x80  SKLP_ServiceDefault.o [9]
+  .text              ro code   0x801'3e50         4      0x28  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'3e78         4      0x78  common_gpio.o [8]
+  .rodata            const     0x801'3ef0         4      0x68  RebootUtils.o [12]
+  .text              ro code   0x801'3f58         4      0x60  SKLP_ServiceDefault.o [9]
+  .text              ro code   0x801'3fb8         4      0x60  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'4018         4      0x5c  SKLP_Service.o [9]
+  .rodata            const     0x801'4074         4      0x58  xlocale_c.o [13]
+  .rodata            const     0x801'40cc         4      0x50  iar_Stoulx.o [13]
+  .text              ro code   0x801'411c         4      0x50  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'416c         4      0x4c  xlocale_c.o [13]
+  .text              ro code   0x801'41b8         4      0x44  SKLP_ServiceDefault.o [9]
+  .text              ro code   0x801'41fc         4      0x38  SKLP_ServiceDefault.o [9]
+  .text              ro code   0x801'4234         2      0x38  zero_init3.o [15]
+  .rodata            const     0x801'426c         4      0x34  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'42a0         4      0x34  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'42d4         4      0x34  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'4308         4      0x30  system_stm32l4xx.o [10]
+  .rodata            const     0x801'4338         4      0x30  xlocale_c.o [13]
+  .text              ro code   0x801'4368         4      0x2a  data_init.o [15]
+  .rodata            const     0x801'4394         4      0x28  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'43bc         4      0x28  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'43e4         4      0x28  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'440c         4      0x28  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'4434         4      0x28  stm32l4xx_hal_tim_ex.o [11]
+  .rodata            const     0x801'445c         4      0x24  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4480         4      0x24  DRIVER_Motor.o [4]
+  .rodata            const     0x801'44a4         4      0x24  DRIVER_Motor.o [4]
+  .rodata            const     0x801'44c8         4      0x24  DRIVER_Motor.o [4]
+  .rodata            const     0x801'44ec         4      0x24  RebootUtils.o [12]
+  .rodata            const     0x801'4510         4      0x24  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'4534         4      0x24  tasks.o [6]
+  .rodata            const     0x801'4558         4      0x24  xscanfsmall_nomb.o [13]
+  .text              ro code   0x801'457c         4      0x22  fpinit_M.o [14]
+  .iar.init_table    const     0x801'45a0         4      0x24  - Linker created -
+  .rodata            const     0x801'45c4         4      0x20  DRIVER_CM36-3650.o [4]
+  .rodata            const     0x801'45e4         4      0x20  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4604         4      0x20  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4624         4      0x20  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4644         4      0x20  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4664         4      0x20  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4684         4      0x20  main.o [2]
+  .rodata            const     0x801'46a4         4      0x20  main.o [2]
+  .rodata            const     0x801'46c4         4      0x20  main.o [2]
+  .rodata            const     0x801'46e4         4      0x20  main.o [2]
+  .rodata            const     0x801'4704         4      0x20  port.o [5]
+  .rodata            const     0x801'4724         4      0x20  RebootUtils.o [12]
+  .rodata            const     0x801'4744         4      0x20  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'4764         4      0x20  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'4784         4      0x20  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'47a4         4      0x20  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'47c4         4      0x20  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'47e4         4      0x20  stm32l4xx_hal_cortex.o [11]
+  .rodata            const     0x801'4804         4      0x20  stm32l4xx_hal_tim_ex.o [11]
+  .rodata            const     0x801'4824         4      0x20  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4844         4      0x20  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4864         4      0x20  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4884         4      0x20  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'48a4         4      0x20  tasks.o [6]
+  .rodata            const     0x801'48c4         4      0x20  tasks.o [6]
+  .rodata            const     0x801'48e4         4      0x20  timers.o [6]
+  .text              ro code   0x801'4904         4      0x1e  cmain.o [15]
+  .text              ro code   0x801'4922         2       0x4  low_level_init.o [13]
+  .text              ro code   0x801'4926         2       0x4  exit.o [13]
+  .text              ro code   0x801'492c         4       0xa  cexit.o [15]
+  .rodata            const     0x801'4938         4      0x1c  common_gpio.o [8]
+  .rodata            const     0x801'4954         4      0x1c  DRIVER_Motor.o [4]
+  .rodata            const     0x801'4970         4      0x1c  DRIVER_Motor.o [4]
+  .rodata            const     0x801'498c         4      0x1c  queue.o [6]
+  .rodata            const     0x801'49a8         4      0x1c  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'49c4         4      0x1c  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'49e0         4      0x1c  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'49fc         4      0x1c  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'4a18         4      0x1c  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'4a34         4      0x1c  SKLP_Service.o [9]
+  .rodata            const     0x801'4a50         4      0x1c  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'4a6c         4      0x1c  stm32l4xx_hal_adc_ex.o [11]
+  .rodata            const     0x801'4a88         4      0x1c  stm32l4xx_hal_cortex.o [11]
+  .rodata            const     0x801'4aa4         4      0x1c  stm32l4xx_hal_flash.o [11]
+  .rodata            const     0x801'4ac0         4      0x1c  stm32l4xx_hal_flash_ex.o [11]
+  .rodata            const     0x801'4adc         4      0x1c  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'4af8         4      0x1c  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'4b14         4      0x1c  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'4b30         4      0x1c  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4b4c         4      0x1c  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4b68         4      0x1c  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4b84         4      0x1c  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4ba0         4      0x1c  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4bbc         4      0x1c  tasks.o [6]
+  .rodata            const     0x801'4bd8         4      0x1c  timers.o [6]
+  .text              ro code   0x801'4bf4         4      0x1c  cstartup_M.o [15]
+  .rodata            const     0x801'4c10         4      0x18  BuildInfo.o [1]
+  .rodata            const     0x801'4c28         4      0x18  common_gpio.o [8]
+  .rodata            const     0x801'4c40         4      0x18  DRIVER_CM36-3650.o [4]
+  .rodata            const     0x801'4c58         4      0x18  DRIVER_CM36-3650.o [4]
+  .rodata            const     0x801'4c70         4      0x18  event_groups.o [6]
+  .rodata            const     0x801'4c88         4      0x18  NVM.o [12]
+  .rodata            const     0x801'4ca0         4      0x18  NVM.o [12]
+  .rodata            const     0x801'4cb8         4      0x18  NVM.o [12]
+  .rodata            const     0x801'4cd0         4      0x18  RebootUtils.o [12]
+  .rodata            const     0x801'4ce8         4      0x18  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'4d00         4      0x18  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'4d18         4      0x18  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'4d30         4      0x18  SKLP_Service.o [9]
+  .rodata            const     0x801'4d48         4      0x18  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'4d60         4      0x18  stm32l4xx_hal_adc.o [11]
+  .rodata            const     0x801'4d78         4      0x18  stm32l4xx_hal_adc_ex.o [11]
+  .rodata            const     0x801'4d90         4      0x18  stm32l4xx_hal_cortex.o [11]
+  .rodata            const     0x801'4da8         4      0x18  stm32l4xx_hal_cortex.o [11]
+  .rodata            const     0x801'4dc0         4      0x18  stm32l4xx_hal_flash.o [11]
+  .rodata            const     0x801'4dd8         4      0x18  stm32l4xx_hal_gpio.o [11]
+  .rodata            const     0x801'4df0         4      0x18  stm32l4xx_hal_iwdg.o [11]
+  .rodata            const     0x801'4e08         4      0x18  stm32l4xx_hal_opamp.o [11]
+  .rodata            const     0x801'4e20         4      0x18  stm32l4xx_hal_pwr.o [11]
+  .rodata            const     0x801'4e38         4      0x18  stm32l4xx_hal_rcc.o [11]
+  .rodata            const     0x801'4e50         4      0x18  stm32l4xx_hal_spi.o [11]
+  .rodata            const     0x801'4e68         4      0x18  stm32l4xx_hal_tim_ex.o [11]
+  .rodata            const     0x801'4e80         4      0x18  stm32l4xx_hal_uart.o [11]
+  .rodata            const     0x801'4e98         4      0x18  stm32l4xx_hal_uart.o [11]
+  .rodata            const     0x801'4eb0         4      0x18  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4ec8         4      0x18  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'4ee0         4      0x18  tasks.o [6]
+  .rodata            const     0x801'4ef8         4      0x18  tasks.o [6]
+  .rodata            const     0x801'4f10         4      0x18  tasks.o [6]
+  .rodata            const     0x801'4f28         4      0x18  tasks.o [6]
+  .rodata            const     0x801'4f40         4      0x18  tasks.o [6]
+  .rodata            const     0x801'4f58         4      0x18  timers.o [6]
+  .rodata            const     0x801'4f70         4      0x18  timers.o [6]
+  .rodata            const     0x801'4f88         4      0x18  timers.o [6]
+  .rodata            const     0x801'4fa0         4      0x18  timers.o [6]
+  .rodata            const     0x801'4fb8         4      0x14  common_gpio.o [8]
+  .rodata            const     0x801'4fcc         4      0x14  common_rcc.o [8]
+  .rodata            const     0x801'4fe0         4      0x14  common_uart.o [8]
+  .rodata            const     0x801'4ff4         4      0x14  Driver_ADS1231.o [4]
+  .rodata            const     0x801'5008         4      0x14  Driver_ADS1231.o [4]
+  .rodata            const     0x801'501c         4      0x14  DRIVER_CM36-3650.o [4]
+  .rodata            const     0x801'5030         4      0x14  DRIVER_Motor.o [4]
+  .rodata            const     0x801'5044         4      0x14  DRIVER_Motor.o [4]
+  .rodata            const     0x801'5058         4      0x14  event_groups.o [6]
+  .rodata            const     0x801'506c         4      0x14  event_groups.o [6]
+  .rodata            const     0x801'5080         4      0x14  main.o [2]
+  .rodata            const     0x801'5094         4      0x14  port.o [5]
+  .rodata            const     0x801'50a8         4      0x14  port.o [5]
+  .rodata            const     0x801'50bc         4      0x14  port.o [5]
+  .rodata            const     0x801'50d0         4      0x14  port.o [5]
+  .rodata            const     0x801'50e4         4      0x14  queue.o [6]
+  .rodata            const     0x801'50f8         4      0x14  queue.o [6]
+  .rodata            const     0x801'510c         4      0x14  queue.o [6]
+  .rodata            const     0x801'5120         4      0x14  RebootUtils.o [12]
+  .rodata            const     0x801'5134         4      0x14  RebootUtils.o [12]
+  .rodata            const     0x801'5148         4      0x14  RebootUtils.o [12]
+  .rodata            const     0x801'515c         4      0x14  RebootUtils.o [12]
+  .rodata            const     0x801'5170         4      0x14  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'5184         4      0x14  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'5198         4      0x14  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'51ac         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'51c0         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'51d4         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'51e8         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'51fc         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'5210         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'5224         4      0x14  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'5238         4      0x14  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'524c         4      0x14  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'5260         4      0x14  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'5274         4      0x14  SKLP_Service.o [9]
+  .rodata            const     0x801'5288         4      0x14  SKLP_Time.o [9]
+  .rodata            const     0x801'529c         4      0x14  stm32l4xx_hal_adc.o [11]
+  .rodata            const     0x801'52b0         4      0x14  stm32l4xx_hal_adc.o [11]
+  .rodata            const     0x801'52c4         4      0x14  stm32l4xx_hal_adc.o [11]
+  .rodata            const     0x801'52d8         4      0x14  stm32l4xx_hal_cortex.o [11]
+  .rodata            const     0x801'52ec         4      0x14  stm32l4xx_hal_dma.o [11]
+  .rodata            const     0x801'5300         4      0x14  stm32l4xx_hal_dma.o [11]
+  .rodata            const     0x801'5314         4      0x14  stm32l4xx_hal_flash.o [11]
+  .rodata            const     0x801'5328         4      0x14  stm32l4xx_hal_flash.o [11]
+  .rodata            const     0x801'533c         4      0x14  stm32l4xx_hal_flash_ex.o [11]
+  .rodata            const     0x801'5350         4      0x14  stm32l4xx_hal_gpio.o [11]
+  .rodata            const     0x801'5364         4      0x14  stm32l4xx_hal_gpio.o [11]
+  .rodata            const     0x801'5378         4      0x14  stm32l4xx_hal_pwr.o [11]
+  .rodata            const     0x801'538c         4      0x14  stm32l4xx_hal_rcc.o [11]
+  .rodata            const     0x801'53a0         4      0x14  stm32l4xx_hal_rcc.o [11]
+  .rodata            const     0x801'53b4         4      0x14  stm32l4xx_hal_rcc.o [11]
+  .rodata            const     0x801'53c8         4      0x14  stm32l4xx_hal_spi.o [11]
+  .rodata            const     0x801'53dc         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'53f0         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5404         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5418         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'542c         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5440         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5454         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5468         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'547c         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'5490         4      0x14  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'54a4         4      0x14  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'54b8         4      0x14  Stm32xxxx_hal_uart_ext.o [8]
+  .rodata            const     0x801'54cc         4      0x14  tasks.o [6]
+  .rodata            const     0x801'54e0         4      0x14  tasks.o [6]
+  .rodata            const     0x801'54f4         4      0x14  tasks.o [6]
+  .rodata            const     0x801'5508         4      0x14  timers.o [6]
+  .rodata            const     0x801'551c         4      0x14  timers.o [6]
+  .text              ro code   0x801'5530         2      0x14  xencoding_8859_1.o [13]
+  .rodata            const     0x801'5544         4      0x10  common_gpio.o [8]
+  .rodata            const     0x801'5554         4      0x10  common_gpio.o [8]
+  .rodata            const     0x801'5564         4      0x10  common_rcc.o [8]
+  .rodata            const     0x801'5574         4      0x10  common_uart.o [8]
+  .rodata            const     0x801'5584         4      0x10  Driver_ADS1231.o [4]
+  .rodata            const     0x801'5594         4      0x10  Driver_ADS1231.o [4]
+  .rodata            const     0x801'55a4         4      0x10  DRIVER_Motor.o [4]
+  .rodata            const     0x801'55b4         4      0x10  DRIVER_Motor.o [4]
+  .rodata            const     0x801'55c4         4      0x10  eeprom_emul.o [12]
+  .rodata            const     0x801'55d4         4      0x10  eeprom_emul.o [12]
+  .rodata            const     0x801'55e4         4      0x10  event_groups.o [6]
+  .rodata            const     0x801'55f4         4      0x10  heap_4.o [7]
+  .rodata            const     0x801'5604         4      0x10  NVM.o [12]
+  .rodata            const     0x801'5614         4      0x10  NVM.o [12]
+  .rodata            const     0x801'5624         4      0x10  queue.o [6]
+  .rodata            const     0x801'5634         4      0x10  RebootUtils.o [12]
+  .rodata            const     0x801'5644         4      0x10  RebootUtils.o [12]
+  .rodata            const     0x801'5654         4      0x10  RebootUtils.o [12]
+  .rodata            const     0x801'5664         4      0x10  RebootUtils.o [12]
+  .rodata            const     0x801'5674         4      0x10  RebootUtils.o [12]
+  .rodata            const     0x801'5684         4      0x10  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'5694         4      0x10  RUS_Regul_ADC.o [2]
+  .rodata            const     0x801'56a4         4      0x10  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'56b4         4      0x10  SKLP_Interface_RUS_Regul.o [2]
+  .rodata            const     0x801'56c4         4      0x10  SKLP_MS_Transport.o [9]
+  .rodata            const     0x801'56d4         4      0x10  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'56e4         4      0x10  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'56f4         4      0x10  SKLP_Service.o [9]
+  .rodata            const     0x801'5704         4      0x10  SKLP_Service.o [9]
+  .rodata            const     0x801'5714         4      0x10  SKLP_Time.o [9]
+  .rodata            const     0x801'5724         4      0x10  stm32l4xx_hal_adc.o [11]
+  .rodata            const     0x801'5734         4      0x10  stm32l4xx_hal_dma.o [11]
+  .rodata            const     0x801'5744         4      0x10  stm32l4xx_hal_flash_ex.o [11]
+  .rodata            const     0x801'5754         4      0x10  stm32l4xx_hal_flash_ex.o [11]
+  .rodata            const     0x801'5764         4      0x10  stm32l4xx_hal_gpio.o [11]
+  .rodata            const     0x801'5774         4      0x10  stm32l4xx_hal_iwdg.o [11]
+  .rodata            const     0x801'5784         4      0x10  stm32l4xx_hal_opamp.o [11]
+  .rodata            const     0x801'5794         4      0x10  stm32l4xx_hal_opamp.o [11]
+  .rodata            const     0x801'57a4         4      0x10  stm32l4xx_hal_spi.o [11]
+  .rodata            const     0x801'57b4         4      0x10  stm32l4xx_hal_tim.o [11]
+  .rodata            const     0x801'57c4         4      0x10  stm32l4xx_hal_uart.o [11]
+  .rodata            const     0x801'57d4         4      0x10  stm32l4xx_hal_uart.o [11]
+  .rodata            const     0x801'57e4         4      0x10  system_stm32l4xx.o [10]
+  .rodata            const     0x801'57f4         4      0x10  tasks.o [6]
+  .text              ro code   0x801'5804         4      0x10  startup_stm32l433xx.o [3]
+  .rodata            const     0x801'5814         4       0xc  BuildInfo.o [1]
+  .rodata            const     0x801'5820         4       0xc  BuildInfo.o [1]
+  .rodata            const     0x801'582c         4       0xc  BuildInfo.o [1]
+  .rodata            const     0x801'5838         4       0xc  DRIVER_Motor.o [4]
+  .rodata            const     0x801'5844         4       0xc  DRIVER_Motor.o [4]
+  .rodata            const     0x801'5850         4       0xc  heap_4.o [7]
+  .rodata            const     0x801'585c         4       0xc  heap_4.o [7]
+  .rodata            const     0x801'5868         4       0xc  NVM.o [12]
+  .rodata            const     0x801'5874         4       0xc  RebootUtils.o [12]
+  .rodata            const     0x801'5880         4       0xc  RebootUtils.o [12]
+  .rodata            const     0x801'588c         4       0xc  RebootUtils.o [12]
+  .rodata            const     0x801'5898         4       0xc  RebootUtils.o [12]
+  .rodata            const     0x801'58a4         4       0xc  RebootUtils.o [12]
+  .rodata            const     0x801'58b0         4       0xc  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'58bc         4       0xc  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'58c8         4       0xc  RUS_Regul_Main.o [2]
+  .rodata            const     0x801'58d4         4       0xc  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'58e0         4       0xc  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'58ec         4       0xc  SKLP_Service.o [9]
+  .rodata            const     0x801'58f8         4       0xc  SKLP_Service.o [9]
+  .rodata            const     0x801'5904         4       0xc  SKLP_Service.o [9]
+  .rodata            const     0x801'5910         4       0xc  SKLP_Time.o [9]
+  .rodata            const     0x801'591c         4       0xc  timers.o [6]
+  .rodata            const     0x801'5928         4       0x8  BuildInfo.o [1]
+  .rodata            const     0x801'5930         4       0x8  main.o [2]
+  .rodata            const     0x801'5938         4       0x8  main.o [2]
+  .rodata            const     0x801'5940         4       0x8  NVM.o [12]
+  .rodata            const     0x801'5948         4       0x8  port.o [5]
+  .rodata            const     0x801'5950         4       0x8  queue.o [6]
+  .rodata            const     0x801'5958         4       0x8  RebootUtils.o [12]
+  .rodata            const     0x801'5960         4       0x8  RebootUtils.o [12]
+  .rodata            const     0x801'5968         4       0x8  RebootUtils.o [12]
+  .rodata            const     0x801'5970         4       0x8  RebootUtils.o [12]
+  .rodata            const     0x801'5978         4       0x8  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'5980         4       0x8  SKLP_MS_TransportLocal_354_10.o [2]
+  .rodata            const     0x801'5988         4       0x8  system_stm32l4xx.o [10]
+  .rodata            const     0x801'5990         4       0x8  tasks.o [6]
+  .rodata            const     0x801'5998         4       0x8  tasks.o [6]
+  .rodata            const     0x801'59a0         4       0x8  timers.o [6]
+  .rodata            const     0x801'59a8         4       0x8  timers.o [6]
+  .rodata            const     0x801'59b0         4       0x8  xlocale_c.o [13]
+  .text              ro code   0x801'59b8         2       0x8  SKLP_ServiceDefault.o [9]
+  .rodata            const     0x801'59c0         4       0x4  BuildInfo.o [1]
+  .rodata            const     0x801'59c4         4       0x4  Driver_ADS1231.o [4]
+  .rodata            const     0x801'59c8         4       0x4  heap_4.o [7]
+  .rodata            const     0x801'59cc         4       0x4  port.o [5]
+  .rodata            const     0x801'59d0         4       0x4  RebootUtils.o [12]
+  .rodata            const     0x801'59d4         4       0x4  RUS_Regul_ADC.o [2]
+  .text              ro code   0x801'59d8         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59dc         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59e0         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59e4         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59e8         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59ec         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59f0         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59f4         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59f8         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'59fc         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a00         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a04         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a08         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a0c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a10         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a14         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a18         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a1c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a20         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a24         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a28         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a2c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a30         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a34         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a38         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a3c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a40         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a44         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a48         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a4c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a50         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a54         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a58         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a5c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a60         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a64         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a68         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a6c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a70         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a74         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a78         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a7c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a80         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a84         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a88         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a8c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a90         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a94         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a98         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5a9c         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5aa0         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5aa4         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5aa8         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5aac         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5ab0         2       0x4  startup_stm32l433xx.o [3]
+  .text              ro code   0x801'5ab4         2       0x4  startup_stm32l433xx.o [3]
+  .rodata            const     0x801'5ab8                 0x0  zero_init3.o [15]
+  .rodata            const     0x801'5ab8                 0x0  copy_init3.o [15]
+  Initializer bytes  const     0x801'5ab8         4     0x198  <for P3 s0>
+                             - 0x801'5c50            0x1'5ac4
+
+"P3", part 1 of 3:                                      0x198
+  P3 s0                       0x2000'0000               0x198  <Init block>
+    .data            inited   0x2000'0000         4      0xb8  SKLP_Service.o [9]
+    .data            inited   0x2000'00b8         4      0x48  xlocale_c.o [13]
+    .data            inited   0x2000'0100         4      0x38  xlocale_c.o [13]
+    .data            inited   0x2000'0138         4      0x20  stm32l4xx_hal_flash.o [11]
+    .data            inited   0x2000'0158         4       0xc  SKLP_MS_TransportLocal_354_10.o [2]
+    .data            inited   0x2000'0164         4       0xc  SKLP_MS_TransportLocal_354_10.o [2]
+    .data            inited   0x2000'0170         4       0x8  SKLP_Service.o [9]
+    .data            inited   0x2000'0178         4       0x4  eeprom_emul.o [12]
+    .data            inited   0x2000'017c         4       0x4  port.o [5]
+    .data            inited   0x2000'0180         4       0x4  RUS_Regul_Main.o [2]
+    .data            inited   0x2000'0184         4       0x4  RUS_Regul_Main.o [2]
+    .data            inited   0x2000'0188         4       0x4  stm32l4xx_hal.o [11]
+    .data            inited   0x2000'018c         4       0x4  stm32l4xx_hal.o [11]
+    .data            inited   0x2000'0190         4       0x4  system_stm32l4xx.o [10]
+    .data            inited   0x2000'0194                 0x1  RUS_Regul_ADC.o [2]
+    .data            inited   0x2000'0195                 0x1  SKLP_MS_Transport.o [9]
+    .data            inited   0x2000'0196                 0x1  SKLP_Service.o [9]
+                            - 0x2000'0198               0x198
+
+"P3", part 2 of 3:                                      0xd50
+  .bss               zero     0x2000'0198         4     0x400  eeprom_emul.o [12]
+  .bss               zero     0x2000'0598         4     0x210  RUS_Regul_ADC.o [2]
+  .bss               zero     0x2000'07a8         4     0x100  RUS_Regul_ADC.o [2]
+  .bss               zero     0x2000'08a8         4      0xa0  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0948         4      0x80  common_rcc.o [8]
+  .bss               zero     0x2000'09c8         4      0x78  DRIVER_Motor.o [4]
+  .bss               zero     0x2000'0a40         4      0x64  Driver_ADS1231.o [4]
+  .bss               zero     0x2000'0aa4         4      0x64  tasks.o [6]
+  .bss               zero     0x2000'0b08         4      0x54  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0b5c         4      0x40  Common_tim.o [8]
+  .bss               zero     0x2000'0b9c         4      0x40  Common_tim.o [8]
+  .bss               zero     0x2000'0bdc         4      0x40  Common_tim.o [8]
+  .bss               zero     0x2000'0c1c         4      0x40  Common_tim.o [8]
+  .bss               zero     0x2000'0c5c         4      0x40  queue.o [6]
+  .bss               zero     0x2000'0c9c         4      0x40  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0cdc         4      0x2c  xttotm64.o [13]
+  .bss               zero     0x2000'0d08         4      0x1c  asctime.o [13]
+  .bss               zero     0x2000'0d24         4      0x18  DRIVER_CM36-3650.o [4]
+  .bss               zero     0x2000'0d3c         4      0x18  DRIVER_CM36-3650.o [4]
+  .bss               zero     0x2000'0d54         4      0x14  tasks.o [6]
+  .bss               zero     0x2000'0d68         4      0x14  tasks.o [6]
+  .bss               zero     0x2000'0d7c         4      0x14  tasks.o [6]
+  .bss               zero     0x2000'0d90         4      0x14  tasks.o [6]
+  .bss               zero     0x2000'0da4         4      0x14  tasks.o [6]
+  .bss               zero     0x2000'0db8         4      0x14  timers.o [6]
+  .bss               zero     0x2000'0dcc         4      0x14  timers.o [6]
+  .bss               zero     0x2000'0de0         4      0x10  Stm32xxxx_hal_uart_ext.o [8]
+  .bss               zero     0x2000'0df0         4       0xc  DRIVER_CM36-3650.o [4]
+  .bss               zero     0x2000'0dfc         4       0x8  heap_4.o [7]
+  .bss               zero     0x2000'0e04         4       0x8  SKLP_Service.o [9]
+  .bss               zero     0x2000'0e0c         4       0x4  common_rcc.o [8]
+  .bss               zero     0x2000'0e10         4       0x4  Driver_ADS1231.o [4]
+  .bss               zero     0x2000'0e14         4       0x4  eeprom_emul.o [12]
+  .bss               zero     0x2000'0e18         4       0x4  heap_4.o [7]
+  .bss               zero     0x2000'0e1c         4       0x4  heap_4.o [7]
+  .bss               zero     0x2000'0e20         4       0x4  heap_4.o [7]
+  .bss               zero     0x2000'0e24         4       0x4  heap_4.o [7]
+  .bss               zero     0x2000'0e28         4       0x4  main.o [2]
+  .bss               zero     0x2000'0e2c         4       0x4  main.o [2]
+  .bss               zero     0x2000'0e30         4       0x4  main.o [2]
+  .bss               zero     0x2000'0e34         4       0x4  port.o [5]
+  .bss               zero     0x2000'0e38         4       0x4  RebootUtils.o [12]
+  .bss               zero     0x2000'0e3c         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e40         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e44         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e48         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e4c         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e50         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e54         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e58         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e5c         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e60         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e64         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e68         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e6c         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e70         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e74         4       0x4  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0e78         4       0x4  SKLP_MS_TransportLocal_354_10.o [2]
+  .bss               zero     0x2000'0e7c         4       0x4  SKLP_Service.o [9]
+  .bss               zero     0x2000'0e80         4       0x4  stm32l4xx_hal.o [11]
+  .bss               zero     0x2000'0e84         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e88         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e8c         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e90         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e94         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e98         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0e9c         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0ea0         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0ea4         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0ea8         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0eac         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0eb0         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0eb4         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0eb8         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0ebc         4       0x4  tasks.o [6]
+  .bss               zero     0x2000'0ec0         4       0x4  timers.o [6]
+  .bss               zero     0x2000'0ec4         4       0x4  timers.o [6]
+  .bss               zero     0x2000'0ec8         4       0x4  timers.o [6]
+  .bss               zero     0x2000'0ecc         4       0x4  timers.o [6]
+  .bss               zero     0x2000'0ed0         4       0x4  timers.o [6]
+  .bss               zero     0x2000'0ed4         4       0x4  xfail_s.o [13]
+  .bss               zero     0x2000'0ed8         2       0x2  eeprom_emul.o [12]
+  .bss               zero     0x2000'0eda         2       0x2  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0edc         2       0x2  SKLP_Service.o [9]
+  .bss               zero     0x2000'0ede                 0x1  eeprom_emul.o [12]
+  .bss               zero     0x2000'0edf                 0x1  main.o [2]
+  .bss               zero     0x2000'0ee0                 0x1  NVM.o [12]
+  .bss               zero     0x2000'0ee1                 0x1  port.o [5]
+  .bss               zero     0x2000'0ee2                 0x1  RUS_Regul_Main.o [2]
+  .bss               zero     0x2000'0ee3                 0x1  SKLP_MS_Transport.o [9]
+  .bss               zero     0x2000'0ee4                 0x1  SKLP_MS_TransportLocal_354_10.o [2]
+  .bss               zero     0x2000'0ee5                 0x1  SKLP_Service.o [9]
+  .bss               zero     0x2000'0ee6                 0x1  SKLP_ServiceDefault.o [9]
+                            - 0x2000'0ee7               0xd4f
+
+"P3", part 3 of 3:                                     0x68d8
+  .noinit            uninit   0x2000'0ee8         4    0x4000  main.o [2]
+  .noinit            uninit   0x2000'4ee8         4     0x200  SKLP_MS_TransportLocal_354_10.o [2]
+  .noinit            uninit   0x2000'50e8         4     0x200  SKLP_MS_TransportLocal_354_10.o [2]
+  .noinit            uninit   0x2000'52e8         4     0x104  SKLP_MS_Transport.o [9]
+  .noinit            uninit   0x2000'53ec         4      0xac  common_uart.o [8]
+  .noinit            uninit   0x2000'5498         4      0xac  common_uart.o [8]
+  .noinit            uninit   0x2000'5544         4      0xa0  SKLP_MS_TransportLocal_354_10.o [2]
+  .noinit            uninit   0x2000'55e4         4      0xa0  SKLP_Service.o [9]
+  .noinit            uninit   0x2000'5684         4      0x48  common_uart.o [8]
+  .noinit            uninit   0x2000'56cc         4      0x48  common_uart.o [8]
+  .noinit            uninit   0x2000'5714         4      0x48  common_uart.o [8]
+  .noinit            uninit   0x2000'575c         4      0x48  common_uart.o [8]
+  .noinit            uninit   0x2000'57a4         4      0x10  RebootUtils.o [12]
+  .noinit            uninit   0x2000'57b4         4       0x4  SKLP_Service.o [9]
+  .noinit            uninit   0x2000'57b8         4       0x4  SKLP_Service.o [9]
+  CSTACK                      0x2000'57c0         8    0x2000  <Block>
+    CSTACK           uninit   0x2000'57c0              0x2000  <Block tail>
+                            - 0x2000'77c0              0x68d8
+
+Absolute sections:                                      0x298
+  .noinit            uninit   0x2000'fd68               0x298  RebootUtils.o [12]
+                            - 0x2001'0000               0x298
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+          0x0          0x0       0x1
+   0x801'5c50   0x803'ffff  0x2'a3b0
+  0x2000'77c0  0x2000'bfff    0x4840
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0xd4f:
+          0x2000'0198  0xd4f
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x198 (100% of destination):
+           0x801'5ab8  0x198
+    1 destination range, total size 0x197:
+          0x2000'0000  0x197
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                           ro code  ro data  rw data  rw data
+                                                                 (abs)
+    ------                           -------  -------  -------  -------
+command line/config:
+    -------------------------------------------------------------------
+    Total:
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj: [1]
+    BuildInfo.o                                    72
+    -------------------------------------------------------------------
+    Total:                                         72
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir: [2]
+    RUS_Regul_ADC.o                    2'348      405      785
+    RUS_Regul_Main.o                   4'944      308      379
+    SKLP_Interface_RUS_Regul.o         1'736      220
+    SKLP_MS_TransportLocal_354_10.o    1'180      180    1'213
+    main.o                               468      164   16'397
+    -------------------------------------------------------------------
+    Total:                            10'676    1'277   18'774
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CMSIS_6603591812247902717.dir: [3]
+    startup_stm32l433xx.o                636
+    -------------------------------------------------------------------
+    Total:                               636
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Components_18095364908024136817.dir: [4]
+    DRIVER_CM36-3650.o                 1'064      100       60
+    DRIVER_Motor.o                       964      456      120
+    Driver_ADS1231.o                     544       76      104
+    -------------------------------------------------------------------
+    Total:                             2'572      632      284
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CortexM4-F_9125968611666436719.dir: [5]
+    port.o                               604      128        9
+    portasm.o                            176
+    -------------------------------------------------------------------
+    Total:                               780      128        9
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir: [6]
+    event_groups.o                       668       80
+    list.o                               154
+    queue.o                            1'728      112       64
+    tasks.o                            2'832      340      260
+    timers.o                           1'364      224       60
+    -------------------------------------------------------------------
+    Total:                             6'746      756      384
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Heap_10681622352241717.dir: [7]
+    heap_4.o                             652       44       24
+    -------------------------------------------------------------------
+    Total:                               652       44       24
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir: [8]
+    Common_tim.o                         468               256
+    Stm32xxxx_hal_uart_ext.o           2'984      356       16
+    common_gpio.o                        656      224
+    common_rcc.o                         340       36      132
+    common_uart.o                        980       36      632
+    -------------------------------------------------------------------
+    Total:                             5'428      652    1'036
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir: [9]
+    SKLP_MS_Transport.o                2'754      181      262
+    SKLP_Service.o                       718      425      376
+    SKLP_ServiceDefault.o                964      164        1
+    SKLP_Time.o                          272       48
+    -------------------------------------------------------------------
+    Total:                             4'708      818      639
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_5654020855996028257.dir: [10]
+    system_stm32l4xx.o                   352       76        4
+    -------------------------------------------------------------------
+    Total:                               352       76        4
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir: [11]
+    stm32l4xx_hal.o                      170        8       12
+    stm32l4xx_hal_adc.o                4'714      100
+    stm32l4xx_hal_adc_ex.o               240       52
+    stm32l4xx_hal_cortex.o               554      128
+    stm32l4xx_hal_dma.o                1'236       56
+    stm32l4xx_hal_flash.o                812      124       32
+    stm32l4xx_hal_flash_ex.o             576       80
+    stm32l4xx_hal_gpio.o               1'092       80
+    stm32l4xx_hal_iwdg.o                 230       40
+    stm32l4xx_hal_opamp.o                812       56
+    stm32l4xx_hal_pwr.o                  136       44
+    stm32l4xx_hal_pwr_ex.o                96
+    stm32l4xx_hal_rcc.o                3'564       84
+    stm32l4xx_hal_spi.o                2'652       60
+    stm32l4xx_hal_tim.o                5'446      300
+    stm32l4xx_hal_tim_ex.o               942       96
+    stm32l4xx_hal_uart.o               2'324       80
+    -------------------------------------------------------------------
+    Total:                            25'596    1'388       44
+
+D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir: [12]
+    ByteQueue.o                          400
+    NVM.o                              1'358      124        1
+    RebootUtils.o                      1'336      452       20      664
+    Utils.o                              528      256
+    eeprom_emul.o                      7'436       36    1'035
+    flash_interface.o                     50
+    -------------------------------------------------------------------
+    Total:                            11'108      868    1'056      664
+
+dl7M_tlf.a: [13]
+    abort.o                                6
+    asctime.o                             40                28
+    ctime64.o                             14
+    exit.o                                 4
+    getzone_nop.o                          4
+    iar_Stolx.o                          144
+    iar_Stoulx.o                         334       80
+    isspace.o                             20
+    localtim64.o                          32
+    low_level_init.o                       4
+    mktime64.o                           224
+    snprintf.o                            68
+    sscanf.o                              40
+    tolower.o                             20
+    xDaysTo64.o                          204
+    xTzoff_nop.o                           4
+    xencoding_8859_1.o                    20
+    xfail_s.o                             64                 4
+    xgentime.o                         2'102
+    xgettime.o                            64
+    xisdst_nop64.o                         6
+    xlocale_c.o                          200      491      128
+    xprintflarge_nomb.o                3'346
+    xscanfsmall_nomb.o                 1'604       36
+    xsnprout.o                            26
+    xsscin.o                              30
+    xstrftim.o                           274
+    xttotm64.o                           348                44
+    -------------------------------------------------------------------
+    Total:                             9'246      607      204
+
+m7M_tls.a: [14]
+    DblAddSub.o                          590
+    DblDiv.o                             582
+    DblMul.o                             426
+    DblToU32.o                            34
+    U32ToDbl.o                            28
+    fpinit_M.o                            34
+    frexp.o                              112
+    -------------------------------------------------------------------
+    Total:                             1'806
+
+rt7M_tl.a: [15]
+    ABImemclr4.o                           6
+    ABImemcpy.o                          166
+    ABImemset.o                          102
+    ABImemset48.o                         50
+    I64DivMod.o                          628
+    I64DivZer.o                            2
+    cexit.o                               10
+    cmain.o                               30
+    copy_init3.o                          42
+    cstartup_M.o                          28
+    data_init.o                           42
+    memchr.o                              88
+    strchr.o                              22
+    strlen.o                              54
+    strncpy.o                            112
+    zero_init3.o                          56
+    -------------------------------------------------------------------
+    Total:                             1'438
+
+shb_l.a: [16]
+    exit.o                                20
+    -------------------------------------------------------------------
+    Total:                                20
+
+    Gaps                                  41        8        4
+    Linker created                                 37    8'192
+-----------------------------------------------------------------------
+    Grand Total:                      81'805    7'363   30'654      664
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address    Size  Type      Object
+-----                       -------    ----  ----      ------
+.iar.init_table$$Base    0x801'45a0           --   Gb  - Linker created -
+.iar.init_table$$Limit   0x801'45c4           --   Gb  - Linker created -
+?main                    0x801'4905          Code  ??  cmain.o [15]
+ADC1_AllChAvgHalfBuffer
+                         0x800'ccbd   0x172  Code  ??  RUS_Regul_ADC.o [2]
+ADC1_AllChAvgHalfBuffer::ADC1_firsttime
+                        0x2000'0194     0x1  Data  Lc  RUS_Regul_ADC.o [2]
+ADC1_ConvRes_DCSignal_Copy
+                         0x800'cc57    0x66  Code  ??  RUS_Regul_ADC.o [2]
+ADC1_IRQHandler          0x801'5a15          Code  Wk  startup_stm32l433xx.o [3]
+ADC_DMAConvCplt          0x801'14a9    0x86  Code  ??  stm32l4xx_hal_adc.o [11]
+ADC_DMAError             0x801'153d    0x1e  Code  ??  stm32l4xx_hal_adc.o [11]
+ADC_DMAHalfConvCplt      0x801'152f     0xe  Code  ??  stm32l4xx_hal_adc.o [11]
+ADC_Disable              0x801'1431    0x78  Code  ??  stm32l4xx_hal_adc.o [11]
+ADC_Enable               0x801'13bd    0x74  Code  ??  stm32l4xx_hal_adc.o [11]
+ADC_OPAMP_Value_Get      0x800'd027     0x8  Code  ??  RUS_Regul_ADC.o [2]
+ADC_VSUP_Value_Get       0x800'd035     0x8  Code  ??  RUS_Regul_ADC.o [2]
+ADS1231_DataRead         0x800'c041    0x86  Code  ??  Driver_ADS1231.o [4]
+ADS1231_DataRead::ADS1231_DataADC_Saved
+                        0x2000'0e10     0x4  Data  Lc  Driver_ADS1231.o [4]
+ADS1231_DataRead::__FUNCTION__
+                         0x801'5008    0x14  Data  Lc  Driver_ADS1231.o [4]
+ADS1231_IRQ_Enable       0x800'bf07    0x58  Code  ??  Driver_ADS1231.o [4]
+ADS1231_Init             0x800'bf5f    0x5c  Code  ??  Driver_ADS1231.o [4]
+ADS1231_SPI_hdl         0x2000'0a40    0x64  Data  Lc  Driver_ADS1231.o [4]
+ADS1231_SetSPS           0x800'bed5    0x32  Code  ??  Driver_ADS1231.o [4]
+ADS1231_SetSPS::__FUNCTION__
+                         0x801'5584    0x10  Data  Lc  Driver_ADS1231.o [4]
+AHBPrescTable            0x801'57e4    0x10  Data  ??  system_stm32l4xx.o [10]
+APBPrescTable            0x801'5988     0x8  Data  ??  system_stm32l4xx.o [10]
+BusFault_Handler         0x800'333f     0xe  Code  ??  RebootUtils.o [12]
+ByteQueue_AdvanceHeadTo
+                         0x800'f843    0x14  Code  Wk  Stm32xxxx_hal_uart_ext.o [8]
+ByteQueue_AdvanceIndexBy
+                         0x801'2f4b    0x18  Code  Wk  ByteQueue.o [12]
+ByteQueue_AdvanceIndexTo
+                         0x801'27c1    0x24  Code  Wk  Stm32xxxx_hal_uart_ext.o [8]
+ByteQueue_AdvanceTailBy
+                         0x801'23d5    0x16  Code  Wk  ByteQueue.o [12]
+ByteQueue_BufferCopyFragment
+                         0x800'e703    0xb6  Code  ??  ByteQueue.o [12]
+ByteQueue_BufferCopyFromTail
+                         0x800'e7b9    0x42  Code  ??  ByteQueue.o [12]
+ByteQueue_Clear          0x800'f835     0xa  Code  Wk  Stm32xxxx_hal_uart_ext.o [8]
+ByteQueue_GetSpaceFilled
+                         0x800'e6e1    0x22  Code  Wk  ByteQueue.o [12]
+ByteQueue_Peek           0x800'e829    0x16  Code  Wk  SKLP_MS_Transport.o [9]
+ByteQueue_RemoveFromTail
+                         0x800'e7fb    0x2e  Code  ??  ByteQueue.o [12]
+ByteQueue_Validate       0x800'e6c7    0x1a  Code  Wk  ByteQueue.o [12]
+CAN1_RX0_IRQHandler      0x801'5a1d          Code  Wk  startup_stm32l433xx.o [3]
+CAN1_RX1_IRQHandler      0x801'5a21          Code  Wk  startup_stm32l433xx.o [3]
+CAN1_SCE_IRQHandler      0x801'5a25          Code  Wk  startup_stm32l433xx.o [3]
+CAN1_TX_IRQHandler       0x801'5a19          Code  Wk  startup_stm32l433xx.o [3]
+CM36                    0x2000'0df0     0xc  Data  ??  DRIVER_CM36-3650.o [4]
+CM36_3650_Motor_Angle_Set
+                         0x800'54a9    0xbc  Code  ??  DRIVER_CM36-3650.o [4]
+CM36_3650_Motor_Speed_Set
+                         0x800'5449    0x4a  Code  ??  DRIVER_CM36-3650.o [4]
+CM36_3650_Motor_Stop     0x800'5493    0x14  Code  ??  DRIVER_CM36-3650.o [4]
+COM1_DMARX_hdl          0x2000'56cc    0x48  Data  ??  common_uart.o [8]
+COM1_DMATX_hdl          0x2000'5684    0x48  Data  ??  common_uart.o [8]
+COM1_UART_Ext_hdl       0x2000'53ec    0xac  Data  ??  common_uart.o [8]
+COM3_DMARX_hdl          0x2000'575c    0x48  Data  ??  common_uart.o [8]
+COM3_DMATX_hdl          0x2000'5714    0x48  Data  ??  common_uart.o [8]
+COM3_UART_Ext_hdl       0x2000'5498    0xac  Data  ??  common_uart.o [8]
+COMP_IRQHandler          0x801'5a75          Code  Wk  startup_stm32l433xx.o [3]
+CRS_IRQHandler           0x801'5ab5          Code  Wk  startup_stm32l433xx.o [3]
+CSTACK$$Base            0x2000'57c0           --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'77c0           --   ??  - Linker created -
+CacheMore                0x801'1e55    0x28  Code  Lc  xlocale_c.o [13]
+CalcCRC16SKLP            0x800'e903    0x12  Code  ??  Utils.o [12]
+CalcCRC16SKLP_Load       0x800'e877    0x8c  Code  ??  Utils.o [12]
+CalcCRC8SKLP             0x800'e865    0x12  Code  ??  Utils.o [12]
+CalcCRC8SKLP_Load        0x800'e841    0x24  Code  ??  Utils.o [12]
+CalculateCrc             0x800'1de3    0x28  Code  ??  eeprom_emul.o [12]
+ConfigureCrc             0x800'1dc3    0x20  Code  ??  eeprom_emul.o [12]
+DMA1_Channel1_IRQHandler
+                         0x801'5a09          Code  Wk  startup_stm32l433xx.o [3]
+DMA1_Channel2_IRQHandler
+                         0x801'2761     0xa  Code  ??  common_uart.o [8]
+DMA1_Channel3_IRQHandler
+                         0x801'276b     0xa  Code  ??  common_uart.o [8]
+DMA1_Channel4_IRQHandler
+                         0x801'274d     0xa  Code  ??  common_uart.o [8]
+DMA1_Channel5_IRQHandler
+                         0x801'2757     0xa  Code  ??  common_uart.o [8]
+DMA1_Channel6_IRQHandler
+                         0x801'5a0d          Code  Wk  startup_stm32l433xx.o [3]
+DMA1_Channel7_IRQHandler
+                         0x801'5a11          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel1_IRQHandler
+                         0x801'5a65          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel2_IRQHandler
+                         0x801'5a69          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel3_IRQHandler
+                         0x800'cb6b    0x12  Code  ??  RUS_Regul_ADC.o [2]
+DMA2_Channel4_IRQHandler
+                         0x801'5a6d          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel5_IRQHandler
+                         0x801'5a71          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel6_IRQHandler
+                         0x801'5a85          Code  Wk  startup_stm32l433xx.o [3]
+DMA2_Channel7_IRQHandler
+                         0x801'5a89          Code  Wk  startup_stm32l433xx.o [3]
+DMA_SetConfig            0x800'f803    0x32  Code  Lc  stm32l4xx_hal_dma.o [11]
+DWT_AppendTimestampTag   0x800'3531    0x32  Code  ??  common_rcc.o [8]
+DWT_TimerEnable          0x800'3513    0x18  Code  ??  common_rcc.o [8]
+DWT_TimerGet             0x800'352b     0x6  Code  ??  common_rcc.o [8]
+DWT_TimerInit            0x800'34f7    0x1c  Code  Lc  common_rcc.o [8]
+DWT_TimestampTagsCount  0x2000'0e0c     0x4  Data  Lc  common_rcc.o [8]
+DebugMon_Handler         0x801'59dd          Code  Wk  startup_stm32l433xx.o [3]
+EEPROM_WriteCheck        0x800'245d    0xd0  Code  ??  NVM.o [12]
+EEPROM_isEqualEepromBuf
+                         0x800'252d    0xb8  Code  Lc  NVM.o [12]
+EEPROM_isEqualEepromBuf::__FUNCTION__
+                         0x801'4c88    0x18  Data  Lc  NVM.o [12]
+EEPROM_readEepromToBuf   0x800'265d    0x6c  Code  Lc  NVM.o [12]
+EEPROM_readEepromToBuf::__FUNCTION__
+                         0x801'4cb8    0x18  Data  Lc  NVM.o [12]
+EEPROM_writeBufToEeprom
+                         0x800'25e5    0x78  Code  Lc  NVM.o [12]
+EEPROM_writeBufToEeprom::__FUNCTION__
+                         0x801'4ca0    0x18  Data  Lc  NVM.o [12]
+EE_CleanUp               0x800'0f81   0x16a  Code  ??  eeprom_emul.o [12]
+EE_Format                0x800'0e05   0x14c  Code  ??  eeprom_emul.o [12]
+EE_Init                  0x800'01cf   0xc24  Code  ??  eeprom_emul.o [12]
+EE_MutexGive             0x800'276d     0x2  Code  Lc  NVM.o [12]
+EE_MutexInit             0x800'2769     0x2  Code  ??  NVM.o [12]
+EE_MutexTake             0x800'276b     0x2  Code  Lc  NVM.o [12]
+EE_ReadVariable          0x800'26f1    0x3c  Code  ??  NVM.o [12]
+EE_ReadVariable32bits    0x800'0f51    0x1e  Code  ??  eeprom_emul.o [12]
+EE_VirtAddressTab       0x2000'0198   0x400  Data  Lc  eeprom_emul.o [12]
+EE_WriteVariable         0x800'272d    0x3c  Code  ??  NVM.o [12]
+EE_WriteVariable32bits   0x800'0f6f    0x12  Code  ??  eeprom_emul.o [12]
+EE_initialize            0x800'1e0f    0x60  Code  ??  eeprom_emul.o [12]
+EE_initialize::__FUNCTION__
+                         0x801'55c4    0x10  Data  Lc  eeprom_emul.o [12]
+EXTI0_IRQHandler         0x801'59f5          Code  Wk  startup_stm32l433xx.o [3]
+EXTI15_10_IRQHandler     0x801'5a55          Code  Wk  startup_stm32l433xx.o [3]
+EXTI1_IRQHandler         0x801'59f9          Code  Wk  startup_stm32l433xx.o [3]
+EXTI2_IRQHandler         0x801'59fd          Code  Wk  startup_stm32l433xx.o [3]
+EXTI3_IRQHandler         0x801'5a01          Code  Wk  startup_stm32l433xx.o [3]
+EXTI4_IRQHandler         0x801'5a05          Code  Wk  startup_stm32l433xx.o [3]
+EXTI9_5_IRQHandler       0x800'3705    0x1e  Code  ??  common_gpio.o [8]
+EX_RUS_Regul_Motor_Angle_Set
+                         0x800'4065    0x9c  Code  ??  RUS_Regul_Main.o [2]
+EX_RUS_Regul_Motor_Speed_Set
+                         0x800'4009    0x5c  Code  ??  RUS_Regul_Main.o [2]
+EX_SKLP_ProcessCommand_RUS_Regul_Angle_Set
+                         0x800'c71d    0x7a  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+EX_SKLP_ProcessCommand_RUS_Regul_Speed_Set
+                         0x800'c6b9    0x64  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+EventGroup_System       0x2000'0e28     0x4  Data  ??  main.o [2]
+FLASH_FlushCaches        0x800'2b17    0x64  Code  ??  stm32l4xx_hal_flash_ex.o [11]
+FLASH_IRQHandler         0x800'335b     0xe  Code  ??  RebootUtils.o [12]
+FLASH_MassErase          0x800'2a65    0x36  Code  Lc  stm32l4xx_hal_flash_ex.o [11]
+FLASH_MassErase::__FUNCTION__
+                         0x801'5744    0x10  Data  Lc  stm32l4xx_hal_flash_ex.o [11]
+FLASH_PageErase          0x800'2a9b    0x7c  Code  ??  stm32l4xx_hal_flash_ex.o [11]
+FLASH_PageErase::__FUNCTION__
+                         0x801'5754    0x10  Data  Lc  stm32l4xx_hal_flash_ex.o [11]
+FLASH_Program_DoubleWord
+                         0x800'2059    0xb4  Code  Lc  stm32l4xx_hal_flash.o [11]
+FLASH_Program_DoubleWord::__FUNCTION__
+                         0x801'4aa4    0x1c  Data  Lc  stm32l4xx_hal_flash.o [11]
+FLASH_Program_Fast       0x800'210d    0xc6  Code  Lc  stm32l4xx_hal_flash.o [11]
+FLASH_Program_Fast::__FUNCTION__
+                         0x801'5328    0x14  Data  Lc  stm32l4xx_hal_flash.o [11]
+FLASH_WaitForLastOperation
+                         0x800'1feb    0x6e  Code  ??  stm32l4xx_hal_flash.o [11]
+FPU_IRQHandler           0x801'5ab1          Code  Wk  startup_stm32l433xx.o [3]
+FaultCallback            0x800'290d     0xa  Code  ??  main.o [2]
+FaultCallback::FaultCallbackCnt
+                        0x2000'0e2c     0x4  Data  Lc  main.o [2]
+FindPage                 0x800'12f3   0x254  Code  Lc  eeprom_emul.o [12]
+GPIO_Common_Init         0x800'3589   0x166  Code  ??  common_gpio.o [8]
+GPIO_Common_Init::__FUNCTION__
+                         0x801'4fb8    0x14  Data  Lc  common_gpio.o [8]
+GPIO_Common_InitAll      0x800'36ef    0x16  Code  ??  common_gpio.o [8]
+GPIO_Common_Read         0x800'87ed    0x38  Code  Wk  SKLP_MS_TransportLocal_354_10.o [2]
+GPIO_Common_Write        0x800'59a5    0x5c  Code  Wk  common_gpio.o [8]
+GPIO_Common_isPinSkipped
+                         0x800'802d    0x54  Code  Wk  common_gpio.o [8]
+GPIO_Common_isPinSkipped::__FUNCTION__
+                         0x801'4938    0x1c  Data  Lc  common_gpio.o [8]
+GPIO_PIN_6_Callback      0x800'281f    0x28  Code  ??  main.o [2]
+GPIO_PIN_6_Callback::__FUNCTION__
+                         0x801'5080    0x14  Data  Lc  main.o [2]
+GetLocalTimeStr          0x800'32b3     0xa  Code  Lc  RebootUtils.o [12]
+GetPageState             0x800'1d13    0xb0  Code  Lc  eeprom_emul.o [12]
+HAL_ADC1_MspInit         0x800'c7df   0x1b8  Code  Lc  RUS_Regul_ADC.o [2]
+HAL_ADC1_MspInit::__FUNCTION__
+                         0x801'5170    0x14  Data  Lc  RUS_Regul_ADC.o [2]
+HAL_ADCEx_Calibration_Start
+                         0x801'1579    0xc0  Code  ??  stm32l4xx_hal_adc_ex.o [11]
+HAL_ADCEx_Calibration_Start::__FUNCTION__
+                         0x801'4a6c    0x1c  Data  Lc  stm32l4xx_hal_adc_ex.o [11]
+HAL_ADC_ConfigChannel    0x801'0b39   0x7dc  Code  ??  stm32l4xx_hal_adc.o [11]
+HAL_ADC_ConfigChannel::__FUNCTION__
+                         0x801'4d60    0x18  Data  Lc  stm32l4xx_hal_adc.o [11]
+HAL_ADC_ConvCpltCallback
+                         0x800'cbd3    0x56  Code  ??  RUS_Regul_ADC.o [2]
+HAL_ADC_ConvCpltCallback::__FUNCTION__
+                         0x801'49a8    0x1c  Data  Lc  RUS_Regul_ADC.o [2]
+HAL_ADC_ConvHalfCpltCallback
+                         0x800'cb7d    0x56  Code  ??  RUS_Regul_ADC.o [2]
+HAL_ADC_ConvHalfCpltCallback::__FUNCTION__
+                         0x801'4744    0x20  Data  Lc  RUS_Regul_ADC.o [2]
+HAL_ADC_ErrorCallback    0x800'cc29    0x2e  Code  ??  RUS_Regul_ADC.o [2]
+HAL_ADC_ErrorCallback::__FUNCTION__
+                         0x801'4ce8    0x18  Data  Lc  RUS_Regul_ADC.o [2]
+HAL_ADC_GetState         0x801'132d    0x1c  Code  ??  stm32l4xx_hal_adc.o [11]
+HAL_ADC_GetState::__FUNCTION__
+                         0x801'52c4    0x14  Data  Lc  stm32l4xx_hal_adc.o [11]
+HAL_ADC_Init             0x801'0485   0x594  Code  ??  stm32l4xx_hal_adc.o [11]
+HAL_ADC_Init::__FUNCTION__
+                         0x801'5724    0x10  Data  Lc  stm32l4xx_hal_adc.o [11]
+HAL_ADC_MspInit          0x800'c7bd    0x22  Code  ??  RUS_Regul_ADC.o [2]
+HAL_ADC_MspInit::__FUNCTION__
+                         0x801'5684    0x10  Data  Lc  RUS_Regul_ADC.o [2]
+HAL_ADC_Start_DMA        0x801'0a35    0xd6  Code  ??  stm32l4xx_hal_adc.o [11]
+HAL_ADC_Start_DMA::__FUNCTION__
+                         0x801'52b0    0x14  Data  Lc  stm32l4xx_hal_adc.o [11]
+HAL_DMA_IRQHandler       0x800'f711    0xf2  Code  ??  stm32l4xx_hal_dma.o [11]
+HAL_DMA_Init             0x800'f361   0x2a4  Code  ??  stm32l4xx_hal_dma.o [11]
+HAL_DMA_Init::__FUNCTION__
+                         0x801'5734    0x10  Data  Lc  stm32l4xx_hal_dma.o [11]
+HAL_DMA_Start_IT         0x800'f605    0xae  Code  ??  stm32l4xx_hal_dma.o [11]
+HAL_DMA_Start_IT::__FUNCTION__
+                         0x801'5300    0x14  Data  Lc  stm32l4xx_hal_dma.o [11]
+HAL_FLASHEx_Erase        0x800'2961   0x104  Code  ??  stm32l4xx_hal_flash_ex.o [11]
+HAL_FLASHEx_Erase::__FUNCTION__
+                         0x801'533c    0x14  Data  Lc  stm32l4xx_hal_flash_ex.o [11]
+HAL_FLASH_Program        0x800'1ef5    0xd4  Code  ??  stm32l4xx_hal_flash.o [11]
+HAL_FLASH_Program::__FUNCTION__
+                         0x801'5314    0x14  Data  Lc  stm32l4xx_hal_flash.o [11]
+HAL_FLASH_Unlock         0x800'1fc9    0x22  Code  ??  stm32l4xx_hal_flash.o [11]
+HAL_GPIO_EXTI_Callback   0x800'3723    0x1e  Code  ??  common_gpio.o [8]
+HAL_GPIO_EXTI_Callback::__FUNCTION__
+                         0x801'4c28    0x18  Data  Lc  common_gpio.o [8]
+HAL_GPIO_EXTI_IRQHandler
+                         0x800'8449    0x20  Code  ??  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_Init            0x800'8081   0x34a  Code  ??  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_Init::__FUNCTION__
+                         0x801'5764    0x10  Data  Lc  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_ReadPin         0x800'83cb    0x2e  Code  ??  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_ReadPin::__FUNCTION__
+                         0x801'5350    0x14  Data  Lc  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_WritePin        0x800'83f9    0x50  Code  ??  stm32l4xx_hal_gpio.o [11]
+HAL_GPIO_WritePin::__FUNCTION__
+                         0x801'5364    0x14  Data  Lc  stm32l4xx_hal_gpio.o [11]
+HAL_GetTick              0x800'2ba1     0xc  Code  Wk  stm32l4xx_hal.o [11]
+HAL_IWDG_Init            0x800'6e11    0xcc  Code  ??  stm32l4xx_hal_iwdg.o [11]
+HAL_IWDG_Init::__FUNCTION__
+                         0x801'5774    0x10  Data  Lc  stm32l4xx_hal_iwdg.o [11]
+HAL_IWDG_Refresh         0x800'6ee9     0xe  Code  ??  stm32l4xx_hal_iwdg.o [11]
+HAL_IncTick              0x800'6a65    0x18  Code  Wk  stm32l4xx_hal.o [11]
+HAL_Init                 0x800'7059    0x24  Code  ??  stm32l4xx_hal.o [11]
+HAL_InitTick             0x800'd829    0x60  Code  Wk  stm32l4xx_hal.o [11]
+HAL_MspInit              0x800'd889     0x2  Code  Wk  stm32l4xx_hal.o [11]
+HAL_NVIC_ClearPendingIRQ
+                         0x800'6c3d    0x26  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_ClearPendingIRQ::__FUNCTION__
+                         0x801'4a88    0x1c  Data  Lc  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_EnableIRQ       0x800'6c0d    0x24  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_EnableIRQ::__FUNCTION__
+                         0x801'52d8    0x14  Data  Lc  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_SetPriority     0x800'6bbf    0x4e  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_SetPriority::__FUNCTION__
+                         0x801'4da8    0x18  Data  Lc  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_SetPriorityGrouping
+                         0x800'6b91    0x2e  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_NVIC_SetPriorityGrouping::__FUNCTION__
+                         0x801'47e4    0x20  Data  Lc  stm32l4xx_hal_cortex.o [11]
+HAL_OPAMP_Init           0x800'd499   0x2ae  Code  ??  stm32l4xx_hal_opamp.o [11]
+HAL_OPAMP_Init::__FUNCTION__
+                         0x801'5784    0x10  Data  Lc  stm32l4xx_hal_opamp.o [11]
+HAL_OPAMP_MspInit        0x800'563f    0x48  Code  ??  DRIVER_Motor.o [4]
+HAL_OPAMP_Start          0x800'd747    0x5e  Code  ??  stm32l4xx_hal_opamp.o [11]
+HAL_OPAMP_Start::__FUNCTION__
+                         0x801'5794    0x10  Data  Lc  stm32l4xx_hal_opamp.o [11]
+HAL_PWREx_DisableLowPowerRunMode
+                         0x800'd7e1    0x38  Code  ??  stm32l4xx_hal_pwr_ex.o [11]
+HAL_PWREx_EnableLowPowerRunMode
+                         0x800'd7d5     0xc  Code  ??  stm32l4xx_hal_pwr_ex.o [11]
+HAL_PWREx_GetVoltageRange
+                         0x800'd7c9     0xc  Code  ??  stm32l4xx_hal_pwr_ex.o [11]
+HAL_PWR_EnterSLEEPMode   0x800'6ca5    0x78  Code  ??  stm32l4xx_hal_pwr.o [11]
+HAL_PWR_EnterSLEEPMode::__FUNCTION__
+                         0x801'4e20    0x18  Data  Lc  stm32l4xx_hal_pwr.o [11]
+HAL_RCC_ClockConfig      0x800'7a45   0x268  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_ClockConfig::__FUNCTION__
+                         0x801'53b4    0x14  Data  Lc  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetHCLKFreq      0x800'7d93     0x6  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetOscConfig     0x800'7ddd   0x104  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetOscConfig::__FUNCTION__
+                         0x801'4e38    0x18  Data  Lc  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetPCLK1Freq     0x800'7d99    0x1a  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetPCLK2Freq     0x800'7db9    0x1a  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_GetSysClockFreq
+                         0x800'7cbd    0xd6  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_OscConfig        0x800'71d1   0x860  Code  ??  stm32l4xx_hal_rcc.o [11]
+HAL_RCC_OscConfig::__FUNCTION__
+                         0x801'538c    0x14  Data  Lc  stm32l4xx_hal_rcc.o [11]
+HAL_SPI_Init             0x800'f895   0x2a2  Code  ??  stm32l4xx_hal_spi.o [11]
+HAL_SPI_Init::__FUNCTION__
+                         0x801'57a4    0x10  Data  Lc  stm32l4xx_hal_spi.o [11]
+HAL_SPI_MspInit          0x800'bfbb    0x86  Code  ??  Driver_ADS1231.o [4]
+HAL_SPI_MspInit::__FUNCTION__
+                         0x801'5594    0x10  Data  Lc  Driver_ADS1231.o [4]
+HAL_SPI_Receive          0x800'fb37   0x1e4  Code  ??  stm32l4xx_hal_spi.o [11]
+HAL_SPI_TransmitReceive
+                         0x800'fd1b   0x386  Code  ??  stm32l4xx_hal_spi.o [11]
+HAL_SPI_TransmitReceive::__FUNCTION__
+                         0x801'4e50    0x18  Data  Lc  stm32l4xx_hal_spi.o [11]
+HAL_SYSTICK_Callback     0x800'd7c5     0x2  Code  Wk  stm32l4xx_hal_cortex.o [11]
+HAL_SYSTICK_Config       0x800'6c31     0xc  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_SYSTICK_IRQHandler   0x800'6c63     0x8  Code  ??  stm32l4xx_hal_cortex.o [11]
+HAL_TIMEx_Break2Callback
+                         0x800'f85d     0x2  Code  Wk  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_BreakCallback
+                         0x800'f85b     0x2  Code  Wk  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_CommutCallback
+                         0x800'f861     0x2  Code  Wk  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_ConfigBreakDeadTime
+                         0x800'd285   0x1f2  Code  ??  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_ConfigBreakDeadTime::__FUNCTION__
+                         0x801'4804    0x20  Data  Lc  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_MasterConfigSynchronization
+                         0x800'd0f1   0x194  Code  ??  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIMEx_MasterConfigSynchronization::__FUNCTION__
+                         0x801'4434    0x28  Data  Lc  stm32l4xx_hal_tim_ex.o [11]
+HAL_TIM_Base_Init        0x800'a00d    0xf2  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_Base_Init::__FUNCTION__
+                         0x801'53dc    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_Base_MspInit     0x800'9f45    0x34  Code  ??  Common_tim.o [8]
+HAL_TIM_ConfigClockSource
+                         0x800'ab9d   0x450  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_ConfigClockSource::__FUNCTION__
+                         0x801'4b14    0x1c  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_IC_CaptureCallback
+                         0x800'f857     0x2  Code  Wk  stm32l4xx_hal_tim.o [11]
+HAL_TIM_IRQHandler       0x800'a511   0x194  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_ConfigChannel
+                         0x800'a6a5   0x1e0  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_ConfigChannel::__FUNCTION__
+                         0x801'4adc    0x1c  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_DelayElapsedCallback
+                         0x800'9faf    0x12  Code  ??  Common_tim.o [8]
+HAL_TIM_OC_Init          0x800'a0ff    0xf2  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_Init::__FUNCTION__
+                         0x801'57b4    0x10  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_MspInit       0x800'9f79     0xc  Code  ??  Common_tim.o [8]
+HAL_TIM_OC_Start_IT      0x800'a1f1   0x110  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_OC_Start_IT::__FUNCTION__
+                         0x801'5404    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_ConfigChannel
+                         0x800'a88d   0x2e4  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_ConfigChannel::__FUNCTION__
+                         0x801'4af8    0x1c  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_Init         0x800'a325    0xf2  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_Init::__FUNCTION__
+                         0x801'5418    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_MspInit      0x800'9f85     0xc  Code  ??  Common_tim.o [8]
+HAL_TIM_PWM_PulseFinishedCallback
+                         0x800'f859     0x2  Code  Wk  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_Start        0x800'a41d    0xcc  Code  ??  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PWM_Start::__FUNCTION__
+                         0x801'542c    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+HAL_TIM_PeriodElapsedCallback
+                         0x800'9f91    0x1e  Code  ??  Common_tim.o [8]
+HAL_TIM_TriggerCallback
+                         0x800'f85f     0x2  Code  Wk  stm32l4xx_hal_tim.o [11]
+HAL_UART_ErrorCallback   0x800'f83f     0x2  Code  Wk  stm32l4xx_hal_uart.o [11]
+HAL_UART_Ext_CalcByteRate
+                         0x800'9cfd    0x78  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_CalcByteRate::__FUNCTION__
+                         0x801'4ba0    0x1c  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_CalcTimeToTransmite
+                         0x800'9d79    0x46  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_IRQHandler
+                         0x800'970d   0x220  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_IRQHandler::__FUNCTION__
+                         0x801'4ec8    0x18  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_Init        0x800'930f    0x78  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_Init::__FUNCTION__
+                         0x801'54a4    0x14  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_ReceiveCyclicStart
+                         0x800'95a1   0x16c  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_ReceiveCyclicStart::__FUNCTION__
+                         0x801'4824    0x20  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_RxForModemDisable
+                         0x800'9387    0x3e  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_RxForModemRestore
+                         0x800'93c5    0x2e  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_Transmit    0x800'93f3   0x1ae  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_Transmit::__FUNCTION__
+                         0x801'4eb0    0x18  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Ext_ValidateHdl
+                         0x800'92d1    0x3e  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+HAL_UART_Init            0x800'ea51    0xec  Code  ??  stm32l4xx_hal_uart.o [11]
+HAL_UART_Init::__FUNCTION__
+                         0x801'57c4    0x10  Data  Lc  stm32l4xx_hal_uart.o [11]
+HAL_UART_MspInit         0x801'23ed   0x34c  Code  ??  common_uart.o [8]
+HAL_UART_MspInit::__FUNCTION__
+                         0x801'4fe0    0x14  Data  Lc  common_uart.o [8]
+HAL_UART_RxIdleCallback
+                         0x800'3a87    0x32  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+HAL_UART_RxIdleCallback::__FUNCTION__
+                         0x801'4d18    0x18  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+HAL_UART_TxCpltCallback
+                         0x800'f841     0x2  Code  Wk  stm32l4xx_hal_uart.o [11]
+HardFault_CommonHandler
+                         0x800'3311    0x12  Code  ??  RebootUtils.o [12]
+HardFault_Handler        0x800'3323     0xe  Code  ??  RebootUtils.o [12]
+I2C1_ER_IRQHandler       0x801'5a3d          Code  Wk  startup_stm32l433xx.o [3]
+I2C1_EV_IRQHandler       0x801'5a39          Code  Wk  startup_stm32l433xx.o [3]
+I2C2_ER_IRQHandler       0x801'5a45          Code  Wk  startup_stm32l433xx.o [3]
+I2C2_EV_IRQHandler       0x801'5a41          Code  Wk  startup_stm32l433xx.o [3]
+I2C3_ER_IRQHandler       0x801'5a99          Code  Wk  startup_stm32l433xx.o [3]
+I2C3_EV_IRQHandler       0x801'5a95          Code  Wk  startup_stm32l433xx.o [3]
+ISOwkyr                  0x801'3223    0xb2  Code  Lc  xgentime.o [13]
+ISOyear                  0x801'32d9    0x1a  Code  Lc  xgentime.o [13]
+IwdgHandle              0x2000'57a4    0x10  Data  Lc  RebootUtils.o [12]
+JumpToApplication        0x800'2f6b    0x34  Code  Lc  RebootUtils.o [12]
+JumpToApplication::__FUNCTION__
+                         0x801'5120    0x14  Data  Lc  RebootUtils.o [12]
+LCD_IRQHandler           0x801'5aa9          Code  Wk  startup_stm32l433xx.o [3]
+LL_ADC_Disable           0x801'043f    0x10  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_DisableDeepPowerDown
+                         0x801'03ff     0xc  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_Enable            0x801'042f    0x10  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_EnableInternalRegulator
+                         0x801'0415    0x10  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_GetCommonPathInternalCh
+                         0x801'0309     0x8  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_GetOffsetChannel
+                         0x801'033d    0x12  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_GetResolution     0x801'0311     0x8  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_INJ_IsConversionOngoing
+                         0x801'047b     0xa  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_IsCalibrationOnGoing
+                         0x801'1573     0x6  Code  Lc  stm32l4xx_hal_adc_ex.o [11]
+LL_ADC_IsDeepPowerDownEnabled
+                         0x801'040b     0xa  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_IsDisableOngoing
+                         0x801'0457     0xa  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_IsEnabled         0x801'044f     0x8  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_IsInternalRegulatorEnabled
+                         0x801'0425     0xa  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_REG_IsConversionOngoing
+                         0x801'0471     0xa  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_REG_IsTriggerSourceSWStart
+                         0x801'0367    0x10  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_REG_SetSequencerRanks
+                         0x801'0377    0x2e  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_REG_StartConversion
+                         0x801'0461    0x10  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetChannelSamplingTime
+                         0x801'03a5    0x34  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetChannelSingleDiff
+                         0x801'03d9    0x26  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetCommonClock    0x801'02f1     0xc  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetCommonPathInternalCh
+                         0x801'02fd     0xc  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetOffset         0x801'0319    0x24  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_SetOffsetState    0x801'034f    0x18  Code  Lc  stm32l4xx_hal_adc.o [11]
+LL_ADC_StartCalibration
+                         0x801'155d    0x16  Code  Lc  stm32l4xx_hal_adc_ex.o [11]
+LL_AHB1_GRP1_EnableClock
+                         0x800'01b7    0x18  Code  Lc  eeprom_emul.o [12]
+LL_CRC_FeedData16        0x800'01ab     0x6  Code  Lc  eeprom_emul.o [12]
+LL_CRC_FeedData32        0x800'01a7     0x4  Code  Lc  eeprom_emul.o [12]
+LL_CRC_ReadData16        0x800'01b1     0x6  Code  Lc  eeprom_emul.o [12]
+LL_CRC_ResetCRCCalculationUnit
+                         0x800'018d     0xa  Code  Lc  eeprom_emul.o [12]
+LL_CRC_SetPolynomialCoef
+                         0x800'01a3     0x4  Code  Lc  eeprom_emul.o [12]
+LL_CRC_SetPolynomialSize
+                         0x800'0197     0xc  Code  Lc  eeprom_emul.o [12]
+LL_TIM_GetCounter        0x800'51b9     0x4  Code  Lc  DRIVER_CM36-3650.o [4]
+LL_TIM_GetCounter        0x800'3e6d     0x4  Code  Lc  RUS_Regul_Main.o [2]
+LL_TIM_OC_SetCompareCH1
+                         0x800'51bd     0x4  Code  Lc  DRIVER_CM36-3650.o [4]
+LL_TIM_OC_SetCompareCH1
+                         0x800'3e71     0x4  Code  Lc  RUS_Regul_Main.o [2]
+LL_TIM_SetCounter        0x800'3e69     0x4  Code  Lc  RUS_Regul_Main.o [2]
+LL_TIM_SetCounterMode    0x800'55e1     0xc  Code  Lc  DRIVER_Motor.o [4]
+LPTIM1_IRQHandler        0x801'5a79          Code  Wk  startup_stm32l433xx.o [3]
+LPTIM2_IRQHandler        0x801'5a7d          Code  Wk  startup_stm32l433xx.o [3]
+LPUART1_IRQHandler       0x801'5a8d          Code  Wk  startup_stm32l433xx.o [3]
+Logger_WriteRecord       0x800'28b3     0x6  Code  ??  main.o [2]
+LoochDeviceSerial       0x2000'57b4     0x4  Data  ??  SKLP_Service.o [9]
+LoochSoftVersion        0x2000'57b8     0x4  Data  ??  SKLP_Service.o [9]
+MSIRangeTable            0x801'4308    0x30  Data  ??  system_stm32l4xx.o [10]
+MemManage_Handler        0x800'3331     0xe  Code  ??  RebootUtils.o [12]
+MemoryThread_SprintfMutexGive
+                         0x800'28bb    0x1e  Code  ??  main.o [2]
+MemoryThread_SprintfMutexGive::__FUNCTION__
+                         0x801'46c4    0x20  Data  Lc  main.o [2]
+MemoryThread_SprintfMutexTake
+                         0x800'28d9    0x34  Code  ??  main.o [2]
+MemoryThread_SprintfMutexTake::__FUNCTION__
+                         0x801'46e4    0x20  Data  Lc  main.o [2]
+Motor                   0x2000'09c8    0x78  Data  ??  DRIVER_Motor.o [4]
+Motor_Angle_Set          0x800'5775    0x30  Code  ??  DRIVER_Motor.o [4]
+Motor_Calibration_Callback
+                         0x800'57a5    0x22  Code  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Callback::__FUNCTION__
+                         0x801'4970    0x1c  Data  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Current_Create
+                         0x800'57c7    0x2a  Code  ??  DRIVER_Motor.o [4]
+Motor_Calibration_Current_Create::__FUNCTION__
+                         0x801'445c    0x24  Data  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Current_Start
+                         0x800'57f1    0x32  Code  ??  DRIVER_Motor.o [4]
+Motor_Calibration_Current_Start::__FUNCTION__
+                         0x801'4604    0x20  Data  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Callback
+                         0x800'5823    0x22  Code  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Callback::__FUNCTION__
+                         0x801'4480    0x24  Data  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Create
+                         0x800'5845    0x2a  Code  ??  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Create::__FUNCTION__
+                         0x801'4624    0x20  Data  Lc  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Start
+                         0x800'58fd    0x3c  Code  ??  DRIVER_Motor.o [4]
+Motor_Calibration_Press_Start::__FUNCTION__
+                         0x801'4664    0x20  Data  Lc  DRIVER_Motor.o [4]
+Motor_CreateSpeedTimerTask
+                         0x800'573b    0x3a  Code  ??  DRIVER_Motor.o [4]
+Motor_CreateSpeedTimerTask::__FUNCTION__
+                         0x801'4954    0x1c  Data  Lc  DRIVER_Motor.o [4]
+Motor_CurrentSpeed_Get_Callback
+                         0x800'56db    0x20  Code  Lc  DRIVER_Motor.o [4]
+Motor_CurrentSpeed_Get_Callback::__FUNCTION__
+                         0x801'45e4    0x20  Data  Lc  DRIVER_Motor.o [4]
+Motor_Press_Init         0x800'3e75    0x3c  Code  ??  RUS_Regul_Main.o [2]
+Motor_Press_Init::__FUNCTION__
+                         0x801'51ac    0x14  Data  Lc  RUS_Regul_Main.o [2]
+Motor_Rotation_Set       0x800'56fb    0x40  Code  ??  DRIVER_Motor.o [4]
+Motor_SpeedControl_Init
+                         0x800'5341   0x106  Code  ??  DRIVER_CM36-3650.o [4]
+Motor_SpeedControl_Init::__FUNCTION__
+                         0x801'4c58    0x18  Data  Lc  DRIVER_CM36-3650.o [4]
+Motor_SpeedCounter_Init
+                         0x800'5225    0xcc  Code  ??  DRIVER_CM36-3650.o [4]
+Motor_SpeedCounter_Init::__FUNCTION__
+                         0x801'4c40    0x18  Data  Lc  DRIVER_CM36-3650.o [4]
+Motor_Speed_Set          0x800'5689    0x40  Code  ??  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Callback
+                         0x800'586f    0x22  Code  Lc  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Callback::__FUNCTION__
+                         0x801'44a4    0x24  Data  Lc  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Create
+                         0x800'5895    0x2c  Code  ??  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Create::__FUNCTION__
+                         0x801'44c8    0x24  Data  Lc  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Start
+                         0x800'58c1    0x3c  Code  ??  DRIVER_Motor.o [4]
+Motor_Stabilization_Press_Start::__FUNCTION__
+                         0x801'4644    0x20  Data  Lc  DRIVER_Motor.o [4]
+Motor_Stop               0x800'56c9    0x12  Code  ??  DRIVER_Motor.o [4]
+NMI_Handler              0x801'59d9          Code  Wk  startup_stm32l433xx.o [3]
+NVIC_EncodePriority      0x800'6b1b    0x40  Code  Lc  stm32l4xx_hal_cortex.o [11]
+NVM_State               0x2000'0ee0     0x1  Data  ??  NVM.o [12]
+NVM_TagLoad              0x800'233b    0x68  Code  ??  NVM.o [12]
+NVM_TagLoad::__FUNCTION__
+                         0x801'5868     0xc  Data  Lc  NVM.o [12]
+NVM_TagLoadReal          0x800'22dd    0x5e  Code  ??  NVM.o [12]
+NVM_TagLoadReal::__FUNCTION__
+                         0x801'5604    0x10  Data  Lc  NVM.o [12]
+NVM_TagSaveNew           0x800'23a3    0xba  Code  ??  NVM.o [12]
+NVM_TagSaveNew::__FUNCTION__
+                         0x801'5614    0x10  Data  Lc  NVM.o [12]
+NVM_TagValidate          0x800'2221    0xbc  Code  Lc  NVM.o [12]
+NVM_Tag_RUS_Regul_MotorCalibr
+                         0x801'5224    0x14  Data  ??  RUS_Regul_Main.o [2]
+NVM_Tag_RUS_Regul_PressCalibr
+                         0x801'5210    0x14  Data  ??  RUS_Regul_Main.o [2]
+OPAMP_Init               0x800'55ed    0x52  Code  ??  DRIVER_Motor.o [4]
+OPAMP_Init::__FUNCTION__
+                         0x801'5838     0xc  Data  Lc  DRIVER_Motor.o [4]
+PVD_PVM_IRQHandler       0x801'59e5          Code  Wk  startup_stm32l433xx.o [3]
+PageErase                0x800'1e99    0x32  Code  ??  flash_interface.o [12]
+PagesTransfer            0x800'1559   0x524  Code  Lc  eeprom_emul.o [12]
+PendSV_Handler           0x800'6d61          Code  ??  portasm.o [5]
+QUADSPI_IRQHandler       0x801'5a91          Code  Wk  startup_stm32l433xx.o [3]
+RCC_IRQHandler           0x801'59f1          Code  Wk  startup_stm32l433xx.o [3]
+RCC_SetFlashLatencyFromMSIRange
+                         0x800'7ee1    0x8a  Code  Lc  stm32l4xx_hal_rcc.o [11]
+RNG_IRQHandler           0x801'5aad          Code  Wk  startup_stm32l433xx.o [3]
+RTC_Alarm_IRQHandler     0x801'5a59          Code  Wk  startup_stm32l433xx.o [3]
+RTC_WKUP_IRQHandler      0x801'59ed          Code  Wk  startup_stm32l433xx.o [3]
+RUS_Regul               0x2000'0b08    0x54  Data  ??  RUS_Regul_Main.o [2]
+RUS_Regul_ADC           0x2000'0598   0x210  Data  Lc  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC1_Init      0x800'c9a9   0x1c2  Code  ??  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC1_Init::__FUNCTION__
+                         0x801'5184    0x14  Data  Lc  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC_GetVoltages
+                         0x800'cead   0x17a  Code  ??  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC_GetVoltages::__FUNCTION__
+                         0x801'49c4    0x1c  Data  Lc  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC_Init       0x800'c997    0x12  Code  ??  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC_Start      0x800'ce2f    0x7e  Code  ??  RUS_Regul_ADC.o [2]
+RUS_Regul_ADC_Start::__FUNCTION__
+                         0x801'5198    0x14  Data  Lc  RUS_Regul_ADC.o [2]
+RUS_Regul_Absolute_Angle_Set
+                         0x800'4177    0xe4  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_BoardID_Get    0x800'3a05    0x7a  Code  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+RUS_Regul_Check_Current_Timer_Callback
+                         0x800'4fbb    0x24  Code  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Check_Current_Timer_Callback::__FUNCTION__
+                         0x801'4394    0x28  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_EventGroup    0x2000'0e3c     0x4  Data  ??  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask       0x800'44b9   0xac2  Code  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask::PressMedianFiltred
+                        0x2000'08a8    0xa0  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::ADSCode
+                        0x2000'0e5c     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::NewPress
+                        0x2000'0e68     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::Transmit_Buf
+                        0x2000'0c9c    0x40  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::avgPress
+                        0x2000'0e64     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::count
+                        0x2000'0ee2     0x1  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{31}{32}::i
+                        0x2000'0e60     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{48}{49}::CurAngle
+                        0x2000'0e6c     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{48}{49}::maxAngle
+                        0x2000'0e74     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{48}{49}::maxPress
+                        0x2000'0184     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{48}{49}::minAngle
+                        0x2000'0e70     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{48}{49}::minPress
+                        0x2000'0180     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{8}{9}::curCount
+                        0x2000'0e50     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{8}{9}::delta
+                        0x2000'0e58     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_MainTask{2}{3}{8}{9}::prevCount
+                        0x2000'0e54     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Main_Struct_Update
+                         0x800'4001     0x8  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Angle_Get
+                         0x800'425d    0x42  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Angle_Get::curAngle
+                        0x2000'0e44     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Angle_Get::curCount
+                        0x2000'0e40     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_CalibrDefault
+                         0x801'56a4    0x10  Data  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Calibration_Set
+                         0x800'42d9     0xe  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Long_Angle_Get
+                         0x800'42a1    0x38  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Long_Angle_Get::curCount
+                        0x2000'0e48     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Long_Angle_Get::longCurAngle
+                        0x2000'0e4c     0x4  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Speed_Set
+                         0x800'4101    0x6e  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_State_Get
+                         0x800'3f83    0x7e  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Motor_Stop     0x800'416f     0x8  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_OPAMP_Timer_Create
+                         0x800'4fdf    0x50  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_OPAMP_Timer_Create::__FUNCTION__
+                         0x801'4764    0x20  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Overlap_Set    0x800'42f1   0x174  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Overlap_Set::prevAngle
+                        0x2000'0eda     0x2  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_Press_CalibrDefault
+                         0x801'51fc    0x14  Data  ??  RUS_Regul_Main.o [2]
+RUS_Regul_Press_Calibration_Start
+                         0x800'42e7     0x8  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_SKLP_InitCallbacks
+                         0x800'c0f5   0x156  Code  ??  SKLP_Interface_RUS_Regul.o [2]
+RUS_Regul_SKLP_InitCallbacks::__FUNCTION__
+                         0x801'4784    0x20  Data  Lc  SKLP_Interface_RUS_Regul.o [2]
+RUS_Regul_StartDelayTimerCallback
+                         0x800'4f85    0x36  Code  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_StartDelayTimerCallback::__FUNCTION__
+                         0x801'4510    0x24  Data  Lc  RUS_Regul_Main.o [2]
+RUS_Regul_TaskInit       0x800'3eb1    0xd2  Code  ??  RUS_Regul_Main.o [2]
+RUS_Regul_TaskInit::__FUNCTION__
+                         0x801'51d4    0x14  Data  Lc  RUS_Regul_Main.o [2]
+ReadVariable             0x800'10f1   0x1a2  Code  Lc  eeprom_emul.o [12]
+RebootUtils_Reset        0x800'329f    0x14  Code  Lc  RebootUtils.o [12]
+Region$$Table$$Base      0x801'45a0           --   ??  - Linker created -
+Region$$Table$$Limit     0x801'45c4           --   ??  - Linker created -
+ResetInfo               0x2000'fd68   0x298  Data  Wk  RebootUtils.o [12]
+Reset_Handler            0x801'5805          Code  Wk  startup_stm32l433xx.o [3]
+ReverseByteOrder32       0x800'f88d     0x6  Code  Wk  SKLP_Service.o [9]
+Round_SI16               0x800'e9d9    0x56  Code  ??  Utils.o [12]
+Round_SI8                0x800'e981    0x56  Code  ??  Utils.o [12]
+Round_UI16               0x800'e949    0x36  Code  ??  Utils.o [12]
+Round_UI8                0x800'e915    0x34  Code  ??  Utils.o [12]
+SAI1_IRQHandler          0x801'5a9d          Code  Wk  startup_stm32l433xx.o [3]
+SDMMC1_IRQHandler        0x801'5a5d          Code  Wk  startup_stm32l433xx.o [3]
+SKLP_CustomAddress      0x2000'0ee4     0x1  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_CustomAddressGet    0x800'3a7f     0x8  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_FlagsModule        0x2000'0ee5     0x1  Data  ??  SKLP_Service.o [9]
+SKLP_InterfacePeripheryInit
+                         0x800'3ad1   0x176  Code  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_InterfacePeripheryInit::__FUNCTION__
+                         0x801'4a18    0x1c  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_InterfaceValidate   0x800'8825    0x2c  Code  Lc  SKLP_MS_Transport.o [9]
+SKLP_MemoryFlags        0x2000'0196     0x1  Data  ??  SKLP_Service.o [9]
+SKLP_ProcessCommand_BaudSet
+                         0x801'3ca1    0xa0  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_BaudSetLocal
+                         0x801'3d41     0x8  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_Common
+                         0x800'b6f7    0xd4  Code  ??  SKLP_Service.o [9]
+SKLP_ProcessCommand_Common::__FUNCTION__
+                         0x801'4a34    0x1c  Data  Lc  SKLP_Service.o [9]
+SKLP_ProcessCommand_GoTo_BootLoader
+                         0x801'59b9     0x8  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_ID_Get
+                         0x801'3f59    0x60  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_ID_Set
+                         0x801'3afd    0xe0  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_ID_Set::__FUNCTION__
+                         0x801'4a50    0x1c  Data  Lc  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_MemoryGetState
+                         0x801'41b9    0x44  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_RUS_Regul_Advanced_Managment
+                         0x800'c6b1     0x6  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Extendeed_Data_Get
+                         0x800'c345   0x126  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_MainData_Get
+                         0x800'c33d     0x6  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Motor_Power_Managment
+                         0x800'c46d    0xae  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_NVM_Get
+                         0x800'c24d     0x6  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_NVM_Set
+                         0x800'c255    0xe8  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_NVM_Set::__FUNCTION__
+                         0x801'43bc    0x28  Data  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Overlap_Set
+                         0x800'c51d    0x94  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Press_Stabiliztion
+                         0x800'c689    0x24  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Start_Current_Calibr
+                         0x800'c5b1    0x6e  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Start_Current_Calibr::__FUNCTION__
+                         0x801'426c    0x34  Data  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Start_Pressure_Calibr
+                         0x800'c621    0x68  Code  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_RUS_Regul_Start_Pressure_Calibr::__FUNCTION__
+                         0x801'42a0    0x34  Data  Lc  SKLP_Interface_RUS_Regul.o [2]
+SKLP_ProcessCommand_TimeSinchronization
+                         0x801'3dd1    0x80  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_TimeSinchronization::__FUNCTION__
+                         0x801'43e4    0x28  Data  Lc  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_TimeSinchronization_CB
+                         0x801'3e51    0x28  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_TimeSinchronization{1}{2}{3}{4}::bSyncFromCommand
+                        0x2000'0ee6     0x1  Data  Lc  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_WorkTime_Get
+                         0x801'411d    0x50  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_WorkTime_Inc
+                         0x801'41fd    0x38  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessCommand_WorkTime_Set
+                         0x801'3fb9    0x60  Code  Wk  SKLP_ServiceDefault.o [9]
+SKLP_ProcessPacket       0x800'8d8d   0x2ca  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_ProcessPacket::__FUNCTION__
+                         0x801'5260    0x14  Data  Lc  SKLP_MS_Transport.o [9]
+SKLP_ProcessPacket{11}{12}::FailCount
+                        0x2000'0195     0x1  Data  Lc  SKLP_MS_Transport.o [9]
+SKLP_ReceiveFragment     0x800'8973   0x41a  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_ReceiveFragment::__FUNCTION__
+                         0x801'4d00    0x18  Data  Lc  SKLP_MS_Transport.o [9]
+SKLP_ReceivePacket       0x800'9065    0x8c  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_RxQueue_Modem      0x2000'0158     0xc  Data  ??  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_RxQueue_Service    0x2000'0164     0xc  Data  ??  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_SendPacket          0x800'90f1   0x1a4  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_SendPacket::__FUNCTION__
+                         0x801'56c4    0x10  Data  Lc  SKLP_MS_Transport.o [9]
+SKLP_ServiceInit         0x800'b54d    0xde  Code  ??  SKLP_Service.o [9]
+SKLP_ServiceInit::__FUNCTION__
+                         0x801'5274    0x14  Data  Lc  SKLP_Service.o [9]
+SKLP_ServiceSetCallback
+                         0x800'b62b    0xcc  Code  ??  SKLP_Service.o [9]
+SKLP_ServiceSetCallback::__FUNCTION__
+                         0x801'4d30    0x18  Data  Lc  SKLP_Service.o [9]
+SKLP_SlaveTask           0x800'3d25    0xda  Code  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_SlaveTask::__FUNCTION__
+                         0x801'56e4    0x10  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_TaskInit            0x800'3c97    0x8c  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_TaskInit::__FUNCTION__
+                         0x801'56d4    0x10  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+SKLP_Time               0x2000'0e04     0x8  Data  ??  SKLP_Service.o [9]
+SKLP_Time6Validate       0x800'70c1    0x50  Code  ??  SKLP_Time.o [9]
+SKLP_Time6Validate::__FUNCTION__
+                         0x801'5288    0x14  Data  Lc  SKLP_Time.o [9]
+SKLP_TimeValidate        0x800'7111    0x1c  Code  ??  SKLP_Time.o [9]
+SKLP_TimerElapsed        0x800'88e7    0x8c  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_TimerElapsed::__FUNCTION__
+                         0x801'5238    0x14  Data  Lc  SKLP_MS_Transport.o [9]
+SKLP_TimerRx_Restart     0x800'8851    0x22  Code  Lc  SKLP_MS_Transport.o [9]
+SKLP_TimerRx_Start       0x800'8873    0x2c  Code  Lc  SKLP_MS_Transport.o [9]
+SKLP_TimerRx_Stop        0x800'889f    0x48  Code  ??  SKLP_MS_Transport.o [9]
+SKLP_WorkTimeCounter    0x2000'0edc     0x2  Data  ??  SKLP_Service.o [9]
+SPI1_IRQHandler          0x801'5a49          Code  Wk  startup_stm32l433xx.o [3]
+SPI2_IRQHandler          0x801'5a4d          Code  Wk  startup_stm32l433xx.o [3]
+SPI3_IRQHandler          0x801'5a61          Code  Wk  startup_stm32l433xx.o [3]
+SPI_EndRxTransaction     0x801'0201    0x86  Code  Lc  stm32l4xx_hal_spi.o [11]
+SPI_EndRxTxTransaction   0x801'0287    0x6a  Code  Lc  stm32l4xx_hal_spi.o [11]
+SPI_WaitFifoStateUntilTimeout
+                         0x801'015d    0xa4  Code  Lc  stm32l4xx_hal_spi.o [11]
+SPI_WaitFlagStateUntilTimeout
+                         0x801'00b9    0xa4  Code  Lc  stm32l4xx_hal_spi.o [11]
+SVC_Handler              0x800'6db9          Code  ??  portasm.o [5]
+SWPMI1_IRQHandler        0x801'5aa1          Code  Wk  startup_stm32l433xx.o [3]
+SetPageState             0x800'1b4f   0x1c4  Code  Lc  eeprom_emul.o [12]
+SysState_AppendTaskHandler
+                         0x800'28b9     0x2  Code  ??  main.o [2]
+SysTick_Config           0x800'6b5b    0x36  Code  Lc  stm32l4xx_hal_cortex.o [11]
+SysTick_Handler          0x800'2847    0x20  Code  ??  main.o [2]
+SystemClock_Config       0x800'3435    0xc2  Code  ??  common_rcc.o [8]
+SystemClock_Config::__FUNCTION__
+                         0x801'4fcc    0x14  Data  Lc  common_rcc.o [8]
+SystemCoreClock         0x2000'0190     0x4  Data  ??  system_stm32l4xx.o [10]
+SystemCoreClockUpdate    0x800'6f41    0xe6  Code  ??  system_stm32l4xx.o [10]
+SystemHardwareInit       0x800'3091   0x20e  Code  ??  RebootUtils.o [12]
+SystemHardwareInit::__FUNCTION__
+                         0x801'5148    0x14  Data  Lc  RebootUtils.o [12]
+SystemInit               0x800'6ef9    0x48  Code  ??  system_stm32l4xx.o [10]
+SystemInitCallback       0x800'2f9f    0xf2  Code  ??  RebootUtils.o [12]
+SystemInitCallback::__FUNCTION__
+                         0x801'5134    0x14  Data  Lc  RebootUtils.o [12]
+TAMP_STAMP_IRQHandler    0x801'59e9          Code  Wk  startup_stm32l433xx.o [3]
+TIM1_BRK_TIM15_IRQHandler
+                         0x801'5a29          Code  Wk  startup_stm32l433xx.o [3]
+TIM1_CC_IRQHandler       0x801'5a35          Code  Wk  startup_stm32l433xx.o [3]
+TIM1_MspInit             0x800'52f1    0x50  Code  ??  DRIVER_CM36-3650.o [4]
+TIM1_TRG_COM_IRQHandler
+                         0x801'5a31          Code  Wk  startup_stm32l433xx.o [3]
+TIM1_UP_TIM16_IRQHandler
+                         0x801'5a2d          Code  Wk  startup_stm32l433xx.o [3]
+TIM1_hdl                0x2000'0b5c    0x40  Data  ??  Common_tim.o [8]
+TIM2_IRQHandler          0x800'9fc1     0xa  Code  ??  Common_tim.o [8]
+TIM2_MspInit             0x800'51c1    0x64  Code  ??  DRIVER_CM36-3650.o [4]
+TIM2_OC_DelayElapsedCallback
+                         0x800'5565    0x28  Code  ??  DRIVER_CM36-3650.o [4]
+TIM2_OC_DelayElapsedCallback::__FUNCTION__
+                         0x801'45c4    0x20  Data  Lc  DRIVER_CM36-3650.o [4]
+TIM2_hdl                0x2000'0b9c    0x40  Data  ??  Common_tim.o [8]
+TIM6_DAC_IRQHandler      0x800'9fcb     0xa  Code  ??  Common_tim.o [8]
+TIM6_MspInit             0x800'3c6f    0x28  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+TIM6_PeriodElapsedCallback
+                         0x800'3ac5     0xc  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+TIM6_hdl                0x2000'0bdc    0x40  Data  ??  Common_tim.o [8]
+TIM7_IRQHandler          0x800'9fd5     0xa  Code  ??  Common_tim.o [8]
+TIM7_MspInit             0x800'3c47    0x28  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+TIM7_PeriodElapsedCallback
+                         0x800'3ab9     0xc  Code  ??  SKLP_MS_TransportLocal_354_10.o [2]
+TIM7_hdl                0x2000'0c1c    0x40  Data  ??  Common_tim.o [8]
+TIM_Base_SetConfig       0x800'aff9    0x6c  Code  ??  stm32l4xx_hal_tim.o [11]
+TIM_CCxChannelCmd        0x800'b4ad    0x72  Code  ??  stm32l4xx_hal_tim.o [11]
+TIM_CCxChannelCmd::__FUNCTION__
+                         0x801'5490    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+TIM_Common_GetFrq        0x800'9e39    0x60  Code  ??  Common_tim.o [8]
+TIM_Common_SetupPrescalers
+                         0x800'9e99    0xac  Code  ??  Common_tim.o [8]
+TIM_ETR_SetConfig        0x800'b497    0x16  Code  ??  stm32l4xx_hal_tim.o [11]
+TIM_ITRx_SetConfig       0x800'b487    0x10  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC1_SetConfig        0x800'b065    0xe0  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC1_SetConfig::__FUNCTION__
+                         0x801'5440    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC2_SetConfig        0x800'b145    0xd6  Code  ??  stm32l4xx_hal_tim.o [11]
+TIM_OC2_SetConfig::__FUNCTION__
+                         0x801'5454    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC3_SetConfig        0x800'b231    0xde  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC3_SetConfig::__FUNCTION__
+                         0x801'5468    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC4_SetConfig        0x800'b30f    0x82  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC4_SetConfig::__FUNCTION__
+                         0x801'547c    0x14  Data  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC5_SetConfig        0x800'b391    0x54  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_OC6_SetConfig        0x800'b3e5    0x56  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_TI1_ConfigInputStage
+                         0x800'b43d    0x24  Code  Lc  stm32l4xx_hal_tim.o [11]
+TIM_TI2_ConfigInputStage
+                         0x800'b461    0x26  Code  Lc  stm32l4xx_hal_tim.o [11]
+TSC_IRQHandler           0x801'5aa5          Code  Wk  startup_stm32l433xx.o [3]
+Time_SKLP2String         0x800'71b3    0x10  Code  ??  SKLP_Time.o [9]
+Time_SKLP2Time           0x800'712d    0x44  Code  ??  SKLP_Time.o [9]
+Time_Time2String         0x800'7171    0x42  Code  ??  SKLP_Time.o [9]
+UART_AdvFeatureConfig    0x800'f047   0x210  Code  ??  stm32l4xx_hal_uart.o [11]
+UART_AdvFeatureConfig::__FUNCTION__
+                         0x801'4e98    0x18  Data  Lc  stm32l4xx_hal_uart.o [11]
+UART_CheckIdleState      0x800'f28d    0x68  Code  ??  stm32l4xx_hal_uart.o [11]
+UART_Ext_DMAError        0x800'99d1    0xc2  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_DMAError::__FUNCTION__
+                         0x801'54b8    0x14  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_DMAReceiveCyclicCplt
+                         0x800'9c89    0x26  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_DMAReceiveCyclicCplt::__FUNCTION__
+                         0x801'4864    0x20  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_DMATransmitCplt
+                         0x800'9931    0x9e  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_DMATransmitCplt::__FUNCTION__
+                         0x801'4b4c    0x1c  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_EndRxTransfer   0x800'9e15    0x22  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_EndTxTransfer   0x800'9df9    0x1c  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_Receive_Idle_IT
+                         0x800'9ba5    0x8c  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_Receive_Idle_IT::__FUNCTION__
+                         0x801'4b68    0x1c  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_RxDMABuffer_Update
+                         0x800'9c31    0x58  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_RxDMABuffer_Update::__FUNCTION__
+                         0x801'4b84    0x1c  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_RxDMA_CheckActivity
+                         0x800'9cc1    0x34  Code  ??  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_RxDMA_CheckActivity::__FUNCTION__
+                         0x801'4884    0x20  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_Transmit_Complete_IT
+                         0x800'9a95    0xbc  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_Transmit_Complete_IT::__FUNCTION__
+                         0x801'4844    0x20  Data  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_Ext_Transmit_Empty8_IT
+                         0x800'9b51    0x54  Code  Lc  Stm32xxxx_hal_uart_ext.o [8]
+UART_SetConfig           0x800'eb55   0x4f2  Code  ??  stm32l4xx_hal_uart.o [11]
+UART_SetConfig::__FUNCTION__
+                         0x801'57d4    0x10  Data  Lc  stm32l4xx_hal_uart.o [11]
+UART_WaitOnFlagUntilTimeout
+                         0x800'f2f5    0x6c  Code  ??  stm32l4xx_hal_uart.o [11]
+USART1_IRQHandler        0x801'2739     0xa  Code  ??  common_uart.o [8]
+USART2_IRQHandler        0x801'5a51          Code  Wk  startup_stm32l433xx.o [3]
+USART3_IRQHandler        0x801'2743     0xa  Code  ??  common_uart.o [8]
+USB_IRQHandler           0x801'5a81          Code  Wk  startup_stm32l433xx.o [3]
+UsageFault_Handler       0x800'334d     0xe  Code  ??  RebootUtils.o [12]
+VerifyPageFullyErased    0x800'12c3    0x30  Code  Lc  eeprom_emul.o [12]
+VerifyPagesFullWriteVariable
+                         0x800'1a7d    0xd2  Code  Lc  eeprom_emul.o [12]
+WWDG_IRQHandler          0x801'59e1          Code  Wk  startup_stm32l433xx.o [3]
+WatchdogInit             0x800'2f1b    0x32  Code  Lc  RebootUtils.o [12]
+WatchdogInit::__FUNCTION__
+                         0x801'5634    0x10  Data  Lc  RebootUtils.o [12]
+WatchdogReset            0x800'2f4d    0x1e  Code  ??  RebootUtils.o [12]
+WatchdogReset::__FUNCTION__
+                         0x801'5654    0x10  Data  Lc  RebootUtils.o [12]
+WriteVariable            0x800'1293    0x30  Code  Lc  eeprom_emul.o [12]
+_Asctime_tbuf           0x2000'0d08    0x1c  Data  Lc  asctime.o [13]
+_Encoding_8859_1_Mbrlen
+                         0x801'5539     0x2  Code  ??  xencoding_8859_1.o [13]
+_Encoding_8859_1_Mbtowc
+                         0x801'5531     0x8  Code  ??  xencoding_8859_1.o [13]
+_Gentime                 0x801'340d   0x558  Code  ??  xgentime.o [13]
+_GetstrSmallNoMb         0x801'2ce5    0xec  Code  Lc  xscanfsmall_nomb.o [13]
+_Gettime                 0x801'39b7    0x40  Code  ??  xgettime.o [13]
+_LC                      0x800'd88d     0x6  Code  Lc  xprintflarge_nomb.o [13]
+_LitobLargeNoMb          0x800'e397   0x10c  Code  Lc  xprintflarge_nomb.o [13]
+_LocaleC_Tinfo           0x801'416c    0x4c  Data  Lc  xlocale_c.o [13]
+_LocaleC_isspace         0x801'1e31    0x14  Code  ??  xlocale_c.o [13]
+_LocaleC_isupper         0x801'1e25     0x2  Code  ??  xlocale_c.o [13]
+_LocaleC_tolower         0x801'1e45     0xc  Code  ??  xlocale_c.o [13]
+_Locale_lconv           0x2000'0100    0x38  Data  Lc  xlocale_c.o [13]
+_PrintfLargeNoMb         0x800'd893   0xafe  Code  ??  xprintflarge_nomb.o [13]
+_PutcharsLargeNoMb       0x800'e505    0x2e  Code  Lc  xprintflarge_nomb.o [13]
+_SNProut                 0x800'2c53    0x1a  Code  ??  xsnprout.o [13]
+_SScin                   0x800'276f    0x1e  Code  ??  xsscin.o [13]
+_ScanfSmallNoMb          0x801'27ff   0x4de  Code  ??  xscanfsmall_nomb.o [13]
+_Ttotm_ts               0x2000'0cdc    0x2c  Data  Lc  xttotm64.o [13]
+_Tzoff                   0x801'2389     0x4  Code  ??  xTzoff_nop.o [13]
+_UngetN                  0x801'27e5    0x1a  Code  Lc  xscanfsmall_nomb.o [13]
+__NVIC_ClearPendingIRQ   0x800'6acb    0x20  Code  Lc  stm32l4xx_hal_cortex.o [11]
+__NVIC_EnableIRQ         0x800'6aab    0x20  Code  Lc  stm32l4xx_hal_cortex.o [11]
+__NVIC_GetPriorityGrouping
+                         0x800'6a9f     0xc  Code  Lc  stm32l4xx_hal_cortex.o [11]
+__NVIC_SetPriority       0x800'6aeb    0x30  Code  Lc  stm32l4xx_hal_cortex.o [11]
+__NVIC_SetPriorityGrouping
+                         0x800'6a7d    0x22  Code  Lc  stm32l4xx_hal_cortex.o [11]
+__NVIC_SystemReset       0x800'2efd    0x1e  Code  Lc  RebootUtils.o [12]
+__aeabi_d2uiz            0x801'19e9          Code  ??  DblToU32.o [14]
+__aeabi_ddiv             0x801'17a1          Code  ??  DblDiv.o [14]
+__aeabi_dmul             0x801'1c79          Code  ??  DblMul.o [14]
+__aeabi_dsub             0x801'1b95          Code  ??  DblAddSub.o [14]
+__aeabi_ldiv0            0x801'2e31          Code  ??  I64DivZer.o [15]
+__aeabi_ldivmod          0x801'1eed          Code  ??  I64DivMod.o [15]
+__aeabi_memclr4          0x800'd0e9          Code  ??  ABImemclr4.o [15]
+__aeabi_memcpy           0x800'2bad          Code  ??  ABImemcpy.o [15]
+__aeabi_memcpy4          0x800'2bcd          Code  ??  ABImemcpy.o [15]
+__aeabi_memcpy8          0x800'2bcd          Code  ??  ABImemcpy.o [15]
+__aeabi_memset           0x800'2c6d          Code  ??  ABImemset.o [15]
+__aeabi_ui2d             0x801'1a0d          Code  ??  U32ToDbl.o [14]
+__aeabi_uldivmod         0x801'1f31          Code  ??  I64DivMod.o [15]
+__cmain                  0x801'4905          Code  ??  cmain.o [15]
+__ctime64                0x800'e681     0xe  Code  ??  ctime64.o [13]
+__exit                   0x801'3159    0x14  Code  ??  exit.o [16]
+__getzone                0x801'39f7     0x4  Code  ??  getzone_nop.o [13]
+__iar_CStrftime          0x801'2e39   0x10c  Code  ??  xstrftim.o [13]
+__iar_Daysto64           0x801'2195    0x66  Code  ??  xDaysTo64.o [13]
+__iar_Fail_s             0x801'1699    0x1c  Code  ??  xfail_s.o [13]
+__iar_Isdst64            0x801'2e33     0x6  Code  ??  xisdst_nop64.o [13]
+__iar_Memchr             0x801'16d9          Code  ??  memchr.o [15]
+__iar_Memset             0x800'2c6d          Code  ??  ABImemset.o [15]
+__iar_Memset4_word       0x801'164d          Code  ??  ABImemset48.o [15]
+__iar_Memset8_word       0x801'164d          Code  ??  ABImemset48.o [15]
+__iar_Memset_word        0x800'2c75          Code  ??  ABImemset.o [15]
+__iar_MonTab64           0x801'2161    0x34  Code  ??  xDaysTo64.o [13]
+__iar_Stolx              0x801'30c7    0x8c  Code  ??  iar_Stolx.o [13]
+__iar_Stoulx             0x801'2f79   0x140  Code  ??  iar_Stoulx.o [13]
+__iar_Strchr             0x801'1681          Code  ??  strchr.o [15]
+__iar_Ttotm64            0x801'222d   0x15c  Code  ??  xttotm64.o [13]
+__iar_copy_init3         0x800'1ecb    0x2a  Code  ??  copy_init3.o [15]
+__iar_data_init3         0x801'4369    0x18  Code  ??  data_init.o [15]
+__iar_frexp              0x801'173d          Code  ??  frexp.o [14]
+__iar_frexpl             0x801'173d          Code  ??  frexp.o [14]
+__iar_globLocale        0x2000'00b8    0x48  Data  Lc  xlocale_c.o [13]
+__iar_global_Locale      0x801'1e51     0x4  Code  ??  xlocale_c.o [13]
+__iar_init_vfp           0x801'457d          Code  ??  fpinit_M.o [14]
+__iar_localeC_Tinfo      0x801'1ed7     0x4  Code  ??  xlocale_c.o [13]
+__iar_program_start      0x801'4bf5          Code  ??  cstartup_M.o [15]
+__iar_softfp___iar_frexp64
+                         0x801'1731          Code  ??  frexp.o [14]
+__iar_softfp_frexp       0x801'1731          Code  ??  frexp.o [14]
+__iar_softfp_frexpl      0x801'1731          Code  ??  frexp.o [14]
+__iar_zero_init3         0x801'4235    0x38  Code  ??  zero_init3.o [15]
+__localtime64            0x801'238d    0x20  Code  ??  localtim64.o [13]
+__low_level_init         0x801'4923     0x4  Code  ??  low_level_init.o [13]
+__mktime64               0x800'e5a1    0xe0  Code  ??  mktime64.o [13]
+__vector_table           0x800'0000          Data  ??  startup_stm32l433xx.o [3]
+_call_main               0x801'4911          Code  ??  cmain.o [15]
+_exit                    0x801'492d          Code  ??  cexit.o [15]
+_gLocale_mbtowc          0x801'1ecb     0xc  Code  ??  xlocale_c.o [13]
+_gLocale_mbtowcInt       0x801'1e7d    0x42  Code  ??  xlocale_c.o [13]
+aADC1BufferTemp         0x2000'07a8   0x100  Data  Lc  RUS_Regul_ADC.o [2]
+aADC1_RegularChannelGroup
+                         0x801'59d4     0x4  Data  Lc  RUS_Regul_ADC.o [2]
+aADC_Channels            0x801'3bdc    0xc4  Data  ??  RUS_Regul_ADC.o [2]
+aBuildInfo_ComputerName
+                         0x801'5928     0x8  Data  ??  BuildInfo.o [1]
+aBuildInfo_ConfigName    0x801'4c10    0x18  Data  ??  BuildInfo.o [1]
+aBuildInfo_Date          0x801'5814     0xc  Data  ??  BuildInfo.o [1]
+aBuildInfo_ProjName      0x801'582c     0xc  Data  ??  BuildInfo.o [1]
+aBuildInfo_SVN_Revision
+                         0x801'59c0     0x4  Data  ??  BuildInfo.o [1]
+aBuildInfo_Time          0x801'5820     0xc  Data  ??  BuildInfo.o [1]
+aCRC8SKLP_Table          0x801'39fc   0x100  Data  ??  Utils.o [12]
+aDWT_TimestampTags      0x2000'0948    0x80  Data  Lc  common_rcc.o [8]
+aGPIO_Common             0x801'3e78    0x78  Data  ??  common_gpio.o [8]
+aQuery                  0x2000'52e8   0x104  Data  Lc  SKLP_MS_Transport.o [9]
+aSKLP_Callbacks         0x2000'0000    0xb8  Data  ??  SKLP_Service.o [9]
+aSKLP_CallbacksAux      0x2000'55e4    0xa0  Data  ??  SKLP_Service.o [9]
+aSKLP_Interfaces        0x2000'5544    0xa0  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+aSKLP_NVM_Tags           0x801'56b4    0x10  Data  ??  SKLP_Interface_RUS_Regul.o [2]
+aSKLP_RxQueue_Modem_Buffer
+                        0x2000'4ee8   0x200  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+aSKLP_RxQueue_Service_Buffer
+                        0x2000'50e8   0x200  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+abort                    0x801'2e29     0x6  Code  ??  abort.o [13]
+alt_digits               0x800'87eb     0x1  Data  Lc  xlocale_c.o [13]
+am_pm                    0x801'59b0     0x8  Data  Lc  xlocale_c.o [13]
+asctime                  0x801'23ad    0x1e  Code  ??  asctime.o [13]
+assert_failed            0x800'2917     0xe  Code  ??  main.o [2]
+assert_failed::AssertFailedCnt
+                        0x2000'0e30     0x4  Data  Lc  main.o [2]
+bQueryBufferAccessTaken
+                        0x2000'0ee3     0x1  Data  Lc  SKLP_MS_Transport.o [9]
+cmp_era_date             0x801'32f3    0x84  Code  Lc  xgentime.o [13]
+ctime                    0x800'e681     0xe  Code  ??  ctime64.o [13]
+days                     0x801'4074    0x58  Data  Lc  xlocale_c.o [13]
+digits                   0x801'40f4    0x28  Data  Lc  iar_Stoulx.o [13]
+era                      0x800'9e36     0x1  Data  Lc  xlocale_c.o [13]
+exit                     0x801'4927     0x4  Code  ??  exit.o [13]
+fmts                     0x801'4338    0x30  Data  Lc  xlocale_c.o [13]
+getPointerEE_VirtAdressTab
+                         0x800'1e0b     0x4  Code  Lc  eeprom_emul.o [12]
+getera                   0x801'3377    0x94  Code  Lc  xgentime.o [13]
+getval                   0x801'316d    0x60  Code  Lc  xgentime.o [13]
+hard_fault_handler_c     0x800'32c1    0x4c  Code  ??  RebootUtils.o [12]
+heapsort_2               0x800'5039   0x10c  Code  ??  RUS_Regul_Main.o [2]
+heapsort_2::__FUNCTION__
+                         0x801'58c8     0xc  Data  Lc  RUS_Regul_Main.o [2]
+isleapyr                 0x801'31cd    0x3a  Code  Lc  xgentime.o [13]
+isspace                  0x801'2f63    0x14  Code  ??  isspace.o [13]
+lmos                     0x801'21fc    0x18  Data  Lc  xDaysTo64.o [13]
+localeconv               0x801'1edb     0x4  Code  ??  xlocale_c.o [13]
+localtime                0x801'238d    0x20  Code  ??  localtim64.o [13]
+main                     0x800'278d    0x92  Code  ??  main.o [2]
+main::__FUNCTION__       0x801'5930     0x8  Data  Lc  main.o [2]
+memchr                   0x801'16d9          Code  ??  memchr.o [15]
+mktime                   0x800'e5a1    0xe0  Code  ??  mktime64.o [13]
+mons                     0x801'3d48    0x88  Data  Lc  xlocale_c.o [13]
+mos                      0x801'2214    0x18  Data  Lc  xDaysTo64.o [13]
+ndigs                    0x801'40cc    0x28  Data  Lc  iar_Stoulx.o [13]
+pADS1231_SPI_hdl         0x801'59c4     0x4  Data  Lc  Driver_ADS1231.o [4]
+pFlash                  0x2000'0138    0x20  Data  ??  stm32l4xx_hal_flash.o [11]
+pHardFaultReason        0x2000'0e38     0x4  Data  Lc  RebootUtils.o [12]
+pSKLP_SlaveMessageQueueHdl
+                        0x2000'0e78     0x4  Data  Lc  SKLP_MS_TransportLocal_354_10.o [2]
+pcInterruptPriorityRegisters
+                         0x801'59cc     0x4  Data  Lc  port.o [5]
+prvAddCurrentTaskToDelayedList
+                         0x800'6441    0x8c  Code  Lc  tasks.o [6]
+prvAddNewTaskToReadyList
+                         0x800'5b65    0x9a  Code  Lc  tasks.o [6]
+prvCheckForValidListAndQueue
+                         0x800'697b    0x46  Code  Lc  timers.o [6]
+prvCheckTasksWaitingTermination
+                         0x800'6283    0x3e  Code  Lc  tasks.o [6]
+prvCopyDataFromQueue     0x800'bd69    0x38  Code  Lc  queue.o [6]
+prvCopyDataToQueue       0x800'bccd    0x9c  Code  Lc  queue.o [6]
+prvDeleteTCB             0x800'62c1    0x12  Code  Lc  tasks.o [6]
+prvGetNextExpireTime     0x800'675f    0x28  Code  Lc  timers.o [6]
+prvHeapInit              0x800'865f    0x66  Code  Lc  heap_4.o [7]
+prvIdleTask              0x800'6205    0x28  Code  Lc  tasks.o [6]
+prvInitialiseNewQueue    0x800'b8ff    0x2a  Code  Lc  queue.o [6]
+prvInitialiseNewTask     0x800'5a6d    0xf8  Code  Lc  tasks.o [6]
+prvInitialiseNewTask::__FUNCTION__
+                         0x801'4ee0    0x18  Data  Lc  tasks.o [6]
+prvInitialiseNewTimer    0x800'6589    0x46  Code  Lc  timers.o [6]
+prvInitialiseNewTimer::__FUNCTION__
+                         0x801'4f70    0x18  Data  Lc  timers.o [6]
+prvInitialiseTaskLists   0x800'622d    0x56  Code  Lc  tasks.o [6]
+prvInsertBlockIntoFreeList
+                         0x800'86c5    0x60  Code  Lc  heap_4.o [7]
+prvInsertTimerInActiveList
+                         0x800'67af    0x50  Code  Lc  timers.o [6]
+prvIsQueueEmpty          0x800'be0f    0x1c  Code  Lc  queue.o [6]
+prvIsQueueFull           0x800'be31    0x1e  Code  Lc  queue.o [6]
+prvProcessExpiredTimer   0x800'6673    0x5c  Code  Lc  timers.o [6]
+prvProcessExpiredTimer::__FUNCTION__
+                         0x801'4fa0    0x18  Data  Lc  timers.o [6]
+prvProcessReceivedCommands
+                         0x800'67ff    0xf4  Code  Lc  timers.o [6]
+prvProcessReceivedCommands::__FUNCTION__
+                         0x801'4bd8    0x1c  Data  Lc  timers.o [6]
+prvProcessTimerOrBlockTask
+                         0x800'66eb    0x74  Code  Lc  timers.o [6]
+prvResetNextTaskUnblockTime
+                         0x800'62d3    0x26  Code  Lc  tasks.o [6]
+prvSampleTimeNow         0x800'6787    0x28  Code  Lc  timers.o [6]
+prvSampleTimeNow::xLastTime
+                        0x2000'0ed0     0x4  Data  Lc  timers.o [6]
+prvSwitchTimerLists      0x800'68f3    0x88  Code  Lc  timers.o [6]
+prvSwitchTimerLists::__FUNCTION__
+                         0x801'5508    0x14  Data  Lc  timers.o [6]
+prvTaskExitError         0x800'2d01    0x26  Code  Lc  port.o [5]
+prvTaskExitError::__FUNCTION__
+                         0x801'5094    0x14  Data  Lc  port.o [5]
+prvTestWaitCondition     0x800'39e1    0x24  Code  Lc  event_groups.o [6]
+prvTimerTask             0x800'66d1    0x1a  Code  Lc  timers.o [6]
+prvUnlockQueue           0x800'bda1    0x6e  Code  Lc  queue.o [6]
+puhVirtAdd              0x2000'0e14     0x4  Data  ??  eeprom_emul.o [12]
+pvPortMalloc             0x800'84c5   0x12e  Code  ??  heap_4.o [7]
+pvPortMalloc::__FUNCTION__
+                         0x801'55f4    0x10  Data  Lc  heap_4.o [7]
+pxCurrentTCB            0x2000'0e84     0x4  Data  ??  tasks.o [6]
+pxCurrentTimerList      0x2000'0ec0     0x4  Data  Lc  timers.o [6]
+pxDelayedTaskList       0x2000'0e88     0x4  Data  Lc  tasks.o [6]
+pxEnd                   0x2000'0e18     0x4  Data  Lc  heap_4.o [7]
+pxOverflowDelayedTaskList
+                        0x2000'0e8c     0x4  Data  Lc  tasks.o [6]
+pxOverflowTimerList     0x2000'0ec4     0x4  Data  Lc  timers.o [6]
+pxPortInitialiseStack    0x800'2cd5    0x2c  Code  ??  port.o [5]
+pxReadyTasksLists       0x2000'0aa4    0x64  Data  Lc  tasks.o [6]
+scale                    0x800'e4a9    0x46  Code  Lc  xprintflarge_nomb.o [13]
+sec_hand                0x2000'0ed4     0x4  Data  Lc  xfail_s.o [13]
+snprintf                 0x800'707d    0x44  Code  ??  snprintf.o [13]
+sscanf                   0x800'f865    0x28  Code  ??  sscanf.o [13]
+strchr                   0x801'1681          Code  ??  strchr.o [15]
+strlen                   0x800'e691          Code  ??  strlen.o [15]
+strncpy                  0x800'7fbd          Code  ??  strncpy.o [15]
+strtol                   0x801'3153     0x4  Code  ??  iar_Stolx.o [13]
+strtoul                  0x801'30c1     0x2  Code  ??  iar_Stoulx.o [13]
+tolower                  0x801'39a3    0x14  Code  ??  tolower.o [13]
+ubCurrentActivePage     0x2000'0ede     0x1  Data  ??  eeprom_emul.o [12]
+ucHeap                  0x2000'0ee8  0x4000  Data  ??  main.o [2]
+ucMaxSysCallPriority    0x2000'0ee1     0x1  Data  Lc  port.o [5]
+uhNbWrittenElements     0x2000'0ed8     0x2  Data  ??  eeprom_emul.o [12]
+ulMaxPRIGROUPValue      0x2000'0e34     0x4  Data  Lc  port.o [5]
+uwAddressNextWrite      0x2000'0178     0x4  Data  ??  eeprom_emul.o [12]
+uwTick                  0x2000'0e80     0x4  Data  ??  stm32l4xx_hal.o [11]
+uwTickFreq              0x2000'018c     0x4  Data  ??  stm32l4xx_hal.o [11]
+uwTickPrio              0x2000'0188     0x4  Data  ??  stm32l4xx_hal.o [11]
+uxCriticalNesting       0x2000'017c     0x4  Data  Lc  port.o [5]
+uxCurrentNumberOfTasks  0x2000'0e94     0x4  Data  Lc  tasks.o [6]
+uxDeletedTasksWaitingCleanUp
+                        0x2000'0e90     0x4  Data  Lc  tasks.o [6]
+uxListRemove             0x800'87c3    0x28  Code  ??  list.o [6]
+uxPendedTicks           0x2000'0ea4     0x4  Data  Lc  tasks.o [6]
+uxSchedulerSuspended    0x2000'0ebc     0x4  Data  Lc  tasks.o [6]
+uxTaskNumber            0x2000'0eb0     0x4  Data  Lc  tasks.o [6]
+uxTaskResetEventItemValue
+                         0x800'63e9    0x16  Code  ??  tasks.o [6]
+uxTopReadyPriority      0x2000'0e9c     0x4  Data  Lc  tasks.o [6]
+vApplicationIdleHook     0x800'2867    0x2c  Code  ??  main.o [2]
+vApplicationIdleHook::bIdleTaskInitComplete
+                        0x2000'0edf     0x1  Data  Lc  main.o [2]
+vApplicationMallocFailedHook
+                         0x800'28a5     0xe  Code  ??  main.o [2]
+vApplicationMallocFailedHook::__FUNCTION__
+                         0x801'46a4    0x20  Data  Lc  main.o [2]
+vApplicationStackOverflowHook
+                         0x800'2893    0x12  Code  ??  main.o [2]
+vApplicationStackOverflowHook::__FUNCTION__
+                         0x801'4684    0x20  Data  Lc  main.o [2]
+vEventGroupSetBitsCallback
+                         0x800'39d1    0x10  Code  ??  event_groups.o [6]
+vListInitialise          0x800'8751    0x1e  Code  ??  list.o [6]
+vListInitialiseItem      0x800'876f     0x6  Code  ??  list.o [6]
+vListInsert              0x800'878d    0x36  Code  ??  list.o [6]
+vListInsertEnd           0x800'8775    0x18  Code  ??  list.o [6]
+vPortEnableVFP           0x800'6df5          Code  ??  portasm.o [5]
+vPortEnterCritical       0x800'2de5    0x34  Code  ??  port.o [5]
+vPortEnterCritical::__FUNCTION__
+                         0x801'50bc    0x14  Data  Lc  port.o [5]
+vPortExitCritical        0x800'2e19    0x2a  Code  ??  port.o [5]
+vPortExitCritical::__FUNCTION__
+                         0x801'50d0    0x14  Data  Lc  port.o [5]
+vPortFree                0x800'85f3    0x6c  Code  ??  heap_4.o [7]
+vPortFree::__FUNCTION__
+                         0x801'585c     0xc  Data  Lc  heap_4.o [7]
+vPortSetupTimerInterrupt
+                         0x800'6d2d    0x34  Code  Wk  port.o [5]
+vPortStartFirstTask      0x800'6dd5          Code  ??  portasm.o [5]
+vPortValidateInterruptPriority
+                         0x800'2e6d    0x48  Code  ??  port.o [5]
+vPortValidateInterruptPriority::__FUNCTION__
+                         0x801'4704    0x20  Data  Lc  port.o [5]
+vQueueAddToRegistry      0x800'be4f    0x26  Code  ??  queue.o [6]
+vQueueWaitForMessageRestricted
+                         0x800'be89    0x4c  Code  ??  queue.o [6]
+vTaskInternalSetTimeOutState
+                         0x800'6139    0x12  Code  ??  tasks.o [6]
+vTaskMissedYield         0x800'61fb     0xa  Code  ??  tasks.o [6]
+vTaskPlaceOnEventList    0x800'5f57    0x32  Code  ??  tasks.o [6]
+vTaskPlaceOnEventList::__FUNCTION__
+                         0x801'4f10    0x18  Data  Lc  tasks.o [6]
+vTaskPlaceOnEventListRestricted
+                         0x800'5fe1    0x3e  Code  ??  tasks.o [6]
+vTaskPlaceOnEventListRestricted::__FUNCTION__
+                         0x801'48c4    0x20  Data  Lc  tasks.o [6]
+vTaskPlaceOnUnorderedEventList
+                         0x800'5f89    0x52  Code  ??  tasks.o [6]
+vTaskPlaceOnUnorderedEventList::__FUNCTION__
+                         0x801'48a4    0x20  Data  Lc  tasks.o [6]
+vTaskRemoveFromUnorderedEventList
+                         0x800'60ad    0x84  Code  ??  tasks.o [6]
+vTaskRemoveFromUnorderedEventList::__FUNCTION__
+                         0x801'4534    0x24  Data  Lc  tasks.o [6]
+vTaskStartScheduler      0x800'5bff    0x72  Code  ??  tasks.o [6]
+vTaskStartScheduler::__FUNCTION__
+                         0x801'54cc    0x14  Data  Lc  tasks.o [6]
+vTaskSuspendAll          0x800'5c71     0xc  Code  ??  tasks.o [6]
+vTaskSwitchContext       0x800'5eb9    0x9e  Code  ??  tasks.o [6]
+vTaskSwitchContext::__FUNCTION__
+                         0x801'54f4    0x14  Data  Lc  tasks.o [6]
+wkyr                     0x801'3207    0x1c  Code  Lc  xgentime.o [13]
+xActiveTimerList1       0x2000'0db8    0x14  Data  Lc  timers.o [6]
+xActiveTimerList2       0x2000'0dcc    0x14  Data  Lc  timers.o [6]
+xBlockAllocatedBit      0x2000'0e24     0x4  Data  Lc  heap_4.o [7]
+xDelayedTaskList1       0x2000'0d54    0x14  Data  Lc  tasks.o [6]
+xDelayedTaskList2       0x2000'0d68    0x14  Data  Lc  tasks.o [6]
+xEventGroupClearBits     0x800'38b3    0x3e  Code  ??  event_groups.o [6]
+xEventGroupClearBits::__FUNCTION__
+                         0x801'4c70    0x18  Data  Lc  event_groups.o [6]
+xEventGroupCreate        0x800'3769    0x1c  Code  ??  event_groups.o [6]
+xEventGroupSetBits       0x800'38f1    0xcc  Code  ??  event_groups.o [6]
+xEventGroupSetBits::__FUNCTION__
+                         0x801'506c    0x14  Data  Lc  event_groups.o [6]
+xEventGroupWaitBits      0x800'3785   0x12e  Code  ??  event_groups.o [6]
+xEventGroupWaitBits::__FUNCTION__
+                         0x801'5058    0x14  Data  Lc  event_groups.o [6]
+xFreeBytesRemaining     0x2000'0e1c     0x4  Data  Lc  heap_4.o [7]
+xHeapStructSize          0x801'59c8     0x4  Data  Lc  heap_4.o [7]
+xIdleTaskHandle         0x2000'0eb8     0x4  Data  Lc  tasks.o [6]
+xMinimumEverFreeBytesRemaining
+                        0x2000'0e20     0x4  Data  Lc  heap_4.o [7]
+xNextTaskUnblockTime    0x2000'0eb4     0x4  Data  Lc  tasks.o [6]
+xNumOfOverflows         0x2000'0eac     0x4  Data  Lc  tasks.o [6]
+xPendingReadyList       0x2000'0d7c    0x14  Data  Lc  tasks.o [6]
+xPortStartScheduler      0x800'2d27    0xbe  Code  ??  port.o [5]
+xPortStartScheduler::__FUNCTION__
+                         0x801'50a8    0x14  Data  Lc  port.o [5]
+xPortSysTickHandler      0x800'2e43    0x28  Code  ??  port.o [5]
+xQueueGenericCreate      0x800'b8a9    0x56  Code  ??  queue.o [6]
+xQueueGenericCreate::__FUNCTION__
+                         0x801'50f8    0x14  Data  Lc  queue.o [6]
+xQueueGenericReset       0x800'b815    0x94  Code  ??  queue.o [6]
+xQueueGenericReset::__FUNCTION__
+                         0x801'50e4    0x14  Data  Lc  queue.o [6]
+xQueueGenericSend        0x800'b929   0x182  Code  ??  queue.o [6]
+xQueueGenericSend::__FUNCTION__
+                         0x801'510c    0x14  Data  Lc  queue.o [6]
+xQueueGenericSendFromISR
+                         0x800'baab    0xc4  Code  ??  queue.o [6]
+xQueueGenericSendFromISR::__FUNCTION__
+                         0x801'498c    0x1c  Data  Lc  queue.o [6]
+xQueueReceive            0x800'bb6f   0x152  Code  ??  queue.o [6]
+xQueueReceive::__FUNCTION__
+                         0x801'5624    0x10  Data  Lc  queue.o [6]
+xQueueRegistry          0x2000'0c5c    0x40  Data  ??  queue.o [6]
+xSchedulerRunning       0x2000'0ea0     0x4  Data  Lc  tasks.o [6]
+xStart                  0x2000'0dfc     0x8  Data  Lc  heap_4.o [7]
+xSuspendedTaskList      0x2000'0da4    0x14  Data  Lc  tasks.o [6]
+xTaskCheckForTimeOut     0x800'6151    0xaa  Code  ??  tasks.o [6]
+xTaskCheckForTimeOut::__FUNCTION__
+                         0x801'4f28    0x18  Data  Lc  tasks.o [6]
+xTaskCreate              0x800'5a01    0x6c  Code  ??  tasks.o [6]
+xTaskGetIdleTaskHandle   0x800'5d75    0x1e  Code  ??  tasks.o [6]
+xTaskGetIdleTaskHandle::__FUNCTION__
+                         0x801'4ef8    0x18  Data  Lc  tasks.o [6]
+xTaskGetSchedulerState   0x800'6301    0x20  Code  ??  tasks.o [6]
+xTaskGetTickCount        0x800'5d5d     0x8  Code  ??  tasks.o [6]
+xTaskGetTickCountFromISR
+                         0x800'5d65    0x10  Code  ??  tasks.o [6]
+xTaskIncrementTick       0x800'5d99   0x108  Code  ??  tasks.o [6]
+xTaskIncrementTick::__FUNCTION__
+                         0x801'54e0    0x14  Data  Lc  tasks.o [6]
+xTaskPriorityDisinherit
+                         0x800'6321    0xb2  Code  ??  tasks.o [6]
+xTaskPriorityDisinherit::__FUNCTION__
+                         0x801'4f40    0x18  Data  Lc  tasks.o [6]
+xTaskRemoveFromEventList
+                         0x800'6029    0x84  Code  ??  tasks.o [6]
+xTaskRemoveFromEventList::__FUNCTION__
+                         0x801'4bbc    0x1c  Data  Lc  tasks.o [6]
+xTaskResumeAll           0x800'5c7d    0xe0  Code  ??  tasks.o [6]
+xTaskResumeAll::__FUNCTION__
+                         0x801'57f4    0x10  Data  Lc  tasks.o [6]
+xTasksWaitingTermination
+                        0x2000'0d90    0x14  Data  Lc  tasks.o [6]
+xTickCount              0x2000'0e98     0x4  Data  Lc  tasks.o [6]
+xTimerCreate             0x800'6559    0x30  Code  ??  timers.o [6]
+xTimerCreateTimerTask    0x800'6511    0x48  Code  ??  timers.o [6]
+xTimerCreateTimerTask::__FUNCTION__
+                         0x801'4f58    0x18  Data  Lc  timers.o [6]
+xTimerGenericCommand     0x800'65cf    0x84  Code  ??  timers.o [6]
+xTimerGenericCommand::__FUNCTION__
+                         0x801'4f88    0x18  Data  Lc  timers.o [6]
+xTimerGetTimerDaemonTaskHandle
+                         0x800'6653    0x20  Code  ??  timers.o [6]
+xTimerGetTimerDaemonTaskHandle::__FUNCTION__
+                         0x801'48e4    0x20  Data  Lc  timers.o [6]
+xTimerIsTimerActive      0x800'69c1    0x2e  Code  ??  timers.o [6]
+xTimerIsTimerActive::__FUNCTION__
+                         0x801'551c    0x14  Data  Lc  timers.o [6]
+xTimerPendFunctionCallFromISR
+                         0x800'69ef    0x2a  Code  ??  timers.o [6]
+xTimerQueue             0x2000'0ec8     0x4  Data  Lc  timers.o [6]
+xTimerTaskHandle        0x2000'0ecc     0x4  Data  Lc  timers.o [6]
+xYieldPending           0x2000'0ea8     0x4  Data  Lc  tasks.o [6]
+
+
+[1] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj
+[2] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Application_4454359601498626787.dir
+[3] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CMSIS_6603591812247902717.dir
+[4] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Components_18095364908024136817.dir
+[5] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\CortexM4-F_9125968611666436719.dir
+[6] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\FreeRTOS_4809373609813369194.dir
+[7] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Heap_10681622352241717.dir
+[8] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\PlatformCommon_15490815145210017466.dir
+[9] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\SKLP_14977183932441849263.dir
+[10] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_5654020855996028257.dir
+[11] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\STM32L4xx_HAL_Used_3303305655103772160.dir
+[12] = D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\CM36_3650_MOTOR_WITH_STOPS\Obj\Utils_12244397825598072145.dir
+[13] = dl7M_tlf.a
+[14] = m7M_tls.a
+[15] = rt7M_tl.a
+[16] = shb_l.a
+
+  81'805 bytes of readonly  code memory
+   7'363 bytes of readonly  data memory
+  30'654 bytes of readwrite data memory (+ 664 absolute)
+
+Errors: none
+Warnings: none

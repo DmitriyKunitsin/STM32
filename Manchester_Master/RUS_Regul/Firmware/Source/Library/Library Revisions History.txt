@@ -1,0 +1,277 @@
+Hardware/Library revisions throw trank and branches
+.
+.
+**************	Trank	ACPB	MPI	NDM_T	************************
+11.04.2019 288	|=====>	288			Branch Hard/Lib to ACPB_2018/Lib
+11.04.2019 290		290			Update ACPB_2018/Lib/stm32l4xx_hal_sd.c
+11.04.2019 292	292 <---|			Merge Hard/Lib/stm32l4xx_hal_sd.c from ACPB_2018
+11.04.2019 296	|=============>	296		Branch Hard/Lib to MPI_01/Lib
+14.04.2019 298	298				Update Hard/Lib/Drv/STM32F4xx_HAL to v.1.7.4
+						Update Hard/Lib/Drv/STM32L4xx_HAL to v.1.9.0
+14.04.2019 299	299				Update Hard/Lib/Drv/STM32F4xx_HAL from STM32Cube_FW_F4_V1.24.0 to V1.7.5 / 08-February-2019
+						Update Hard/Lib/Drv/STM32L4xx_HAL from STM32Cube_FW_L4_V1.14.0 to V1.10.0 / 03-April-2019
+						Update Hard/Lib/Drv/STM32F3xx_HAL from STM32Cube_FW_F3_V1.10.0 to V1.5.2 / 12-June-2018
+14.04.2019 300		300			Update ACPB_2018/Lib before merging with Hard/Lib?? New HAL driver for F4/L4?
+14.04.2019 301	|---++>	301			Merge Hard/Lib/Drv to ACPB_2018/Lib/Drv with updated HAL Driver;
+						Patch ACPB_2018/Lib/Tools/Memory/FileSystem.h, .c - replace macro FileSystem_Reinit() with function FileSystem_Reinit();
+						Patch ACPB_2018/Lib/Platforms/Common/stm32fxx/lxx_hal_sd.c & _II_sdmmc.c;
+						Patch ACPB_2018/Lib/Platforms/Common/common_sd.c - check for NULL DMA Hdl;
+14.04.2019 302	302 <---|			Merge patched HAL drivers & Tools & FileSystem.h, .c from ACPB_2018/Lib to Hard/Lib
+14.04.2019 304	304				Update Hard/Lib/CMSIS/Device/ST/* from new STM Cube packages
+14.04.2019 305	|------------->	305		Merge MPI_01/Lib from Hard/Lib
+19.04.2019 315	|===>>>Boot			Branch Hard/Lib to Boot/Lib
+26.04.2019 320			320		Append extended logging info about uSD:
+						- MPI_01/Lib/Tools/Utils/FileSystem.c;
+						- MPI_01/Lib/Lib/Platforms/Common/common_sd.c, .h - append BSP_SD_GetCardCID() & struct BSP_SD_CID_struct;
+						- MPI_01/Lib/Lib/Tools/Memory/FatFS/Drivers/sd_diskio - SD_initialize() use BSP_SD_GetCardCID();
+						Update MPI_01/Lib/Platforms/Common/STM32F4xx/stm32f4xx_II_sdmmc.c - SDMMC_GetCmdResp1() now use DWT_TimerGet() to timeout implementation.
+						!!! MPI_01/Lib/Platforms/Common/STM32L4xx/stm32l4xx_II_sdmmc.c remains in old STM32Cube version!
+						Massive rework of MPI_01/Lib/Tools/Utils/RebootUtils.c - system changes in boot order!
+26.04.2019 			322		Append project revision to reboot message for loggin:
+						- MPI_01/Lib/Tools/Utils/RebootUtils.c, .h;
+						- MPI_01/Lib/Tools/Utils/BuildInfo.bat - now use revision from file Revision.txt in head of project;
+						!!! Patch MPI_01/Lib/Lib/Tools/Memory/FatFS/Drivers/sd_diskio.c - fix SD_initialize() in interpretation of SD_CID;
+**************	Trank	ACPB	MPI	NDM_T	************************
+01.05.2019 324	|=====================>	324	Branch Hard/Lib to NDM_T/Lib
+06.05.2019 325			|---++>	325	Append:
+						- NDM_T/Lib/Algo/Tool.EML/*;
+						- NDM_T/Lib/Platforms/LOOCH.752.00.07.00/PlatformConfig.h;
+						- NDM_T/Lib/Platforms/Components/Driver_PGA281.c, .h;
+						- NDM_T/Lib/Platforms/Components/Driver_PGA.h;
+						Update NDM_T/Lib/Tools/Utils/RebootUtils.c, .h - from MPI_01?
+						Patch NDM_T/Lib/Platforms/Common/Common_tim.h, .c:
+						- export TIM handler only #ifdef (TIMXX_USE), not #if (TIMXX_USE | TIMXX_USE_PWM);
+						- append TIM9, 12, 13, 14, 16, 17, 18, 19 support;
+						- append TIM_Common_GetFrq();
+						- rewrite TIM_Common_SetupPrescalers() - now use TIM_Common_GetFrq();
+						- now all HAL_TIM_XXX_MspInit() simple recall HAL_TIM_Base_MspInit();
+						- append HAL_TIM_OC_DelayElapsedCallback().
+07.05.2019 327				327	Update NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/LOOCH.752.00.07.00/PlatformConfig.h;
+						Patch NDM_T/Lib/Tools/Utils/RebootUtils.c:
+						- in SystemInitCallback() load uwTickFreq to default value and call HAL_Init() before SystemClock_Config();
+						- in SystemHardwareInit() call call HAL_Init() after SystemClock_Config();
+						Patch NDM_T/Lib/Platforms/Common/STM32L4xx/stm32l4xx_hal_conf.h - fix including of stm32l4xx_hal_XXX.h headers.
+08.05.2019 330		330			Update ACPB_2018/Lib/Drv/CMSIS/Device/ST/STM32L4xx/Include, Source/Templates from ...??
+13.05.2019 333				333	Patch NDM_T/Lib/Algo/Tool.EML/*;
+13.05.2019 334	334 <-------------------|	Merge Hard/Lib from NDM_T:
+						- Hard/Lib/Platforms/Components/Driver_PGA*;
+						- Hard/Lib/Tools/Utils/RebootUtils.c, .h, BuildInfo.bat;
+						- Hard/Lib/Platforms/Common/Common_tim.h, .c;
+						- Hard/Lib/Platforms/Common/STM32L4xx/stm32l4xx_hal_conf.h
+15.05.2019 339	|-----------++>	339		Merge MPI_01/Lib from Hard_Lib;
+						Patch MPI_01/Lib/Tools/Utils/RebootUtils.c, .h, append field ResetStage to struct ResetInfo_t;
+17.05.2019 340			|---++>	340	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Update NDM_T/Lib/Tools/Utils/RebootUtils.c, .h from MPI_01;
+						Patch NDM_T/Lib/Platforms/Common/STM32L4xx/platform_common.h - fix DAC_CLK_ENABLE().
+20.05.2019 342				342	Patch NDM_T/Lib/Algo/Tool.EML/*;
+25.05.2019 345				345	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+						Patch NDM_T/Lib/Tools/SKLP/SKLP_MS_Transport.h - append SKLP Addresses for NDR, NDMt, NDMp;
+						Patch NDM_T/Lib/Tools/SKLP/SKLP_Service.h - change Looch600_Modules_t::ND to Looch600_Modules_t::NDM;
+25.05.2019 346	346 <-------------------|	Merge Hard/Lib from NDM_T
+25.05.2019 347	|------------->	347		Merge MPI_01/Lib from Hard_Lib;
+25.05.2019 348		348			Update ACPB_2018/Lib/Drv/CMSIS/Device/ST/STM32L4xx/Source/Templates from ...??
+29.05.2019 352	|---++>	352			Merge ACPB_2018/Lib from Hard_Lib;
+						Update ACPB_2018/Lib/Platforms/Platforms/LOOCH.619.00.04.00/PlatformConfig.h;
+30.05.2019 354		354			!!! Update ACPB_2018/Lib/Platforms/Common/STM32L4xx/Common_sd_stm32l4xx.c - call HAL_DMA_Abort(&hdma) without asserting;
+						Update ACPB_2018/Lib/Platforms/Platforms/LOOCH.619.00.04.00/PlatformConfig.h;
+**************	Trank	ACPB	MPI	NDM_T	************************
+07.06.2019 362			362		Patch MPI_01/Lib/Tools/SKLP/SKLP_Memory.c (Bag fix at SKLP_Memory_ReportFreeSpace();
+						Patch MPI_01/Lib/Tools/Memory/FileSystem.c - minor asserting;
+						Patch MPI_01/Lib/Tools/Memory/MemoryThread.c, h - append MemoryThread_SprintfMutexTake(), but hiding by comment;
+10.06.2019 364				364	Patch NDM_T/Lib/Algo/Tool.EML/*;
+11.06.2019 371				371	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Tools/Utils/MathUtils.h - append macro MIN() & MAX();
+17.06.2019 375			375		!!! Patch MPI_01/Lib/RebootUtils.c - hard fault handling with LR/PC and Hard/Mem/Bus/Usage/Flash reporting;
+17.06.2019 376				376	Patch NDM_T/Lib/Algo/Tool.EML/*;
+19.06.2019 378				378	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c, Driver_PGA.h - append PGA_Command_Set PGA281_Command();
+20.06.2019 379				379	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+20.06.2019 381	381				Patch Hard/Lib/vl/vl/SumByCircularBuffer.h;
+20.06.2019 382	382				Patch Hard/Lib/vl/vl/SumByCircularBuffer.h;
+20.06.2019 383				383	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+20.06.2019 384			384		!!! Patch MPI_01/Lib/Tools/Utils/ByteQueue.c - ByteQueue_BufferCopyFragment(), now return "true" if argument FragmentToCopy.Size == 0;
+25.06.2019 399				399	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c, .h;
+26.06.2019 401				401	Patch NDM_T/Lib/Algo/Tool.EML/*;
+27.06.2019 405				405	Patch NDM_T/Lib/Algo/Tool.EML/*;
+**************	Trank	ACPB	MPI	NDM_T	************************
+11.07.2019 417		417			Patch ACPB_2018/Lib/Platforms/Platforms/LOOCH.625.00.02.00/PlatformConfig.h;
+						Patch ACPB_2018/Lib/Platforms/Components/Driver_MPU9250.c:
+						- append semaphore to delay I2C transfer during analog measurements;
+						- check for errors in HAL_I2C_MasterTx(Rx)CpltCallback();
+						!!! Patch ACPB_2018/Lib/Platforms/Common/STM32L4xx/Common_sd_stm32l4xx.c:
+						- slow down uSD Clock in HAL_SD_MspInit();
+						- reinit SDIO pins to input to HAL_SD_MspDeInit() before turn-off power from uSD (before reinitialisation?);
+						!!! Patch ACPB_2018/Lib/Platforms/Common/common_gpio.c - fix bug in EXTI9_5_IRQHandler();
+16.07.2019 418			418		!!! Patch MPI_01/Lib/Tools/Utils/Utils.c - in Round_xx(), now check input value out of bounds and cut off;
+01.08.2019 454			|===>>>Backer	Branch MPI_01 to MPI_01/BH
+21.08.2019 461				461	Patch NDM_T/Lib/Algo/Tool.EML/*;
+						!!! Patch NDM_T/Lib/Platforms/Platforms/LOOCH.752.00.07.00/PlatformConfig.h - support for hand-made modification at Feodorovka;
+03.09.2019 465		465			Add ACPB_2018/Lib/Platforms/Platforms/LOOCH.513.00.02.00/PlatformConfig.h;
+13.09.2019 468				468	Patch NDM_T/Lib/Algo/Tool.EML/*;
+17.09.2019 472			>>>472		Patch MPI_01/BH/Lib/Tools/SKLP/SKLP_MS_TransportInterface.h, SKLP_MS_Transport.c for checking interface ready to connect:
+						!!! - append argument (Format == SKLP_SendPacketFormat_Check) SKLP_SendPacket();
+						- allow to return "true" from SKLP_SendPacket() with NULL packet, but SKLP_SendPacketFormat_Check argument;
+20.09.2019 474				474	Patch NDM_T/Lib/Algo/Tool.EML/*;
+21.09.2019 477				477	Patch NDM_T/Lib/Algo/Tool.EML/*;
+**************	Trank	ACPB	MPI	NDM_T	INK	************************
+11.10.2019 484	484 <-------------------|		Merge Hard/Lib from NDM_T: 
+							- Hard/Lib/Algo/Tool.EML/*;
+							- Hard/Lib/Platforms/Components/Driver_PGA*;
+							- Hard/Lib/Platforms/Platforms/LOOCH.752.00.07.00/PlatformConfig.h
+							- Hard/Lib/Tools/Utils/MathUtils.h
+13.10.2019 487	|----->	487				Merge ACPB_2018/Lib from Hard/Lib; 
+13.10.2019 488	|-----------++>	488			Merge MPI_01/Lib from Hard_Lib;
+							Patch MPI_01/Lib/Tools/Utils/MathUtils.h - minor;
+13.10.2019 489	489 <-----------|			Merge Hard/Lib from MPI_01/Lib all except MPI_01/Lib/Drivers/;
+							Merge Hard/Lib/Drivers/CMSIS and Hard/Lib/Drivers/STM32F4xx_HAL_Driver from MPI_01/Lib;
+13.10.2019 490	|----->	490				Merge ACPB_2018/Lib from Hard/Lib;
+13.10.2019 491	491 <---|				Merge Hard/Lib from ACPB_2018/Lib all except ACPB_2018/Lib/Drivers/;
+13.10.2019 492	-------------->	492			Merge MPI_01/Lib from Hard/Lib;
+13.10.2019 493	---------------------->	493		Merge NDM_T/Lib from Hard/Lib;
+13.10.2019 494	---------------------->	494		Merge NDM_T/Lib from Hard/Lib;
+14.10.2019 490	|----->	495				Merge ACPB_2018/Lib from Hard/Lib - resolve the conflicts;
+14.10.2019 498	|----------------------------->	489	Branch Hard/Lib to INK;
+14.10.2019 499					499	Append INK/Lib/Platforms/Platforms/LOOCH.636.00.01.00/PlatformConfig.h
+							Patch INK/Lib/Tools/SKLP/SKLP_MS_Transport.h - append SKLP Addresses for INK;
+15.10.2019 500	500					Append Library Revisions History.txt
+**************	Trank	ACPB	MPI	NDM_T	INK	************************
+
+
+
+
+11.04.2019 288	ACPB_2018	Branch Hard/Lib to ACPB_2018/Lib
+11.04.2019 290	ACPB_2018	Update ACPB_2018/Lib/stm32l4xx_hal_sd.c
+11.04.2019 292	Hard/Lib	Merge Hard/Lib/stm32l4xx_hal_sd.c from ACPB_2018
+11.04.2019 296	MPI_01		Branch Hard/Lib to MPI_01/Lib
+14.04.2019 298	Hard/Lib	Update Hard/Lib/Drv/STM32F4xx_HAL to v.1.7.4
+				Update Hard/Lib/Drv/STM32L4xx_HAL to v.1.9.0
+14.04.2019 299	Hard/Lib	Update Hard/Lib/Drv/STM32F4xx_HAL from STM32Cube_FW_F4_V1.24.0 to V1.7.5 / 08-February-2019
+				Update Hard/Lib/Drv/STM32L4xx_HAL from STM32Cube_FW_L4_V1.14.0 to V1.10.0 / 03-April-2019
+				Update Hard/Lib/Drv/STM32F3xx_HAL from STM32Cube_FW_F3_V1.10.0 to V1.5.2 / 12-June-2018
+14.04.2019 300	ACPB_2018	Update ACPB_2018/Lib before merging with Hard/Lib?? New HAL driver for F4/L4?
+14.04.2019 301	ACPB_2018	Merge Hard/Lib/Drv to ACPB_2018/Lib/Drv with updated HAL Driver;
+				Patch ACPB_2018/Lib/Tools/Memory/FileSystem.h, .c - replace macro FileSystem_Reinit() with function FileSystem_Reinit();
+				Patch ACPB_2018/Lib/Platforms/Common/stm32fxx/lxx_hal_sd.c & _II_sdmmc.c
+14.04.2019 302	Hard/Lib	Merge patched HAL drivers & Tools & FileSystem.h, .c after from ACPB_2018/Lib to Hard/Lib
+14.04.2019 304	Hard/Lib	Update Hard/Lib/CMSIS/Device/ST/* from new STM Cube packages
+14.04.2019 305	MPI_01		Merge MPI_01/Lib from Hard/Lib
+19.04.2019 315	Boot		Branch Hard/Lib to Boot/Lib
+26.04.2019 320	MPI_01		Append extended logging info about uSD:
+				- MPI_01/Lib/Tools/Utils/FileSystem.c;
+				- MPI_01/Lib/Lib/Platforms/Common/common_sd.c, .h - append BSP_SD_GetCardCID() & struct BSP_SD_CID_struct;
+				- MPI_01/Lib/Lib/Tools/Memory/FatFS/Drivers/sd_diskio - SD_initialize() use BSP_SD_GetCardCID();
+				Update MPI_01/Lib/Platforms/Common/STM32F4xx/stm32f4xx_II_sdmmc.c - SDMMC_GetCmdResp1() now use DWT_TimerGet() to timeout implementation.
+			!!!	MPI_01/Lib/Platforms/Common/STM32L4xx/stm32l4xx_II_sdmmc.c remains in old STM32Cube version!
+				Massive rework of MPI_01/Lib/Tools/Utils/RebootUtils.c - system changes in boot order!
+26.04.2019 322	MPI_01		Append project revision to reboot message for loggin:
+				- MPI_01/Lib/Tools/Utils/RebootUtils.c, .h;
+				- MPI_01/Lib/Tools/Utils/BuildInfo.bat - now use revision from file Revision.txt in head of project;
+			!!!	Patch MPI_01/Lib/Lib/Tools/Memory/FatFS/Drivers/sd_diskio.c - fix SD_initialize() in interpretation of SD_CID;
+01.05.2019 324	NDM_T		Branch Hard/Lib to NDM_T/Lib
+06.05.2019 325	NDM_T		Append:
+				- NDM_T/Lib/Algo/Tool.EML/*;
+				- NDM_T/Lib/Platforms/LOOCH.752.00.07.00/PlatformConfig.h;
+				- NDM_T/Lib/Platforms/Components/Driver_PGA281.c, .h;
+				- NDM_T/Lib/Platforms/Components/Driver_PGA.h;
+				Update NDM_T/Lib/Tools/Utils/RebootUtils.c, .h - from MPI_01?
+				Patch NDM_T/Lib/Platforms/Common/Common_tim.h, .c
+				- export TIM handler only #ifdef (TIMXX_USE), not #if (TIMXX_USE | TIMXX_USE_PWM);
+				- append TIM9, 12, 13, 14, 16, 17, 18, 19 support;
+				- append TIM_Common_GetFrq();
+				- rewrite TIM_Common_SetupPrescalers() - now use TIM_Common_GetFrq();
+				- now all HAL_TIM_XXX_MspInit() simple recall HAL_TIM_Base_MspInit();
+				- append HAL_TIM_OC_DelayElapsedCallback().
+07.05.2019 327	NDM_T		Update NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/LOOCH.752.00.07.00/PlatformConfig.h;
+				Patch NDM_T/Lib/Tools/Utils/RebootUtils.c:
+				- in SystemInitCallback() load uwTickFreq to default value and call HAL_Init() before SystemClock_Config();
+				- in SystemHardwareInit() call call HAL_Init() after SystemClock_Config();
+				Patch NDM_T/Lib/Platforms/Common/STM32L4xx/stm32l4xx_hal_conf.h - fix including of stm32l4xx_hal_XXX.h headers.
+08.05.2019 330	ACPB_2018	Update ACPB_2018/Lib/Drv/CMSIS/Device/ST/STM32L4xx/Include, Source/Templates from ...??
+13.05.2019 333	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*
+13.05.2019 334	Hard/Lib	Merge Hard/Lib from NDM_T:
+				- Hard/Lib/Platforms/Components/Driver_PGA*;
+				- Hard/Lib/Tools/Utils/RebootUtils.c, .h, BuildInfo.bat;
+				- Hard/Lib/Platforms/Common/Common_tim.h, .c;
+				- Hard/Lib/Platforms/Common/STM32L4xx/stm32l4xx_hal_conf.h
+15.05.2019 339	MPI_01		Merge MPI_01/Lib from Hard_Lib;
+				Patch MPI_01/Lib/Tools/Utils/RebootUtils.c, .h, append field ResetStage to struct ResetInfo_t;
+17.05.2019 340	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Update NDM_T/Lib/Tools/Utils/RebootUtils.c, .h from MPI_01;
+				Patch NDM_T/Lib/Platforms/Common/STM32L4xx/platform_common.h - fix DAC_CLK_ENABLE().
+20.05.2019 342	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+25.05.2019 345	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+				Patch NDM_T/Lib/Tools/SKLP/SKLP_MS_Transport.h - append SKLP Addresses for NDR, NDMt, NDMp;
+				Patch NDM_T/Lib/Tools/SKLP/SKLP_Service.h - change Looch600_Modules_t::ND to Looch600_Modules_t::NDM;
+25.05.2019 346	Hard/Lib	Merge Hard/Lib from NDM_T
+25.05.2019 347	MPI_01		Merge MPI_01/Lib from Hard_Lib;
+25.05.2019 348	ACPB_2018	Update ACPB_2018/Lib/Drv/CMSIS/Device/ST/STM32L4xx/Source/Templates from ...??
+29.05.2019 352	ACPB_2018	Merge ACPB_2018/Lib from Hard_Lib;
+				Update ACPB_2018/Lib/Platforms/Platforms/LOOCH.619.00.04.00/PlatformConfig.h;
+30.05.2019 354	ACPB_2018!!!	Update ACPB_2018/Lib/Platforms/Common/STM32L4xx/Common_sd_stm32l4xx.c - call HAL_DMA_Abort(&hdma) without asserting;
+				Update ACPB_2018/Lib/Platforms/Platforms/LOOCH.619.00.04.00/PlatformConfig.h;
+07.06.2019 362	MPI_01		Patch MPI_01/Lib/Tools/SKLP/SKLP_Memory.c (Bag fix at SKLP_Memory_ReportFreeSpace();
+				Patch MPI_01/Lib/Tools/Memory/FileSystem.c - minor asserting;
+				Patch MPI_01/Lib/Tools/Memory/MemoryThread.c, h - append MemoryThread_SprintfMutexTake(), but hiding by comment;
+10.06.2019 364	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+11.06.2019 371	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Tools/Utils/MathUtils.h - append macro MIN() & MAX();
+17.06.2019 375	MPI_01	!!!	Patch MPI_01/Lib/RebootUtils.c - hard fault handling with LR/PC and Hard/Mem/Bus/Usage/Flash reporting;
+17.06.2019 376	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+19.06.2019 378	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c, Driver_PGA.h - append PGA_Command_Set PGA281_Command();
+20.06.2019 379	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+20.06.2019 381	Hard/Lib	Patch Hard/Lib/vl/vl/SumByCircularBuffer.h;
+20.06.2019 382	Hard/Lib	Patch Hard/Lib/vl/vl/SumByCircularBuffer.h;
+20.06.2019 383	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c;
+20.06.2019 384	MPI_01	!!!	Patch MPI_01/Lib/Tools/Utils/ByteQueue.c - ByteQueue_BufferCopyFragment(), now return "true" if argument FragmentToCopy.Size == 0;
+25.06.2019 399	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+				Patch NDM_T/Lib/Platforms/Components/Driver_PGA281.c, .h;
+26.06.2019 401	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+27.06.2019 405	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+11.07.2019 417	ACPB_2018	Patch ACPB_2018/Lib/Platforms/Platforms/LOOCH.625.00.02.00/PlatformConfig.h;
+				Patch ACPB_2018/Lib/Platforms/Components/Driver_MPU9250.c:
+				- append semaphore to delay I2C transfer during analog measurements;
+				- check for errors in HAL_I2C_MasterTx(Rx)CpltCallback();
+			!!!	Patch ACPB_2018/Lib/Platforms/Common/STM32L4xx/Common_sd_stm32l4xx.c
+				- slow down uSD Clock in HAL_SD_MspInit();
+				- reinit SDIO pins to input to HAL_SD_MspDeInit() before turn-off power from uSD (before reinitialisation?);
+			!!!	Patch ACPB_2018/Lib/Platforms/Common/common_gpio.c - fix bug in EXTI9_5_IRQHandler();
+16.07.2019 418	MPI_01	!	Patch MPI_01/Lib/Tools/Utils/Utils.c - in Round_xx(), now check input value out of bounds and cut off;
+01.08.2019 454	MPI_01/BH	Branch MPI_01 to MPI_01/BH
+21.08.2019 461	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+			!!!	Patch NDM_T/Lib/Platforms/Platforms/LOOCH.752.00.07.00/PlatformConfig.h - support for old and hand-made modification in Sourgut
+03.09.2019 465	ACPB_2018	Add ACPB_2018/Lib/Platforms/Platforms/LOOCH.513.00.02.00/PlatformConfig.h;
+13.09.2019 468	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+17.09.2019 472	MPI_01/BH	Patch MPI_01/BH/Lib/Tools/SKLP/SKLP_MS_TransportInterface.h, SKLP_MS_Transport.c for checking interface ready to connect:
+			!	- append argument (Format == SKLP_SendPacketFormat_Check) SKLP_SendPacket();
+				- allow to return "true" from SKLP_SendPacket() with NULL packet, but SKLP_SendPacketFormat_Check argument;
+20.09.2019 474	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+21.09.2019 477	NDM_T		Patch NDM_T/Lib/Algo/Tool.EML/*;
+11.10.2019 484	Hard/Lib	Merge Hard/Lib from NDM_T: 
+				- Hard/Lib/Algo/Tool.EML/*;
+				- Hard/Lib/Platforms/Components/Driver_PGA*;
+				- Hard/Lib/Platforms/Platforms/LOOCH.752.00.07.00/PlatformConfig.h
+				- Hard/Lib/Tools/Utils/MathUtils.h
+13.10.2019 487	ACPB_2018	Merge ACPB_2018/Lib from Hard/Lib; 
+13.10.2019 488	MPI_01		Merge MPI_01/Lib from Hard_Lib;
+				Patch MPI_01/Lib/Tools/Utils/MathUtils.h - minor;
+13.10.2019 489	Hard/Lib	Merge Hard/Lib from MPI_01/Lib all except MPI_01/Lib/Drivers/;
+				Merge Hard/Lib/Drivers/CMSIS and Hard/Lib/Drivers/STM32F4xx_HAL_Driver from MPI_01/Lib;
+13.10.2019 490	ACPB_2018	Merge ACPB_2018/Lib from Hard/Lib;
+13.10.2019 491	Hard/Lib	Merge Hard/Lib from ACPB_2018/Lib all except ACPB_2018/Lib/Drivers/;
+13.10.2019 492	MPI_01		Merge MPI_01/Lib from Hard/Lib;
+13.10.2019 493	NDM_T		Merge NDM_T/Lib from Hard/Lib;
+13.10.2019 494	NDM_T		Merge NDM_T/Lib from Hard/Lib;
+10.05.2020 689	Hard/Lib	Update Device Drivers and HAL Libraries from STM32Cube_FW_F3_V1.11.0, STM32Cube_FW_F4_V1.24.2 and STM32Cube_FW_L4_V1.14.0
+13.08.2020 747	ACPB_2018	Merge ACPB_2018/Lib from Hard/Lib;
+13.08.2020 751	ACPB_2018	Merge ACPB_2018/Lib from Hard/Lib;
+13.08.2020 752	Hard/Lib	Merge Hard/Lib from ACPB_2018/Lib (AHRS/IMU update);

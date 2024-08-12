@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BuildDb>
+    <Tool>
+        <Name>linker</Name>
+        <Parent>
+            <Path>C:\Work\ManchesterNew17.07\RUS_Regul\Firmware\EWARM_9\Debug\Exe\RUS_Regul.out</Path>
+            <Output>
+                <Path>C:\Work\ManchesterNew17.07\RUS_Regul\Firmware\EWARM_9\Debug\List\RUS_Regul.map</Path>
+            </Output>
+        </Parent>
+        <Parent>
+            <Path>D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\Debug\Exe\RUS_Regul.out</Path>
+            <Output>
+                <Path>D:\work\Hardware\Projects\RUS\RUS_Regul\Firmware\EWARM_9\Debug\List\RUS_Regul.map</Path>
+            </Output>
+        </Parent>
+    </Tool>
+</BuildDb>

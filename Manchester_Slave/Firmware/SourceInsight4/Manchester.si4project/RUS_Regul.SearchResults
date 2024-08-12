@@ -1,0 +1,10 @@
+---- TIM6_DAC_IRQHandler Matches (1 in 1 files) ----
+stm32l433xx.h (Library\Drivers\CMSIS\Device\ST\STM32L4xx\Include) line 15934 : #define TIM6_IRQHandler                TIM6_DAC_IRQHandler
+---- TIM6_DAC_IRQHandler Search Errors Encountered (6) ----
+The following 6 files could not be processed:
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\Common_spi.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\Common_spi.h : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\flash_interface.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\flash_interface.h : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\RUS_Regul_Periphery.c : File could not be opened.
+C:\Work\ManchesterNew17.07\Firmware\Source\Src\SKLP_Interface_RUS_Regul.c : File could not be opened.
